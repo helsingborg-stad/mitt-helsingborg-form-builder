@@ -16,8 +16,6 @@ const App: React.FC = () => {
       <div style={container}>
         <pre>api url: {process.env.REACT_APP_MITTHELSINGBORG_IO} </pre>
 
-        
-
         <Switch>
           <Route path='/edit/:id'>
             <FormBuilderScreen/>     

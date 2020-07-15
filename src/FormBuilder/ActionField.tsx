@@ -3,7 +3,12 @@ import FieldDescriptor from '../types/FieldDescriptor';
 import MultipleInputField from './MultipleInputField';
 
 const actionFields: FieldDescriptor[] = [
-  { name: "type", type:"text", initialValue:'next', label:"Type" },
+  { name: "type", type:"select", initialValue:'next', label:"Type",
+    choices: [ 
+      {name:'Start', value:'start'},
+      {name:'Next', value:'next'},
+      {name:'Submit',value:'submit'},
+    ]},
   { name: "label", type:"text", initialValue:'', label:"Label" },
 ]
 
