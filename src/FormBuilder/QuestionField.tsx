@@ -16,8 +16,44 @@ const questionFields: FieldDescriptor[] = [
     ]},
 ]
 
-const QuestionField: React.FC<any> = props => {
-  return <MultipleInputField fields={questionFields} {...props} />
+const extraInputs: Record<string,FieldDescriptor[]> = {
+  text: [
+    { name: 'placeholder', type:'text', initialValue:'', label:'Placeholder'}
+  ],
+  number: [
+    { name: 'placeholder', type:'text', initialValue:'', label:'Placeholder'}
+  ],
+  editableList: [
+    { name: 'placeholder', type:'text', initialValue:'', label:'Placeholder'},
+    { name: 'title', type:'text', initialValue:'', label:'Title'},
+    { name: 'inputs', type: 'text', initialValue:'', label:'Inputs'},
+  ],
+  checkbox: [
+    { name: 'text', type:'text', initialValue:'', label:'Text'},
+    { name: 'color', type:'text', initialValue:'light', label:'Color'},
+  ],
+  button: [
+    { name: 'text', type:'text', initialValue:'', label:'Button Text'}
+  ],
+}
+
+interface Props  {
+  name: string;
+  value: Record<string, any>;
+  type: string;
+  onBlur: (e?: any) => void;
+  onChange: (e?: any) => void;
+}
+
+const QuestionField: React.FC<Props> = props => {
+  const {name, value} = props;
+
+  return (
+    <> 
+      <MultipleInputField fields={questionFields} {...props} />
+      <MultipleInputField fields={extraInputs[value.type]} {...props} /> 
+    </>
+  )
 }
 
 export default QuestionField;

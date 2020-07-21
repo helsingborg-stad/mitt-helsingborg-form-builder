@@ -8,6 +8,7 @@ const actionFields: FieldDescriptor[] = [
       {name:'Start', value:'start'},
       {name:'Next', value:'next'},
       {name:'Submit',value:'submit'},
+      {name:'Close',value:'close'},
     ]},
   { name: "label", type:"text", initialValue:'', label:"Label" },
 ]

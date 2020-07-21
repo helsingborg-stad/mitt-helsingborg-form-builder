@@ -3,6 +3,7 @@ import { TextField } from '@material-ui/core';
 import { FieldArray } from 'formik';
 import { Button } from '@material-ui/core';
 import QuestionField from './QuestionField';
+import FieldArrayWrapper from './FieldArrayWrapper';
 import SubContainer from './SubContainer';
 import FieldDescriptor from '../types/FieldDescriptor';
 import ActionField from './ActionField';
@@ -36,65 +37,27 @@ const StepField: React.FC<any> = ({ onChange, onBlur, name, value, ...other}) =>
               </div>
             )
         })}
-        <h3>Questions</h3>
-        <FieldArray name={`${name}.questions`}>
-          {(arrayHelpers) => { return (
-          <div>
-            {value.questions && value.questions.length > 0 ? 
-              value.questions.map( 
-                (qs: any, i: number) => { 
-                  const qName = `${name}.questions.${i}`
-                  return <SubContainer 
-                            itemValues={qs} 
-                            name={qName} 
-                            currentIndex={i}
-                            inputField={QuestionField} 
-                            arrayHelpers={arrayHelpers} />
-                }) 
-              :
-              <div style={{margin:'5px'}}>No questions added</div>
-          }
-            <Button
-              style={{margin:'5px'}}
-              variant="contained"
-              color="primary"
-              onClick={() => 
-                arrayHelpers.push({
-                  label:'', description:'', type:'',
-                  id:""+Math.random()
-                })}>Add question</Button>
-          </div>)
-          }}
-        </FieldArray>
+        <FieldArrayWrapper 
+          heading="Questions" 
+          parentName={name}
+          name="questions"
+          value={value}
+          inputField={QuestionField}
+          emptyObject={{
+            label:'', description:'', type:'',
+            id:""}}
+        />
 
-        <h3>Actions</h3>
-        <FieldArray name={`${name}.actions`}>
-          {(arrayHelpers) => { return (
-          <div>
-            {value.actions && value.actions.length > 0 ? 
-              value.actions.map( 
-                (action: any, i: number) => { 
-                  const aName = `${name}.actions.${i}`
-                  return <SubContainer 
-                            itemValues={action} 
-                            name={aName} 
-                            currentIndex={i}
-                            inputField={ActionField} 
-                            arrayHelpers={arrayHelpers}
-                            color="green" />
-                }) 
-              :
-              <div style={{margin:'5px'}}>No actions added</div>
-          }
-            <Button
-              style={{margin:'5px'}}
-              variant="contained"
-              color="primary"
-              onClick={() => 
-                arrayHelpers.push({ label:'',  type:''})}>Add action</Button>
-          </div>)
-          }}
-        </FieldArray>
+        <FieldArrayWrapper 
+          heading="Actions" 
+          parentName={name}
+          name="actions"
+          value={value}
+          inputField={ActionField}
+          emptyObject={{ label:'', type:'' }}
+          color="green"
+        />
+
     </div>
   )
 }
