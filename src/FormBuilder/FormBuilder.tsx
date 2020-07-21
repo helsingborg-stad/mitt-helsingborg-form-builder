@@ -5,7 +5,7 @@ import FieldDescriptor from '../types/FieldDescriptor';
 import {Step} from '../types/FormTypes';
 import SubContainer from './SubContainer';
 import StepField from './StepField';
-
+import FieldArrayWrapper from './FieldArrayWrapper';
 
 
 export interface FormBuilderProps {
@@ -52,32 +52,19 @@ const FormBuilder: React.FC<FormBuilderProps> =(props) => {
                 </div>
             
               )}
-              <h2>Steps</h2>
-              <FieldArray name="steps">
-                {(arrayHelpers) => (
-                    <div style={{border:'1px solid gray', padding:'10px'}}>
-                    { values.steps.map( (step, index) => {
-                      const stepName = `steps.${index}`;                      
-                      return (
-                        <SubContainer 
-                          itemValues={step} 
-                          currentIndex={index}
-                          name={stepName}
-                          arrayHelpers={arrayHelpers} 
-                          inputField={StepField} color="blue"/>
-                      );
-                    })}
-                    <Button style={{margin:'5px'}}
-                      variant="contained"
-                      color="primary"
-                      onClick={() => 
-                        arrayHelpers.push({
-                          title:'', description:'', group:'',
-                          id:""+Math.random(),
-                        })}>Add step</Button>                          
-                  </div>
-                )}
-              </FieldArray>
+              <div style={{border:'1px solid gray', padding:'10px'}}>
+                <FieldArrayWrapper 
+                  heading="Steps" 
+                  parentName=""
+                  name="steps"
+                  value={values}
+                  inputField={StepField}
+                  emptyObject={{
+                    title:'', description:'', group:'', id:'',
+                  }}
+                />
+              </div>
+              
              
                 <Button
                   style={{margin:'5px'}}

@@ -47,11 +47,11 @@ interface Props  {
 
 const QuestionField: React.FC<Props> = props => {
   const {name, value} = props;
-
+  const extraInput = Object.keys(extraInputs).includes(value.type) ? extraInputs[value.type] : null;
   return (
     <> 
       <MultipleInputField fields={questionFields} {...props} />
-      <MultipleInputField fields={extraInputs[value.type]} {...props} /> 
+      { extraInput ? <MultipleInputField fields={extraInput} {...props} /> : null }
     </>
   )
 }

@@ -17,7 +17,6 @@ const stepFields: FieldDescriptor[] = [
 ]
 
 const StepField: React.FC<any> = ({ onChange, onBlur, name, value, ...other}) => {
-
   return (
     <div>
         { stepFields.map( qs => {
@@ -25,7 +24,7 @@ const StepField: React.FC<any> = ({ onChange, onBlur, name, value, ...other}) =>
               <div>
                 <TextField
                     width={1}
-                    name={name + "." + qs.name}
+                    name={name ? name + "." + qs.name : qs.name}
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value[qs.name]}

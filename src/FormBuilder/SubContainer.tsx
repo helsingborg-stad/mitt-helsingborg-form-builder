@@ -3,6 +3,7 @@ import CSS from 'csstype';
 import { Field } from 'formik';
 import { Button } from '@material-ui/core';
 import QuestionField from './QuestionField';
+import StepField from './StepField';
 
 const containerStyle: CSS.Properties = {
   backgroundColor: 'rgba(255, 255, 255, 0.85)',
@@ -19,12 +20,14 @@ const containerStyle: CSS.Properties = {
 
 const SubContainer: React.FC<any> = ({ itemValues, name, currentIndex, inputField, arrayHelpers, color}) => {
   const [collapsed, setCollapsed]= useState(true);
+  const vals = inputField === StepField ? {value:itemValues} : {};
     if(!collapsed) { 
       return (
         <div style={{borderColor: (color? color : 'red'), ...containerStyle}} key={name}> 
           <Field 
             name={name}
-            type="input" as={inputField}/>
+            type="input" as={inputField}
+            {...vals} />
   
           <div style={{display:'block', textAlign:'right'}}>
             { currentIndex > 0 ?

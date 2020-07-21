@@ -16,21 +16,23 @@ interface Props  {
     color?: string;
   }
 
-const FieldArrayWrapper: React.FC<Props> = ({heading, parentName, 
+const FieldArrayWrapper: React.FC<Props> = ({
+    heading, parentName, 
     name, value, 
     inputField, emptyObject,
-     color="red" }) => {
+    color="red" }) => {
 
+      const myName = parentName ? `${parentName}.${name}` : name;
       return (
-          <>
+        <>
         <h3>{heading}</h3>
-        <FieldArray name={`${parentName}.${name}`}>
+        <FieldArray name={myName}>
           {(arrayHelpers) => { return (
           <div>
             {value[name] && value[name].length > 0 ? 
               value[name].map( 
                 (qs: any, i: number) => { 
-                  const qName = `${parentName}.${name}.${i}`
+                  const qName = `${myName}.${i}`
                   return <SubContainer 
                             itemValues={qs} 
                             name={qName} 
@@ -50,7 +52,7 @@ const FieldArrayWrapper: React.FC<Props> = ({heading, parentName,
                   const newObject = {};
                   Object.assign(newObject, emptyObject);
                   arrayHelpers.push(newObject);
-              }}>Add question</Button>
+              }}>{`Add ${name}`}</Button>
           </div>)
           }}
         </FieldArray>
