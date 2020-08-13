@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import FormBuilder from '../FormBuilder/FormBuilder';
+import FormBuilder from '../SpecificComponents/FormBuilder';
 import {Question, Form} from '../types/FormTypes';
 import { useParams, Link } from 'react-router-dom';
 import { getForm, updateForm, createForm } from '../helpers/ApiRequest';

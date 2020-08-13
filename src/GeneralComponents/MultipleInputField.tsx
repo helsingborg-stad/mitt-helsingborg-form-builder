@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Select, MenuItem } from '@material-ui/core';
+import { TextField, Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import FieldDescriptor from '../types/FieldDescriptor';
 
 interface Props  {
@@ -14,13 +14,15 @@ interface Props  {
     return (
     <div>
         { fields.map( field => {
+
+          const computedName = (!name || name ==='') ? field.name : name + '.'+field.name;
             
             switch(field.type){
                     case 'text':
                          return (
                             <div style={{marginLeft:'7px', marginTop:'5px'}}>
                               <TextField
-                                  name={name + "." + field.name}
+                                  name={computedName}
                                   onChange={onChange}
                                   onBlur={onBlur}
                                   value={value[field.name]}
@@ -32,7 +34,7 @@ interface Props  {
                         return (
                             <div style={{marginLeft:'7px', marginTop:'5px'}}>
                               <Select
-                                  name={name + "." + field.name}
+                                  name={computedName}
                                   onChange={onChange}
                                   onBlur={onBlur}
                                   value={value[field.name]}
@@ -44,12 +46,25 @@ interface Props  {
                                 )) : null}
                               </Select>
                             </div>
-                          );   
+                          ); 
+                    case 'checkbox':
+                      return (
+                        <FormGroup row>
+                          <FormControlLabel
+                            control={
+                            <Checkbox 
+                              checked={ field.name && value[field.name] ? value[field.name] : false} 
+                              onChange={onChange} 
+                              name={computedName} />}
+                            label={field.label}
+                          />
+                        </FormGroup>
+                        );   
                     default:
                          return (
                             <div style={{marginLeft:'7px', marginTop:'5px'}}>
                               <TextField
-                                  name={name + "." + field.name}
+                                  name={computedName}
                                   onChange={onChange}
                                   onBlur={onBlur}
                                   value={value[field.name]}

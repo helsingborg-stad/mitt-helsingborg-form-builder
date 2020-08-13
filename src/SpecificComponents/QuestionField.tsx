@@ -1,6 +1,6 @@
 import React from 'react';
 import FieldDescriptor from '../types/FieldDescriptor';
-import MultipleInputField from './MultipleInputField';
+import MultipleInputField from '../GeneralComponents/MultipleInputField';
 
 const questionFields: FieldDescriptor[] = [
   { name: "label", type:"text", initialValue:'',label:"Label" },
@@ -46,7 +46,7 @@ interface Props  {
 }
 
 const QuestionField: React.FC<Props> = props => {
-  const {name, value} = props;
+  const {value} = props;
   const extraInput = Object.keys(extraInputs).includes(value.type) ? extraInputs[value.type] : null;
   return (
     <> 

@@ -2,8 +2,7 @@ import React, {useState} from 'react';
 import CSS from 'csstype';
 import { Field } from 'formik';
 import { Button } from '@material-ui/core';
-import QuestionField from './QuestionField';
-import StepField from './StepField';
+import StepField from '../SpecificComponents/StepField';
 
 const containerStyle: CSS.Properties = {
   backgroundColor: 'rgba(255, 255, 255, 0.85)',
@@ -51,8 +50,10 @@ const SubContainer: React.FC<any> = ({ itemValues, name, currentIndex, inputFiel
         </div>);
       } 
 
-    const containerName = itemValues.label && itemValues.label !=='' ? itemValues.label : 
-      (itemValues.description && itemValues.description !== '' ? itemValues.description : 'Unnamed'); 
+    const containerName = itemValues.title && itemValues.title !=='' ? itemValues.title : 
+      (itemValues.label && itemValues.label !== '' ? itemValues.label : 
+        (itemValues.description && itemValues.description !== '' ? itemValues.description : 'Unnamed'));
+       
 
     return (
         <div key={currentIndex}>

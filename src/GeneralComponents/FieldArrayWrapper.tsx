@@ -3,7 +3,6 @@ import { FieldArray } from 'formik';
 import CSS from 'csstype';
 import { Field } from 'formik';
 import { Button } from '@material-ui/core';
-import QuestionField from './QuestionField';
 import SubContainer from './SubContainer';
 
 interface Props  {

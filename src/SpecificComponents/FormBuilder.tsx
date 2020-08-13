@@ -1,12 +1,10 @@
 import React from 'react';
-import { Formik, Field, Form, FieldArray } from 'formik';
-import { Button, TextField } from '@material-ui/core';
-import FieldDescriptor from '../types/FieldDescriptor';
+import { Formik, Field, Form } from 'formik';
+import { Button } from '@material-ui/core';
 import {Step} from '../types/FormTypes';
-import SubContainer from './SubContainer';
 import StepField from './StepField';
-import FieldArrayWrapper from './FieldArrayWrapper';
-
+import FieldArrayWrapper from '../GeneralComponents/FieldArrayWrapper';
+import FormDataField from './FormDataField';
 
 export interface FormBuilderProps {
   name: string;
@@ -15,14 +13,8 @@ export interface FormBuilderProps {
   steps: Step[];
   id?: string;
   onSubmit: Function;
+  subform?: boolean;
 }
-
-
-const formFields: FieldDescriptor[] = [
-  { name: "name", type:"text", initialValue:'',label:"Name" },
-  { name: "description", type:"text", initialValue:'',label:"Description" },
-  { name: "provider", type:"text", initialValue:'',label:"Group" },
-]
 
 const FormBuilder: React.FC<FormBuilderProps> =(props) => {
   const {id, onSubmit } = props;
@@ -41,17 +33,9 @@ const FormBuilder: React.FC<FormBuilderProps> =(props) => {
             <Form>
               {id ? <pre>Form id: {id}</pre> : null}
               <h2>Form data</h2>
-              { formFields.map( field => 
-                <div>
-                <Field style={{margin:'5px'}}
-                    name={field.name}
-                    label={field.label}
-                    width={1}
-                    as={TextField}
-                />
-                </div>
-            
-              )}
+              <Field 
+                type="input" as={FormDataField} />
+
               <div style={{border:'1px solid gray', padding:'10px'}}>
                 <FieldArrayWrapper 
                   heading="Steps" 

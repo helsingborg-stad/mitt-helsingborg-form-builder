@@ -1,6 +1,6 @@
 import React from 'react';
 import FieldDescriptor from '../types/FieldDescriptor';
-import MultipleInputField from './MultipleInputField';
+import MultipleInputField from '../GeneralComponents/MultipleInputField';
 
 const actionFields: FieldDescriptor[] = [
   { name: "type", type:"select", initialValue:'next', label:"Type",
