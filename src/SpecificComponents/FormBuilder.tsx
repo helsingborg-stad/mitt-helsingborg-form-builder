@@ -33,8 +33,9 @@ const FormBuilder: React.FC<FormBuilderProps> =(props) => {
         >
           {({values, ...props }) => (
             <Form>
-              <h2>Form data</h2>
+              <h1>{values.name !== '' ? values.name : 'Unnamed form'}</h1>
               {id ? <pre>Form id: {id}</pre> : null}
+              <h2>Form data</h2>
               <Field 
                 type="input" as={FormDataField} />
 
@@ -43,6 +44,7 @@ const FormBuilder: React.FC<FormBuilderProps> =(props) => {
                   heading="Steps" 
                   parentName=""
                   name="steps"
+                  color="blue"
                   value={values}
                   inputField={StepField}
                   emptyObject={{

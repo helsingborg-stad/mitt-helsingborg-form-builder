@@ -13,8 +13,9 @@ const containerStyle: CSS.Properties = {
   marginLeft: '15px',
   marginRight: '15px',
   marginTop:'5px',
+  marginBottom:'20px',
   position:'relative',
-  minHeight:'43px'
+  minHeight:'45px'
 };
 
 const SubContainer: React.FC<any> = ({ itemValues, name, currentIndex, inputField, arrayHelpers, color}) => {
