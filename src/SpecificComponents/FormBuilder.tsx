@@ -25,8 +25,9 @@ const FormBuilder: React.FC<FormBuilderProps> =(props) => {
           name: props.name,
           description: props.description,
           provider: props.provider? props.provider : '',
-          steps: props.steps
-        }}        
+          steps: props.steps, 
+          subform: props.subform,
+        }}       
         onSubmit={form => { onSubmit(form); }}
         >
           {({values, ...props }) => (

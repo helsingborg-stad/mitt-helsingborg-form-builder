@@ -43,5 +43,7 @@ const getAllForms = () => request('', 'get', undefined, undefined );
 const getForm = (formId: string) => request(formId, 'get', undefined, undefined );
 const createForm = (form: Form) => request('', 'post', form, undefined );
 const updateForm = (formId: string, form: Form) => request(formId, 'put', form, undefined);
+const deleteForm = (formId: string) => request(formId, 'delete', undefined, undefined);
 
-export { getAllForms, getForm, createForm, updateForm };
+
+export { getAllForms, getForm, createForm, updateForm, deleteForm };

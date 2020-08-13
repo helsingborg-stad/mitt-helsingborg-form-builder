@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import CSS from 'csstype';
 import { Link } from 'react-router-dom';
 import { Form } from '../types/FormTypes';
-import { Button } from '@material-ui/core';
+import { Button, Modal, makeStyles } from '@material-ui/core';
+import { getAllForms, deleteForm } from '../helpers/ApiRequest';
 
 
 const formItemStyle: CSS.Properties = {
@@ -15,15 +16,71 @@ const formItemStyle: CSS.Properties = {
   minHeight:'43px'
 };
 
+const modalStyle: CSS.Properties ={
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '400px',
+  height: 'auto',
+  backgroundColor: 'white',
+  border: '2px solid #000',
+  padding: '20px',
+};
+
 interface FormListProps {
     forms: Form[];
     count: number;
 }
-
+const emptyFormList: Form[] = [];
+const emptyForm: Form = {
+  name: '',
+  description: ''};
 
 const FormList: React.FC<FormListProps> =(props) => {
-  console.log('props', props);
-  const { forms, count } = props;
+
+  const [forms, setForms] = useState(emptyFormList);
+  const [showModal, setShowModal] = useState(false);
+
+  const [selectedForm, selectForm] = useState(emptyForm);
+
+
+  const show = () => { setShowModal(true);};
+  const close = () => { setShowModal(false);};
+
+  const delForm = (formId:string) => { 
+    deleteForm(formId); 
+    removeForm(formId); 
+   }
+  
+  useEffect( () => {
+    setForms(props.forms);
+  }, [props.forms]);
+
+  function removeForm( id: string) {
+    const newForms = forms.filter(f => f.id !== id);
+    setForms(newForms);
+  }
+
+  const modalBody = (
+    <div style={modalStyle} >
+      <h2 id="modal-title">Are you sure you want to delete the form?</h2>
+      <p id="simple-modal-description">
+        This action cannot be undone, so be careful.
+      </p>
+      <Button
+        style={{margin:'5px'}}
+        variant="contained"
+        color="primary"
+        onClick={ close }>Close</Button>
+      <Button
+        style={{margin:'5px'}}
+        variant="contained"
+        color="secondary"
+        onClick={ () => { if(selectedForm.id) delForm(selectedForm.id); close(); } }>Delete</Button>
+    </div>
+  )
+
   return (
     <div>
       <h2>Forms</h2>
@@ -37,21 +94,33 @@ const FormList: React.FC<FormListProps> =(props) => {
                         </Link>
 
                         <div style={{position:'absolute', right:'10px', top:'8px', textAlign:'right'}}>
-
-                        
-                        <Link to={`/edit/${form.id}`}>
-                            <Button 
-                                style={{margin:'5px'}}
-                                variant="contained"
-                                color="primary"
-                                onClick={() => {} }>Edit</Button>
-                        </Link>
+                          <Link to={`/edit/${form.id}`}>
+                              <Button 
+                                  style={{margin:'5px'}}
+                                  variant="contained"
+                                  color="primary"
+                                  onClick={() => {} }>Edit</Button>
+                          </Link>
+                          <Button
+                            style={{margin:'5px'}}
+                            variant="contained"
+                            color="secondary"
+                            onClick={ () => { selectForm(form); show(); } }>Delete</Button>
                         
                     </div>
                     </h3>
                 </div>
             )
         })}
+
+      <Modal
+        open={showModal}
+        onClose={close}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {modalBody}
+      </Modal>
     </div>
   )
 }
