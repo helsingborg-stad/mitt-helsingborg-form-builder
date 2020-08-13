@@ -17,11 +17,13 @@ const formItemStyle: CSS.Properties = {
 
 interface FormListProps {
     forms: Form[];
+    count: number;
 }
 
 
 const FormList: React.FC<FormListProps> =(props) => {
-  const {forms} = props;
+  console.log('props', props);
+  const { forms, count } = props;
   return (
     <div>
       <h2>Forms</h2>
