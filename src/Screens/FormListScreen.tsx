@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { getAllForms, getForm } from '../helpers/ApiRequest';
+import { getAllForms } from '../helpers/ApiRequest';
 import FormList from '../FormList/FormList';
 
 interface FormData {
@@ -23,8 +23,6 @@ const FormListScreen: React.FC<any> = (props) => {
             loadCases();
         }
       }, [data.forms.length]);
-
-
 
     if(loading){ return <h3>Loading</h3>}
     return (

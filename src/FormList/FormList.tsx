@@ -1,20 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import CSS from 'csstype';
-import { Link } from 'react-router-dom';
 import { Form } from '../types/FormTypes';
-import { Button, Modal, makeStyles } from '@material-ui/core';
-import { getAllForms, deleteForm } from '../helpers/ApiRequest';
-
-
-const formItemStyle: CSS.Properties = {
-  backgroundColor: 'rgba(255, 255, 255, 0.85)',
-  border:'1px solid green',
-  boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
-  padding:'3px',
-  margin:'10px',
-  position:'relative',
-  minHeight:'43px'
-};
+import { Button, Modal } from '@material-ui/core';
+import { deleteForm } from '../helpers/ApiRequest';
+import FormListItem from './FormListItem';
 
 const modalStyle: CSS.Properties ={
   position: 'absolute',
@@ -32,18 +21,18 @@ interface FormListProps {
     forms: Form[];
     count: number;
 }
+
 const emptyFormList: Form[] = [];
 const emptyForm: Form = {
   name: '',
-  description: ''};
+  description: ''
+};
 
 const FormList: React.FC<FormListProps> =(props) => {
 
   const [forms, setForms] = useState(emptyFormList);
   const [showModal, setShowModal] = useState(false);
-
   const [selectedForm, selectForm] = useState(emptyForm);
-
 
   const show = () => { setShowModal(true);};
   const close = () => { setShowModal(false);};
@@ -81,38 +70,31 @@ const FormList: React.FC<FormListProps> =(props) => {
     </div>
   )
 
+  const mainForms = forms.filter(f => !f.subform);
+  const subforms = forms.filter(f => f.subform);
+
   return (
     <div>
-      <h2>Forms</h2>
-        {forms.map((form, i) => {
-            return (
-                <div style={formItemStyle} key={form.id}>
-
-                    <h3>
-                        <Link to={`/edit/${form.id}`}>
-                            {i+1}. {form.name}
-                        </Link>
-
-                        <div style={{position:'absolute', right:'10px', top:'8px', textAlign:'right'}}>
-                          <Link to={`/edit/${form.id}`}>
-                              <Button 
-                                  style={{margin:'5px'}}
-                                  variant="contained"
-                                  color="primary"
-                                  onClick={() => {} }>Edit</Button>
-                          </Link>
-                          <Button
-                            style={{margin:'5px'}}
-                            variant="contained"
-                            color="secondary"
-                            onClick={ () => { selectForm(form); show(); } }>Delete</Button>
-                        
-                    </div>
-                    </h3>
-                </div>
-            )
+      <h2>Main Forms</h2>
+        {mainForms.map((form, i) => {
+          return (
+            <FormListItem
+              key={form.id || form.name} 
+              form={form} 
+              onDelete={() => {selectForm(form); show();}}
+              index={i} />
+          )
         })}
-
+      <h2>Subforms</h2>
+        {subforms.map((form, i) => {
+          return (
+            <FormListItem
+              key={form.id || form.name}
+              form={form} 
+              onDelete={() => {selectForm(form); show();}}
+              index={i} />
+          )
+        })}
       <Modal
         open={showModal}
         onClose={close}

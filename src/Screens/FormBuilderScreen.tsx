@@ -17,9 +17,7 @@ const emptyForm={
     }],
   };
 
-
 const FormBuilderScreen: React.FC<any> = (props) => {
-
     const [loading, setLoading] = useState(true);
     const [form, setForm] = useState(emptyForm);
     const { id } = useParams();
@@ -33,11 +31,9 @@ const FormBuilderScreen: React.FC<any> = (props) => {
         }
     }
 
-    
     const create = (form: Form) => {
         createForm(form).then( res => console.log(res));        
     }
-    
     
     const update = (form: Form) => {
         if(id && id !==''){
@@ -57,10 +53,8 @@ const FormBuilderScreen: React.FC<any> = (props) => {
         if(id && id !== ''){
             loadCase(id);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [id]);
-
-
-
 
     if(loading){ return <h3>Loading</h3>}
     

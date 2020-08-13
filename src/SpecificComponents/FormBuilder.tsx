@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Formik, Field, Form } from 'formik';
-import { Button } from '@material-ui/core';
+import { Button,FormControlLabel, FormGroup, Switch } from '@material-ui/core';
 import {Step} from '../types/FormTypes';
 import StepField from './StepField';
 import FieldArrayWrapper from '../GeneralComponents/FieldArrayWrapper';
@@ -18,6 +18,7 @@ export interface FormBuilderProps {
 
 const FormBuilder: React.FC<FormBuilderProps> =(props) => {
   const {id, onSubmit } = props;
+  const [showJSON, setShowJSON] = useState(false);
   return (
     <div>
       <Formik
@@ -32,8 +33,8 @@ const FormBuilder: React.FC<FormBuilderProps> =(props) => {
         >
           {({values, ...props }) => (
             <Form>
-              {id ? <pre>Form id: {id}</pre> : null}
               <h2>Form data</h2>
+              {id ? <pre>Form id: {id}</pre> : null}
               <Field 
                 type="input" as={FormDataField} />
 
@@ -50,7 +51,7 @@ const FormBuilder: React.FC<FormBuilderProps> =(props) => {
                 />
               </div>
               
-             
+              <FormGroup row>
                 <Button
                   style={{margin:'5px'}}
                   variant="contained"
@@ -58,9 +59,20 @@ const FormBuilder: React.FC<FormBuilderProps> =(props) => {
                   type='submit'>
                   Submit
                 </Button>
-              <pre>
-                {JSON.stringify(values, null,2)}
-              </pre>
+                <FormControlLabel
+                  control={<Switch checked={showJSON} onChange={() => setShowJSON(!showJSON)} name="showJsonToggle" />}
+                  label="Show JSON"
+                />
+              </FormGroup>
+
+              { showJSON && (
+                <div>
+                  <h3>JSON Form data</h3>
+                  <pre>
+                    {JSON.stringify(values, null,2)}
+                  </pre>
+                </div>
+               )}
             </Form>
           )}
         </Formik>

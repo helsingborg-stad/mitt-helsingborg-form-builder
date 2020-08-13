@@ -5,8 +5,12 @@ import FormBuilderScreen from './Screens/FormBuilderScreen';
 import FormListScreen from './Screens/FormListScreen';
 
 const container: CSS.Properties = {
-  margin:'50px',
+  marginTop:'20px',
+  marginBottom:'30px',
+  marginLeft: 'auto',
+  marginRight: 'auto',
   padding:'20px',
+  maxWidth:'800px',
 };
 
 const App: React.FC = () => {
@@ -23,8 +27,6 @@ const App: React.FC = () => {
           <Route path='/'>
             <FormListScreen />   
           </Route>
-
-
         </Switch>
       </div>
     </Router>
