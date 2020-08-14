@@ -4,18 +4,7 @@ import { Form } from '../types/FormTypes';
 import { Button, Modal } from '@material-ui/core';
 import { deleteForm } from '../helpers/ApiRequest';
 import FormListItem from './FormListItem';
-
-const modalStyle: CSS.Properties ={
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '400px',
-  height: 'auto',
-  backgroundColor: 'white',
-  border: '2px solid #000',
-  padding: '20px',
-};
+import DeleteModal from './DeleteModal';
 
 interface FormListProps {
     forms: Form[];
@@ -51,25 +40,6 @@ const FormList: React.FC<FormListProps> =(props) => {
     setForms(newForms);
   }
 
-  const modalBody = (
-    <div style={modalStyle} >
-      <h2 id="modal-title">Are you sure you want to delete the form?</h2>
-      <p id="simple-modal-description">
-        This action cannot be undone, so be careful.
-      </p>
-      <Button
-        style={{margin:'5px'}}
-        variant="contained"
-        color="primary"
-        onClick={ close }>Close</Button>
-      <Button
-        style={{margin:'5px'}}
-        variant="contained"
-        color="secondary"
-        onClick={ () => { if(selectedForm.id) delForm(selectedForm.id); close(); } }>Delete</Button>
-    </div>
-  )
-
   const mainForms = forms.filter(f => !f.subform);
   const subforms = forms.filter(f => f.subform);
 
@@ -95,14 +65,13 @@ const FormList: React.FC<FormListProps> =(props) => {
               index={i} />
           )
         })}
-      <Modal
+      
+      <DeleteModal 
         open={showModal}
         onClose={close}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        {modalBody}
-      </Modal>
+        form={selectedForm}
+        onDelete={() => { if(selectedForm.id) delForm(selectedForm.id)}} />
+
     </div>
   )
 }
