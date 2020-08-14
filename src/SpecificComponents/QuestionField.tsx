@@ -1,6 +1,7 @@
 import React from 'react';
 import FieldDescriptor from '../types/FieldDescriptor';
 import MultipleInputField from '../GeneralComponents/MultipleInputField';
+import EditableListInputField from './EditableListInputField';
 
 const questionFields: FieldDescriptor[] = [
   { name: "label", type:"text", initialValue:'',label:"Label" },
@@ -26,7 +27,7 @@ const extraInputs: Record<string,FieldDescriptor[]> = {
   editableList: [
     { name: 'placeholder', type:'text', initialValue:'', label:'Placeholder'},
     { name: 'title', type:'text', initialValue:'', label:'Title'},
-    { name: 'inputs', type: 'text', initialValue:'', label:'Inputs'},
+    { name: 'inputs', type: 'array', initialValue:'', label:'Inputs', inputField: EditableListInputField},
   ],
   checkbox: [
     { name: 'text', type:'text', initialValue:'', label:'Text'},
@@ -47,7 +48,7 @@ interface Props  {
 
 const QuestionField: React.FC<Props> = props => {
   const {value} = props;
-  const extraInput = Object.keys(extraInputs).includes(value.type) ? extraInputs[value.type] : null;
+  const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type];
   return (
     <> 
       <MultipleInputField fields={questionFields} {...props} />

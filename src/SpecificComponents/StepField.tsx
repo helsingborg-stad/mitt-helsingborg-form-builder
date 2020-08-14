@@ -4,13 +4,19 @@ import QuestionField from './QuestionField';
 import FieldArrayWrapper from '../GeneralComponents/FieldArrayWrapper';
 import ActionField from './ActionField';
 import StepDataField from './StepDataField';
+import BannerField from './BannerField';
 
 const StepField: React.FC<any> = ({ onChange, onBlur, name, value, ...other}) => {
   return (
     <div>
-      { <Field
+      <h2>{value.title && value.title !=='' ? value.title : 'Unnamed step'}</h2>
+        <Field
           name={name}
-          type="input" as={StepDataField} />}
+          type="input" as={StepDataField} />
+        <h3>Banner</h3>
+        <Field
+          name={`${name}.banner`}
+          type="input" as={BannerField} />
 
         <FieldArrayWrapper 
           heading="Questions" 

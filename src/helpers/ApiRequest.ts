@@ -14,7 +14,6 @@ const request = async (endpoint: string, method: Method, data: any, headers: any
   const url = process.env.REACT_APP_MITTHELSINGBORG_IO + (endpoint ? `/${endpoint}` : ''); 
 
   const newHeaders = {
-    // Authorization: bearer,
     'Content-Type': 'application/json',
     ...headers,
   };

@@ -5,4 +5,5 @@ export default interface FieldDescriptor {
     placeholder?: string;
     label: string;
     choices? : Record<string,string>[];
+    inputField?: any;
 }
