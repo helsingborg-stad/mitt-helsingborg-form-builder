@@ -48,7 +48,8 @@ const FormBuilder: React.FC<FormBuilderProps> =(props) => {
                   value={values}
                   inputField={StepField}
                   emptyObject={{
-                    title:'', description:'', group:'', id:'',
+                    title:'', description:'', group:'', id:'', 
+                    banner: { iconSrc: '', imageSrc: '', backgroundColor: ''},
                   }}
                 />
               </div>

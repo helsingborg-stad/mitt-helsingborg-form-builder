@@ -9,6 +9,7 @@ import BannerField from './BannerField';
 const StepField: React.FC<any> = ({ onChange, onBlur, name, value, ...other}) => {
   return (
     <div>
+      <h2>{value.title && value.title !=='' ? value.title : 'Unnamed step'}</h2>
         <Field
           name={name}
           type="input" as={StepDataField} />

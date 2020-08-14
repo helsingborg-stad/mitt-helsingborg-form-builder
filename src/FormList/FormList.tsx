@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import CSS from 'csstype';
+import { Link } from 'react-router-dom';
 import { Form } from '../types/FormTypes';
-import { Button, Modal } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { deleteForm } from '../helpers/ApiRequest';
 import FormListItem from './FormListItem';
 import DeleteModal from './DeleteModal';
@@ -14,7 +14,10 @@ interface FormListProps {
 const emptyFormList: Form[] = [];
 const emptyForm: Form = {
   name: '',
-  description: ''
+  description: '',
+  steps: [],
+  subform: false,
+  
 };
 
 const FormList: React.FC<FormListProps> =(props) => {
@@ -45,6 +48,15 @@ const FormList: React.FC<FormListProps> =(props) => {
 
   return (
     <div>
+      <Link to={`/edit`}>
+        <Button 
+            style={{margin:'5px'}}
+            variant="contained"
+            color="primary"
+            onClick={() => {} }>
+          Create new form
+        </Button>
+      </Link>
       <h2>Main Forms</h2>
         {mainForms.map((form, i) => {
           return (

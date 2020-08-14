@@ -29,7 +29,7 @@ interface Props  {
                   name={computedName}
                   onChange={onChange}
                   onBlur={onBlur}
-                  value={value[field.name] ? value[field.name] : field.initialValue }
+                  value={field && field.name && value[field.name] ? value[field.name] : field.initialValue }
                   label={field.label}
                   {...other}
               />);
