@@ -50,7 +50,6 @@ const FormBuilder: React.FC<FormBuilderProps> =(props) => {
                 />
               </div>
               
-             
                 <Button
                   style={{margin:'5px'}}
                   variant="contained"

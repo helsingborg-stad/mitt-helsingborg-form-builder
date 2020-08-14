@@ -13,17 +13,12 @@ const request = async (endpoint: string, method: Method, data: any, headers: any
   // should point to the forms api, set in .env-file.
   const url = process.env.REACT_APP_MITTHELSINGBORG_IO + (endpoint ? `/${endpoint}` : ''); 
 
-
-//   const token = await StorageService.getData(TOKEN_KEY);
-//   const bearer = token ? `Bearer ${token}` : '';
-  // Merge custom headers
   const newHeaders = {
     // Authorization: bearer,
     'Content-Type': 'application/json',
     ...headers,
   };
 
-  // Do request
   const req = await axios({
     url,
     method,
