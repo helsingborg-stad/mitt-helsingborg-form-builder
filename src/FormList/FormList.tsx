@@ -1,17 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from '../types/FormTypes';
 import { Button } from '@material-ui/core';
-import { deleteForm } from '../helpers/ApiRequest';
 import FormListItem from './FormListItem';
 import DeleteModal from './DeleteModal';
+import FormContext from '../Contexts/FormContext';
 
 interface FormListProps {
     forms: Form[];
     count: number;
 }
 
-const emptyFormList: Form[] = [];
 const emptyForm: Form = {
   name: '',
   description: '',
@@ -22,26 +21,17 @@ const emptyForm: Form = {
 
 const FormList: React.FC<FormListProps> =(props) => {
 
-  const [forms, setForms] = useState(emptyFormList);
   const [showModal, setShowModal] = useState(false);
   const [selectedForm, selectForm] = useState(emptyForm);
+
+  const {forms, deleteForm} = useContext(FormContext);
 
   const show = () => { setShowModal(true);};
   const close = () => { setShowModal(false);};
 
   const delForm = (formId:string) => { 
     deleteForm(formId); 
-    removeForm(formId); 
    }
-  
-  useEffect( () => {
-    setForms(props.forms);
-  }, [props.forms]);
-
-  function removeForm( id: string) {
-    const newForms = forms.filter(f => f.id !== id);
-    setForms(newForms);
-  }
 
   const mainForms = forms.filter(f => !f.subform);
   const subforms = forms.filter(f => f.subform);

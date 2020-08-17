@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import FormBuilder from '../SpecificComponents/FormBuilder';
 import {Question, Form} from '../types/FormTypes';
 import { useParams, Link, Redirect } from 'react-router-dom';
-import { getForm, updateForm, createForm } from '../helpers/ApiRequest';
+import FormContext from '../Contexts/FormContext';
 
 const emptyQuestions: Question[] = [];
 const emptyBanner = {
@@ -29,8 +29,10 @@ const FormBuilderScreen: React.FC<any> = (props) => {
     const [form, setForm] = useState(emptyForm);
     const [redirectComp, setRedirectComp] = useState(<> </>);
     const { id } = useParams();
+
+    const { updateForm, createForm, getForm } = useContext(FormContext);
         
-    const loadCase = (id: string): void => {
+    const loadForm = (id: string): void => {
         if(loading){
             getForm(id).then(res => { 
                 setForm(res.data);
@@ -42,8 +44,6 @@ const FormBuilderScreen: React.FC<any> = (props) => {
     const create = (form: Form) => {
         createForm(form)
           .then( res => {
-              console.log(res);
-            //   setLoading(true);
               const formId = res.data.Item.id;
               console.log('new id:', formId);
               setRedirectComp(<Redirect to={`/edit/${formId}`} />);
@@ -52,7 +52,7 @@ const FormBuilderScreen: React.FC<any> = (props) => {
     
     const update = (form: Form) => {
         if(id && id !==''){
-            updateForm(id, form).then(res => { console.log(res)}); 
+            updateForm(id, form); 
         }
     }
 
@@ -66,7 +66,7 @@ const FormBuilderScreen: React.FC<any> = (props) => {
     
     useEffect(() => {
         if(id && id !== ''){
-            loadCase(id);
+            loadForm(id);
         } else {
             setLoading(false);
         }

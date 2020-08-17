@@ -29,24 +29,28 @@ interface Props  {
                   name={computedName}
                   onChange={onChange}
                   onBlur={onBlur}
-                  value={field && field.name && value[field.name] ? value[field.name] : field.initialValue }
+                  value={field && value && field.name && value[field.name] ? value[field.name] : field.initialValue }
                   label={field.label}
                   {...other}
               />);
         case 'select':
           return (
-                <Select
+            <FormGroup style={inputFieldStyle} row>
+
+
+              <div style={{paddingTop:'5px', marginRight:'10px'}}>{field.label} </div>
+              <Select
                     name={computedName}
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value[field.name]}
-                    label={field.label}
                     {...other}
                 >
                   {field.choices ? field.choices.map( choice => (
                       <MenuItem value={choice.value}>{choice.name}</MenuItem>
                   )) : null}
-                </Select>); 
+                </Select>
+            </FormGroup>); 
         case 'checkbox':
           return (
             <FormGroup style={inputFieldStyle} row>
