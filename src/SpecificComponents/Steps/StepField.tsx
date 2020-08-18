@@ -1,12 +1,13 @@
 import React from 'react';
 import { Field } from 'formik';
-import QuestionField from './QuestionField';
-import FieldArrayWrapper from '../GeneralComponents/FieldArrayWrapper';
+import QuestionField from '../Questions/QuestionField';
+import FieldArrayWrapper from '../../GeneralComponents/FieldArrayWrapper';
 import ActionField from './ActionField';
 import StepDataField from './StepDataField';
 import BannerField from './BannerField';
+import {InputFieldPropType} from '../../types/PropTypes';
 
-const StepField: React.FC<any> = ({ onChange, onBlur, name, value, ...other}) => {
+const StepField: React.FC<InputFieldPropType> = ({ onChange, onBlur, name, value, ...other}) => {
   return (
     <div>
       <h2>{value.title && value.title !=='' ? value.title : 'Unnamed step'}</h2>

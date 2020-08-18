@@ -1,6 +1,7 @@
 import React from 'react';
-import FieldDescriptor from '../types/FieldDescriptor';
-import MultipleInputField from '../GeneralComponents/MultipleInputField';
+import FieldDescriptor from '../../types/FieldDescriptor';
+import MultipleInputField from '../../GeneralComponents/MultipleInputField';
+import {InputFieldPropType} from '../../types/PropTypes';
 
 const actionFields: FieldDescriptor[] = [
   { name: "type", type:"select", initialValue:'next', label:"Type",
@@ -13,7 +14,7 @@ const actionFields: FieldDescriptor[] = [
   { name: "label", type:"text", initialValue:'', label:"Label" },
 ]
 
-const ActionField: React.FC<any> = props => {
+const ActionField: React.FC<InputFieldPropType> = props => {
   return <MultipleInputField fields={actionFields} {...props} />
 }
 

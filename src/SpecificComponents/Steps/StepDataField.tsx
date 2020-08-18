@@ -1,14 +1,7 @@
 import React from 'react';
-import FieldDescriptor from '../types/FieldDescriptor';
-import MultipleInputField from '../GeneralComponents/MultipleInputField';
-
-interface Props  {
-  name: string;
-  value: Record<string, any>;
-  type: string;
-  onBlur: (e?: any) => void;
-  onChange: (e?: any) => void;
-}
+import FieldDescriptor from '../../types/FieldDescriptor';
+import MultipleInputField from '../../GeneralComponents/MultipleInputField';
+import {InputFieldPropType} from '../../types/PropTypes';
 
 const stepFields: FieldDescriptor[] = [
   { name: "title", type:"text", initialValue:'',label:"Title" },
@@ -19,7 +12,7 @@ const stepFields: FieldDescriptor[] = [
 ]
 
 
-const StepDataField: React.FC<Props> = props => {
+const StepDataField: React.FC<InputFieldPropType> = props => {
   return (
       <MultipleInputField fields={stepFields} {...props} />
   )

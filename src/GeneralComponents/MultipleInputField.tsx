@@ -1,23 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CSS from 'csstype';
 import { TextField, Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import FieldDescriptor from '../types/FieldDescriptor';
 import FieldArrayWrapper from './FieldArrayWrapper';
+import FormContext from '../Contexts/FormContext';
+import {MultipleInputFieldPropType} from '../types/PropTypes';
 
-interface Props  {
-    name: string;
-    onBlur: (e?: any) => void;
-    value: Record<string, any>;
-    fields: FieldDescriptor[] ;
-    onChange: (e?: any) => void;
-  }
   const inputFieldStyle: CSS.Properties = {
     marginLeft:'7px', 
     marginTop:'5px'
   }
   
-  const MultipleInputField: React.FC<Props> = ({ onChange, onBlur, name, value, fields, ...other}) => {
+  const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({ onChange, onBlur, name, value, fields, ...other}) => {
     
+    const { forms } = useContext(FormContext);
+
     const inputComponent = (field: FieldDescriptor, computedName: string) => {
       switch(field.type){
         case 'text':
@@ -36,8 +33,6 @@ interface Props  {
         case 'select':
           return (
             <FormGroup style={inputFieldStyle} row>
-
-
               <div style={{paddingTop:'5px', marginRight:'10px'}}>{field.label} </div>
               <Select
                     name={computedName}
@@ -71,9 +66,25 @@ interface Props  {
               name={field.name}
               value={value }
               inputField={field.inputField ? field.inputField : null}
-              emptyObject={{ label:'', type:'' }}
+              emptyObject={{}}
               color="green"
             />);   
+        case 'formSelect':
+          return (
+            <FormGroup style={inputFieldStyle} row>
+              <div style={{paddingTop:'5px', marginRight:'10px'}}>{field.label} </div>
+              <Select
+                    name={computedName}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value[field.name]}
+                    {...other}
+                >
+                  {forms ? forms.filter(f => f.subform).map( form => (
+                      <MenuItem value={form.id}>{form.name}</MenuItem>
+                  )) : null}
+                </Select>
+            </FormGroup>); 
         default:
           return (
               <TextField

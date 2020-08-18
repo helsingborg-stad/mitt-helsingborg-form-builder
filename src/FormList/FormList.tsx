@@ -16,14 +16,11 @@ const emptyForm: Form = {
   description: '',
   steps: [],
   subform: false,
-  
 };
 
 const FormList: React.FC<FormListProps> =(props) => {
-
   const [showModal, setShowModal] = useState(false);
   const [selectedForm, selectForm] = useState(emptyForm);
-
   const {forms, deleteForm} = useContext(FormContext);
 
   const show = () => { setShowModal(true);};

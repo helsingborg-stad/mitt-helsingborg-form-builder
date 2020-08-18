@@ -1,6 +1,7 @@
 import React from 'react';
-import FieldDescriptor from '../types/FieldDescriptor';
-import MultipleInputField from '../GeneralComponents/MultipleInputField';
+import FieldDescriptor from '../../types/FieldDescriptor';
+import MultipleInputField from '../../GeneralComponents/MultipleInputField';
+import {InputFieldPropType} from '../../types/PropTypes';
 
 const editableListFields: FieldDescriptor[] = [
   { name: "type", type:"select", initialValue:'text', label:"Type",
@@ -13,7 +14,7 @@ const editableListFields: FieldDescriptor[] = [
 
 ]
 
-const EditableListInputField: React.FC<any> = props => {
+const EditableListInputField: React.FC<InputFieldPropType> = props => {
   return <MultipleInputField fields={editableListFields} {...props} />
 }
 

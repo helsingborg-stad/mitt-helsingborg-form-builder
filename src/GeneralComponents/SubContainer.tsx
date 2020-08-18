@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import CSS from 'csstype';
 import { Field } from 'formik';
 import { Button } from '@material-ui/core';
-import StepField from '../SpecificComponents/StepField';
+import StepField from '../SpecificComponents/Steps/StepField';
 
 const containerStyle: CSS.Properties = {
   backgroundColor: 'rgba(255, 255, 255, 0.85)',
