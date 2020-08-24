@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CSS from 'csstype';
-import { Field } from 'formik';
+import { Field, ArrayHelpers } from 'formik';
 import { Button } from '@material-ui/core';
 import StepField from '../SpecificComponents/Steps/StepField';
 
@@ -18,7 +18,16 @@ const containerStyle: CSS.Properties = {
   minHeight: '45px',
 };
 
-const SubContainer: React.FC<any> = ({ itemValues, name, currentIndex, inputField, arrayHelpers, color }) => {
+interface Props {
+  name: string;
+  currentIndex: number;
+  color: string;
+  inputField: React.FC;
+  arrayHelpers: ArrayHelpers;
+  itemValues?: Record<string, any>;
+}
+
+const SubContainer: React.FC<Props> = ({ itemValues, name, currentIndex, inputField, arrayHelpers, color }: Props) => {
   const [collapsed, setCollapsed] = useState(true);
   const vals = inputField === StepField ? { value: itemValues } : {};
   if (!collapsed) {
@@ -49,11 +58,11 @@ const SubContainer: React.FC<any> = ({ itemValues, name, currentIndex, inputFiel
   }
 
   const containerName =
-    itemValues.title && itemValues.title !== ''
+    itemValues?.title && itemValues.title !== ''
       ? itemValues.title
-      : itemValues.label && itemValues.label !== ''
+      : itemValues?.label && itemValues.label !== ''
       ? itemValues.label
-      : itemValues.description && itemValues.description !== ''
+      : itemValues?.description && itemValues.description !== ''
       ? itemValues.description
       : 'Unnamed';
 

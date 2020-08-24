@@ -18,7 +18,7 @@ const editableListFields: FieldDescriptor[] = [
   { name: 'key', type: 'text', initialValue: '', label: 'Key' },
 ];
 
-const EditableListInputField: React.FC<InputFieldPropType> = (props) => {
+const EditableListInputField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   return <MultipleInputField fields={editableListFields} {...props} />;
 };
 

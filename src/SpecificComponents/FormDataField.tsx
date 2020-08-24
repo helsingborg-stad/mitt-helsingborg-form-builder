@@ -1,14 +1,7 @@
 import React from 'react';
 import FieldDescriptor from '../types/FieldDescriptor';
 import MultipleInputField from '../GeneralComponents/MultipleInputField';
-
-interface Props {
-  name: string;
-  value: Record<string, any>;
-  type: string;
-  onBlur: (e?: any) => void;
-  onChange: (e?: any) => void;
-}
+import { InputFieldPropType } from '../types/PropTypes';
 
 const formFields: FieldDescriptor[] = [
   { name: 'name', type: 'text', initialValue: '', label: 'Name' },
@@ -17,7 +10,7 @@ const formFields: FieldDescriptor[] = [
   { name: 'subform', type: 'checkbox', initialValue: true, label: 'Subform' },
 ];
 
-const FormDataField: React.FC<Props> = (props) => {
+const FormDataField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   return <MultipleInputField fields={formFields} {...props} />;
 };
 

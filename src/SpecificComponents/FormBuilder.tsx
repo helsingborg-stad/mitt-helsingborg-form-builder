@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { Button, FormControlLabel, FormGroup, Switch } from '@material-ui/core';
-import { Step } from '../types/FormTypes';
+import { Step, Form as FormType } from '../types/FormTypes';
 import StepField from './Steps/StepField';
 import FieldArrayWrapper from '../GeneralComponents/FieldArrayWrapper';
 import FormDataField from './FormDataField';
@@ -12,11 +12,11 @@ export interface FormBuilderProps {
   provider?: string;
   steps: Step[];
   id?: string;
-  onSubmit: (form: Record<string, any>) => void;
+  onSubmit: (form: FormType) => void;
   subform?: boolean;
 }
 
-const FormBuilder: React.FC<FormBuilderProps> = (props) => {
+const FormBuilder: React.FC<FormBuilderProps> = (props: FormBuilderProps) => {
   const { id, onSubmit } = props;
   const [showJSON, setShowJSON] = useState(false);
   return (
@@ -33,7 +33,7 @@ const FormBuilder: React.FC<FormBuilderProps> = (props) => {
           onSubmit(form);
         }}
       >
-        {({ values, ...props }) => (
+        {({ values }) => (
           <Form>
             <h1>{values.name !== '' ? values.name : 'Unnamed form'}</h1>
             {id ? <pre>Form id: {id}</pre> : null}

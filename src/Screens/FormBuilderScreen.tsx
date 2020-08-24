@@ -26,7 +26,7 @@ const emptyForm = {
   ],
 };
 
-const FormBuilderScreen: React.FC<any> = (props) => {
+const FormBuilderScreen: React.FC<any> = () => {
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState(emptyForm);
   const [redirectComp, setRedirectComp] = useState(<> </>);
@@ -36,7 +36,7 @@ const FormBuilderScreen: React.FC<any> = (props) => {
 
   const loadForm = (id: string): void => {
     if (loading) {
-      getForm(id).then((res) => {
+      getForm(id).then((res: Record<string, any>) => {
         setForm(res.data);
         setLoading(false);
       });
@@ -44,7 +44,7 @@ const FormBuilderScreen: React.FC<any> = (props) => {
   };
 
   const create = (form: Form) => {
-    createForm(form).then((res) => {
+    createForm(form).then((res: Record<string, any>) => {
       console.log('create response', res);
       const formId = res.data.Item.id;
       console.log('new id:', formId);

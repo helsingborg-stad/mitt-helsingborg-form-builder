@@ -65,7 +65,7 @@ export const FormProvider = ({ children }: Props) => {
   };
 
   const deleteForm = (id: string) => {
-    Api.deleteForm(id).then((resp) => fetchForms());
+    Api.deleteForm(id).then(() => fetchForms());
   };
 
   const updateForm = async (id: string, formData: Form) => {

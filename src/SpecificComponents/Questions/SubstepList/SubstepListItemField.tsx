@@ -9,7 +9,7 @@ const fields: FieldDescriptor[] = [
   { name: 'formId', type: 'formSelect', initialValue: '', label: 'Subform' },
 ];
 
-const SubstepListItemField: React.FC<InputFieldPropType> = (props) => {
+const SubstepListItemField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   return <MultipleInputField fields={fields} {...props} />;
 };
 

@@ -7,7 +7,7 @@ import StepDataField from './StepDataField';
 import BannerField from './BannerField';
 import { InputFieldPropType } from '../../types/PropTypes';
 
-const StepField: React.FC<InputFieldPropType> = ({ onChange, onBlur, name, value, ...other }) => {
+const StepField: React.FC<InputFieldPropType> = ({ name, value }: InputFieldPropType) => {
   return (
     <div>
       <h2>{value.title && value.title !== '' ? value.title : 'Unnamed step'}</h2>

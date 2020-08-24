@@ -21,7 +21,7 @@ interface PropType {
   keyStatus: KeyStatus;
 }
 
-const ApiKeyScreen: React.FC<PropType> = ({ setApikey, keyStatus }) => {
+const ApiKeyScreen: React.FC<PropType> = ({ setApikey, keyStatus }: PropType) => {
   const submit = () => {
     const apikeyInputEl = document.getElementById('apikey') as HTMLInputElement;
     const apikey = apikeyInputEl.value;

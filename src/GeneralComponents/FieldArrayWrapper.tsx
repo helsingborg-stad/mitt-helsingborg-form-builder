@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldArray } from 'formik';
+import { FieldArray, ArrayHelpers } from 'formik';
 import { Button } from '@material-ui/core';
 import SubContainer from './SubContainer';
 
@@ -21,13 +21,13 @@ const FieldArrayWrapper: React.FC<Props> = ({
   inputField,
   emptyObject,
   color = 'red',
-}) => {
+}: Props) => {
   const myName = parentName ? `${parentName}.${name}` : name;
   return (
     <>
       <h3>{heading}</h3>
       <FieldArray name={myName}>
-        {(arrayHelpers) => {
+        {(arrayHelpers: ArrayHelpers) => {
           return (
             <div>
               {value[name] && value[name].length > 0 ? (

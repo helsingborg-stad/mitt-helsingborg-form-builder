@@ -1,10 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from '../types/FormTypes';
 import { Button } from '@material-ui/core';
 import FormListItem from './FormListItem';
 import DeleteModal from './DeleteModal';
-import FormContext from '../Contexts/FormContext';
 
 const emptyForm: Form = {
   name: '',
@@ -12,11 +11,15 @@ const emptyForm: Form = {
   steps: [],
   subform: false,
 };
+interface Props {
+  forms: Form[];
+  count: number;
+  deleteForm: (id: string) => void;
+}
 
-const FormList: React.FC = () => {
+const FormList: React.FC<Props> = ({ forms, deleteForm }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedForm, selectForm] = useState(emptyForm);
-  const { forms, deleteForm } = useContext(FormContext);
 
   const show = () => {
     setShowModal(true);

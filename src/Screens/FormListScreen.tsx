@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import FormList from '../FormList/FormList';
 import FormContext from '../Contexts/FormContext';
 
-const FormListScreen: React.FC<any> = (props) => {
+const FormListScreen: React.FC<any> = () => {
   const [loading, setLoading] = useState(true);
 
-  const { forms } = useContext(FormContext);
+  const { forms, deleteForm } = useContext(FormContext);
 
   useEffect(() => {
     if (forms.length !== 0) {
@@ -18,7 +18,7 @@ const FormListScreen: React.FC<any> = (props) => {
   }
   return (
     <div>
-      <FormList forms={forms} count={forms.length} />
+      <FormList forms={forms} count={forms.length} deleteForm={deleteForm} />
     </div>
   );
 };
