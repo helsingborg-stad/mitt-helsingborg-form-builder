@@ -13,7 +13,7 @@ const FormListScreen: React.FC<any> = (props) => {
         }
       }, [forms.length]);
 
-    if(loading){ return <h3>Loading</h3>}
+    if(loading){ return <h1>Loading</h1>}
     return (
         <div>
             <FormList forms={forms} count={forms.length} />

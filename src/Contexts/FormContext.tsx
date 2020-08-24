@@ -41,7 +41,9 @@ export const FormProvider = ({ children } : Props) => {
 
     const fetchForms = () => {
         Api.getAllForms().then( res => {
-            setForms(res.data.forms) });
+            if(res?.data?.forms){
+                setForms(res.data.forms);
+            }});
     }
     
     const createForm = (form: Form) => {

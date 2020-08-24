@@ -44,6 +44,7 @@ const FormBuilderScreen: React.FC<any> = (props) => {
     const create = (form: Form) => {
         createForm(form)
           .then( res => {
+              console.log('create response', res);
               const formId = res.data.Item.id;
               console.log('new id:', formId);
               setRedirectComp(<Redirect to={`/edit/${formId}`} />);
