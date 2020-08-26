@@ -17,6 +17,7 @@ const actionFields: FieldDescriptor[] = [
     ],
   },
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
+  { name: 'color', type: 'text', initialValue: 'green', label: 'Button color' },
 ];
 
 const ActionField: React.FC<InputFieldPropType> = (props) => {
