@@ -1,11 +1,11 @@
 import React from 'react';
 import { Field } from 'formik';
 import QuestionField from '../Questions/QuestionField';
-import FieldArrayWrapper from '../../GeneralComponents/FieldArrayWrapper';
+import FieldArrayWrapper from '../../general/FieldArrayWrapper';
 import ActionField from './ActionField';
 import StepDataField from './StepDataField';
 import BannerField from './BannerField';
-import { InputFieldPropType } from '../../types/PropTypes';
+import { InputFieldPropType } from '../../../types/PropTypes';
 
 const StepField: React.FC<InputFieldPropType> = ({ name, value }: InputFieldPropType) => {
   return (

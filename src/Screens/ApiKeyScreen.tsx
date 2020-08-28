@@ -1,6 +1,29 @@
 import React from 'react';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import CSS from 'csstype';
 import { TextField, Button } from '@material-ui/core';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '20ch',
+      },
+    },
+    input: {
+      '& > *': {
+        width: '500px',
+      },
+    },
+    button: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '2ch',
+      },
+    },
+  }),
+);
 
 export enum KeyStatus {
   Loading = 'LOADING',
@@ -22,6 +45,8 @@ interface PropType {
 }
 
 const ApiKeyScreen: React.FC<PropType> = ({ setApikey, keyStatus }: PropType) => {
+  const classes = useStyles();
+
   const submit = () => {
     const apikeyInputEl = document.getElementById('apikey') as HTMLInputElement;
     const apikey = apikeyInputEl.value;
@@ -31,11 +56,14 @@ const ApiKeyScreen: React.FC<PropType> = ({ setApikey, keyStatus }: PropType) =>
   return (
     <div>
       <h2>Input api key:</h2>
-      <TextField fullWidth multiline rowsMax={3} id="apikey" label="Api key" />
-      <Button style={{ margin: '5px' }} variant="contained" color="default" onClick={submit}>
-        Submit
-      </Button>
-      {keyStatus === KeyStatus.Invalid && <h4 style={invalidText}>Invalid key</h4>}
+      <form className={classes.root}>
+        <TextField className={classes.input} fullWidth variant="outlined" id="apikey" label="Api key" />
+        <br />
+        <Button className={classes.button} variant="contained" color="default" onClick={submit}>
+          Submit
+        </Button>
+        {keyStatus === KeyStatus.Invalid && <h4 style={invalidText}>Invalid key</h4>}
+      </form>
     </div>
   );
 };

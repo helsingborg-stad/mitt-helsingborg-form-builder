@@ -1,22 +1,33 @@
 import React, { useState } from 'react';
-import CSS from 'csstype';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Field, ArrayHelpers } from 'formik';
-import { Button } from '@material-ui/core';
-import StepField from '../SpecificComponents/Steps/StepField';
+import { Button, Paper } from '@material-ui/core';
+import StepField from '../specific/Steps/StepField';
 
-const containerStyle: CSS.Properties = {
-  backgroundColor: 'rgba(255, 255, 255, 0.85)',
-  borderWidth: '1px',
-  borderStyle: 'solid',
-  boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
-  padding: '3px',
-  marginLeft: '15px',
-  marginRight: '15px',
-  marginTop: '5px',
-  marginBottom: '20px',
-  position: 'relative',
-  minHeight: '45px',
-};
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    subcontainer: {
+      flexGrow: 1,
+      maxWidth: 752,
+      margin: theme.spacing(4, 0, 2),
+      backgroundColor: 'rgba(255, 255, 255, 0.10)',
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+      padding: theme.spacing(1),
+      position: 'relative',
+      minHeight: '45px',
+    },
+    demo: {
+      color: 'white',
+      backgroundColor: '#424242', //theme.palette.primary.light,
+      // backgroundColor: theme.palette.background.paper,
+    },
+    title: {
+      margin: theme.spacing(4, 0, 2),
+    },
+  }),
+);
 
 interface Props {
   name: string;
@@ -29,10 +40,12 @@ interface Props {
 
 const SubContainer: React.FC<Props> = ({ itemValues, name, currentIndex, inputField, arrayHelpers, color }: Props) => {
   const [collapsed, setCollapsed] = useState(true);
+  const classes = useStyles();
+
   const vals = inputField === StepField ? { value: itemValues } : {};
   if (!collapsed) {
     return (
-      <div style={{ borderColor: color ? color : 'red', ...containerStyle }} key={name}>
+      <Paper elevation={3} style={{ borderColor: color ? color : 'red' }} className={classes.subcontainer} key={name}>
         <Field name={name} type="input" as={inputField} {...vals} />
 
         <div style={{ display: 'block', textAlign: 'right' }}>
@@ -53,7 +66,7 @@ const SubContainer: React.FC<Props> = ({ itemValues, name, currentIndex, inputFi
             X
           </Button>
         </div>
-      </div>
+      </Paper>
     );
   }
 
@@ -68,7 +81,7 @@ const SubContainer: React.FC<Props> = ({ itemValues, name, currentIndex, inputFi
 
   return (
     <div key={currentIndex}>
-      <h4 style={{ borderColor: color ? color : 'red', ...containerStyle }}>
+      <h4 style={{ borderColor: color ? color : 'red' }} className={classes.subcontainer}>
         {currentIndex + 1}. {containerName}
         <div style={{ display: 'inline', position: 'absolute', right: '0px' }}>
           {currentIndex > 0 ? (

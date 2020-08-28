@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import CSS from 'csstype';
 import { TextField, Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
-import FieldDescriptor from '../types/FieldDescriptor';
+import FieldDescriptor from '../../types/FieldDescriptor';
 import FieldArrayWrapper from './FieldArrayWrapper';
-import FormContext from '../Contexts/FormContext';
-import { MultipleInputFieldPropType } from '../types/PropTypes';
+import FormContext from '../../contexts/FormContext';
+import { MultipleInputFieldPropType } from '../../types/PropTypes';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',

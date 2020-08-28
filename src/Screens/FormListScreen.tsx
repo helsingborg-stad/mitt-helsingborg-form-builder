@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import FormList from '../FormList/FormList';
-import FormContext from '../Contexts/FormContext';
+import FormList from '../components/specific/FormList/FormList';
+import FormContext from '../contexts/FormContext';
+import { Box } from '@material-ui/core';
 
 const FormListScreen: React.FC<any> = () => {
   const [loading, setLoading] = useState(true);
@@ -17,9 +18,9 @@ const FormListScreen: React.FC<any> = () => {
     return <h1>Loading</h1>;
   }
   return (
-    <div>
+    <Box>
       <FormList forms={forms} count={forms.length} deleteForm={deleteForm} />
-    </div>
+    </Box>
   );
 };
 

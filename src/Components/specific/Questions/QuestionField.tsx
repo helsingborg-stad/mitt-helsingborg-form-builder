@@ -1,10 +1,10 @@
 import React from 'react';
-import FieldDescriptor from '../../types/FieldDescriptor';
-import MultipleInputField from '../../GeneralComponents/MultipleInputField';
+import FieldDescriptor from '../../../types/FieldDescriptor';
+import MultipleInputField from '../../general/MultipleInputField';
 import EditableListInputField from './EditableListInputField';
 import SubstepListCategoryField from './SubstepList/SubstepListCategoryField';
 import SubstepListItemField from './SubstepList/SubstepListItemField';
-import { InputFieldPropType } from '../../types/PropTypes';
+import { InputFieldPropType } from '../../../types/PropTypes';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },

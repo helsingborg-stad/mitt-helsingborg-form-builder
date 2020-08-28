@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Formik, Field, Form } from 'formik';
-import { Button, FormControlLabel, FormGroup, Switch } from '@material-ui/core';
-import { Step, Form as FormType } from '../types/FormTypes';
+import { Button, Paper, FormControlLabel, FormGroup, Switch, Typography } from '@material-ui/core';
+import { Step, Form as FormType } from '../../types/FormTypes';
 import StepField from './Steps/StepField';
-import FieldArrayWrapper from '../GeneralComponents/FieldArrayWrapper';
+import FieldArrayWrapper from '../general/FieldArrayWrapper';
 import FormDataField from './FormDataField';
 
 export interface FormBuilderProps {
@@ -20,7 +20,7 @@ const FormBuilder: React.FC<FormBuilderProps> = (props: FormBuilderProps) => {
   const { id, onSubmit } = props;
   const [showJSON, setShowJSON] = useState(false);
   return (
-    <div>
+    <Paper style={{ padding: '20px', marginTop: '5px' }}>
       <Formik
         initialValues={{
           name: props.name,
@@ -35,9 +35,9 @@ const FormBuilder: React.FC<FormBuilderProps> = (props: FormBuilderProps) => {
       >
         {({ values }) => (
           <Form>
-            <h1>{values.name !== '' ? values.name : 'Unnamed form'}</h1>
+            <Typography variant="h3">{values.name !== '' ? values.name : 'Unnamed form'}</Typography>
             {id ? <pre>Form id: {id}</pre> : null}
-            <h2>Form data</h2>
+            <h3>Form data</h3>
             <Field type="input" as={FormDataField} />
 
             <div style={{ border: '1px solid gray', padding: '10px' }}>
@@ -77,7 +77,7 @@ const FormBuilder: React.FC<FormBuilderProps> = (props: FormBuilderProps) => {
           </Form>
         )}
       </Formik>
-    </div>
+    </Paper>
   );
 };
 

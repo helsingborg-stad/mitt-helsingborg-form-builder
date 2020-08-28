@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CSS from 'csstype';
-import ApiKeyScreen, { KeyStatus } from './Screens/ApiKeyScreen';
-import FormBuilderScreen from './Screens/FormBuilderScreen';
-import FormListScreen from './Screens/FormListScreen';
-import { FormProvider } from './Contexts/FormContext';
+import ApiKeyScreen, { KeyStatus } from './screens/ApiKeyScreen';
+import { FormProvider } from './contexts/FormContext';
 import { getAllForms } from './helpers/ApiRequest';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import RootNavigator from './navigator/rootNavigator';
 
 const container: CSS.Properties = {
-  marginTop: '20px',
-  marginBottom: '30px',
+  paddingTop: '40px',
+  paddingBottom: '30px',
   marginLeft: 'auto',
   marginRight: 'auto',
   padding: '20px',
@@ -19,6 +18,16 @@ const container: CSS.Properties = {
 const App: React.FC = () => {
   const [keyStatus, setKeyStatus] = useState(KeyStatus.Loading);
   const [apikey, setApikey] = useState('');
+
+  const theme = React.useMemo(
+    () =>
+      createMuiTheme({
+        palette: {
+          type: 'dark',
+        },
+      }),
+    [],
+  );
 
   const checkApiKey = async (apiKey: string) => {
     const resp = await getAllForms(apiKey);
@@ -59,47 +68,27 @@ const App: React.FC = () => {
   const componentSwitcher = () => {
     switch (keyStatus) {
       case KeyStatus.Loading:
-        return (
-          <div style={container}>
-            <pre>api url: {process.env.REACT_APP_MITTHELSINGBORG_IO} </pre>
-            <h1>Loading...</h1>
-          </div>
-        );
+        return <h3>Loading...</h3>;
 
       case KeyStatus.NotProvided:
       case KeyStatus.Invalid:
-        return (
-          <div style={container}>
-            <pre>api url: {process.env.REACT_APP_MITTHELSINGBORG_IO} </pre>
-            <ApiKeyScreen setApikey={setApikey} keyStatus={keyStatus} />
-          </div>
-        );
+        return <ApiKeyScreen keyStatus={keyStatus} setApikey={setApikey} />;
 
       case KeyStatus.Valid:
-        return (
-          <FormProvider>
-            <div style={container}>
-              <pre>api url: {process.env.REACT_APP_MITTHELSINGBORG_IO} </pre>
-              <Router>
-                <Switch>
-                  <Route exact path="/edit">
-                    <FormBuilderScreen />
-                  </Route>
-                  <Route path="/edit/:id">
-                    <FormBuilderScreen />
-                  </Route>
-                  <Route path="/">
-                    <FormListScreen />
-                  </Route>
-                </Switch>
-              </Router>
-            </div>
-          </FormProvider>
-        );
+        return <RootNavigator />;
     }
   };
 
-  return componentSwitcher();
+  return (
+    <ThemeProvider theme={theme}>
+      <FormProvider>
+        <div style={container}>
+          <pre>api url: {process.env.REACT_APP_MITTHELSINGBORG_IO} </pre>
+          {componentSwitcher()}
+        </div>
+      </FormProvider>
+    </ThemeProvider>
+  );
 };
 
 export default App;

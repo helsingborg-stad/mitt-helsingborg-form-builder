@@ -1,9 +1,10 @@
 import React from 'react';
 import CSS from 'csstype';
-import { Form } from '../types/FormTypes';
+import { Form } from '../../../types/FormTypes';
 import { Button, Modal } from '@material-ui/core';
 
 const modalStyle: CSS.Properties = {
+  color: 'black',
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -11,7 +12,7 @@ const modalStyle: CSS.Properties = {
   width: '400px',
   height: 'auto',
   backgroundColor: 'white',
-  border: '2px solid #000',
+  // border: '2px solid #666',
   padding: '20px',
 };
 
@@ -28,7 +29,7 @@ const DeleteModal: React.FC<ModalProps> = (props) => {
   const modalBody = (
     <div style={modalStyle}>
       <h2 id="modal-title">Are you sure you want to delete the form &apos;{form.name}&apos;?</h2>
-      <p id="simple-modal-description">This action cannot be undone, so be careful.</p>
+      <p id="simple-modal-description">This action cannot be undone, be careful.</p>
       <Button style={{ margin: '5px' }} variant="contained" color="primary" onClick={onClose}>
         Close
       </Button>

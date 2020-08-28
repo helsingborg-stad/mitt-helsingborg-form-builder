@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import FormBuilder from '../SpecificComponents/FormBuilder';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import FormBuilder from '../components/specific/FormBuilder';
 import { Question, Form } from '../types/FormTypes';
 import { useParams, Link, Redirect } from 'react-router-dom';
-import FormContext from '../Contexts/FormContext';
+import FormContext from '../contexts/FormContext';
 
 const emptyQuestions: Question[] = [];
 const emptyBanner = {
@@ -26,13 +28,29 @@ const emptyForm = {
   ],
 };
 
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const FormBuilderScreen: React.FC<any> = () => {
   const [loading, setLoading] = useState(true);
+  const [showSnackbar, setShowSnackbar] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [redirectComp, setRedirectComp] = useState(<> </>);
   const { id } = useParams();
 
   const { updateForm, createForm, getForm } = useContext(FormContext);
+
+  const showMessage = () => {
+    setShowSnackbar(true);
+  };
+  const hideMessage = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setShowSnackbar(false);
+  };
 
   const loadForm = (id: string): void => {
     if (loading) {
@@ -64,6 +82,7 @@ const FormBuilderScreen: React.FC<any> = () => {
     } else {
       create(form);
     }
+    showMessage(); //To do: error handling!
   };
 
   useEffect(() => {
@@ -81,9 +100,17 @@ const FormBuilderScreen: React.FC<any> = () => {
 
   return (
     <div>
-      <Link to="/">Back to list</Link>
+      <Link style={{ color: 'white' }} to="/">
+        Back to list
+      </Link>
       <FormBuilder onSubmit={onSubmit} {...form} />
       {redirectComp}
+
+      <Snackbar open={showSnackbar} autoHideDuration={6000} onClose={hideMessage}>
+        <Alert onClose={hideMessage} severity="success">
+          The form was successfully submitted!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
