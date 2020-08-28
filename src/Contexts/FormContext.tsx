@@ -7,7 +7,7 @@ const emptyFormList: Form[] = [];
 interface FormContextType {
   forms: Form[];
   getForm: (id: string) => Promise<any>;
-  fetchForms: () => void;
+  fetchForms: (apikey: string & undefined) => void;
   createForm: (form: Form) => Promise<any>;
   deleteForm: (id: string) => void;
   updateForm: (id: string, form: Form) => void;
@@ -34,23 +34,24 @@ const defaultVal: FormContextType = {
 
 interface Props {
   children: React.ReactNode;
+  apikey: string;
 }
 
 const FormContext = React.createContext<FormContextType>(defaultVal);
 
-export const FormProvider = ({ children }: Props) => {
+export const FormProvider: React.FC<Props> = ({ children, apikey }: Props) => {
   const [forms, setForms] = useState(emptyFormList);
 
   useEffect(() => {
-    fetchForms();
-  }, []);
+    fetchForms(apikey);
+  }, [apikey]);
 
   const getForm = (id: string) => {
     return Api.getForm(id);
   };
 
-  const fetchForms = () => {
-    Api.getAllForms().then((res) => {
+  const fetchForms = (apikey?: string) => {
+    Api.getAllForms(apikey).then((res) => {
       if (res?.data?.forms) {
         setForms(res.data.forms);
       }

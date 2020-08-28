@@ -1,27 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import FormList from '../components/specific/FormList/FormList';
 import FormContext from '../contexts/FormContext';
-import { Box } from '@material-ui/core';
 
 const FormListScreen: React.FC<any> = () => {
-  const [loading, setLoading] = useState(true);
-
   const { forms, deleteForm } = useContext(FormContext);
 
-  useEffect(() => {
-    if (forms.length !== 0) {
-      setLoading(false);
-    }
-  }, [forms.length]);
-
-  if (loading) {
+  if (forms.length === 0) {
     return <h1>Loading</h1>;
   }
-  return (
-    <Box>
-      <FormList forms={forms} count={forms.length} deleteForm={deleteForm} />
-    </Box>
-  );
+  return <FormList forms={forms} count={forms.length} deleteForm={deleteForm} />;
 };
 
 export default FormListScreen;

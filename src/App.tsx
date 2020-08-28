@@ -81,7 +81,7 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <FormProvider>
+      <FormProvider apikey={apikey}>
         <div style={container}>
           <pre>api url: {process.env.REACT_APP_MITTHELSINGBORG_IO} </pre>
           {componentSwitcher()}
