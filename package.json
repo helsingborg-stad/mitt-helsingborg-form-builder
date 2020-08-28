@@ -20,6 +20,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "source-map-explorer": "^2.5.0",
     "yup": "^0.29.1"
   },
   "scripts": {
@@ -28,7 +29,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .ts --ext .tsx",
-    "lint-and-fix": "eslint . --ext .ts --ext .tsx --fix"
+    "lint-and-fix": "eslint . --ext .ts --ext .tsx --fix",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": "react-app"

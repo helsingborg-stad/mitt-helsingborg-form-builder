@@ -3,28 +3,31 @@ import * as Api from '../helpers/ApiRequest';
 import { Form } from '../types/FormTypes';
 
 const emptyFormList: Form[] = [];
+const emptyForm: Form = { name: '', description: '', id: '' };
 
 interface FormContextType {
   forms: Form[];
-  getForm: (id: string) => Promise<any>;
+  getForm: (id: string) => Promise<{ data: Form }>;
   fetchForms: (apikey: string & undefined) => void;
-  createForm: (form: Form) => Promise<any>;
+  createForm: (form: Form) => Promise<{ data: { Item: Form } }>;
   deleteForm: (id: string) => void;
   updateForm: (id: string, form: Form) => void;
 }
 
 const defaultVal: FormContextType = {
   forms: emptyFormList,
-  getForm: (id) => {
-    return new Promise((f) => null);
+  getForm: () => {
+    return new Promise(() => {
+      return { data: emptyForm };
+    });
   },
-  createForm: (form) => {
-    return new Promise((f) => null);
+  createForm: () => {
+    return new Promise(() => emptyForm);
   },
-  deleteForm: (id) => {
+  deleteForm: () => {
     console.log('Delete is not implemented.');
   },
-  updateForm: (id, form) => {
+  updateForm: () => {
     console.log('Update is not implemented.');
   },
   fetchForms: () => {

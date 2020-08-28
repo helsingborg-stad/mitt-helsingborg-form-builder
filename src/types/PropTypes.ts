@@ -5,8 +5,8 @@ export interface InputFieldPropType {
   name: string;
   value: Record<string, any>;
   type: string;
-  onBlur: (e?: ChangeEvent<any>) => void;
-  onChange: (e?: ChangeEvent<any>) => void;
+  onBlur: (e?: ChangeEvent<Element | { name?: string | undefined; value: unknown }>) => void;
+  onChange: (e?: ChangeEvent<Element | { name?: string | undefined; value: unknown }>) => void;
 }
 
 export interface MultipleInputFieldPropType {
@@ -14,6 +14,6 @@ export interface MultipleInputFieldPropType {
   value: Record<string, any>;
   type: string;
   fields: FieldDescriptor[];
-  onBlur: (e?: ChangeEvent<any>) => void;
-  onChange: (e?: ChangeEvent<any>) => void;
+  onBlur: (e?: ChangeEvent | ChangeEvent<{ name?: string | undefined; value: unknown }>) => void;
+  onChange: (e?: ChangeEvent | ChangeEvent<{ name?: string | undefined; value: unknown }>) => void;
 }

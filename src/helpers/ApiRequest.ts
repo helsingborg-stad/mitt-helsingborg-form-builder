@@ -46,8 +46,11 @@ const request = async (
 };
 
 const getAllForms = (apikey?: string): Promise<any> => request('', 'get', undefined, apikey ? { apikey } : undefined);
-const getForm = (formId: string): Promise<any> => request(formId, 'get', undefined, undefined);
-const createForm = (form: Form): Promise<any> => request('', 'post', form, undefined);
+const getForm = (formId: string): Promise<{ data: Form }> => request(formId, 'get', undefined, undefined);
+const createForm = (form: Form): Promise<any> => {
+  const f = objectWithoutProperties(form, ['id']);
+  return request('', 'post', f, undefined);
+};
 const updateForm = (formId: string, form: Form): Promise<any> => request(formId, 'put', form, undefined);
 const deleteForm = (formId: string): Promise<any> => request(formId, 'delete', undefined, undefined);
 

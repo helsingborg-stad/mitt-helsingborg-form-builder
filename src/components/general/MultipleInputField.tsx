@@ -68,17 +68,20 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
           </FormGroup>
         );
       case 'array':
-        return (
-          <FieldArrayWrapper
-            heading={field.label}
-            parentName={name}
-            name={field.name}
-            value={value}
-            inputField={field.inputField ? field.inputField : null}
-            emptyObject={{}}
-            color="green"
-          />
-        );
+        if (field.inputField) {
+          return (
+            <FieldArrayWrapper
+              heading={field.label}
+              parentName={name}
+              name={field.name}
+              value={value}
+              inputField={field.inputField}
+              emptyObject={{}}
+              color="green"
+            />
+          );
+        }
+        break;
       case 'formSelect':
         return (
           <FormGroup style={inputFieldStyle} row>

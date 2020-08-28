@@ -3,6 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Field, ArrayHelpers } from 'formik';
 import { Button, Paper } from '@material-ui/core';
 import StepField from '../specific/Steps/StepField';
+import { InputFieldPropType } from '../../types/PropTypes';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,9 +34,9 @@ interface Props {
   name: string;
   currentIndex: number;
   color: string;
-  inputField: React.FC;
+  inputField: React.FC<InputFieldPropType>;
   arrayHelpers: ArrayHelpers;
-  itemValues?: Record<string, any>;
+  itemValues?: Record<string, string | boolean | number>;
 }
 
 const SubContainer: React.FC<Props> = ({ itemValues, name, currentIndex, inputField, arrayHelpers, color }: Props) => {

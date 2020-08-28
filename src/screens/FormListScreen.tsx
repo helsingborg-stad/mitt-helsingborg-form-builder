@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import FormList from '../components/specific/FormList/FormList';
 import FormContext from '../contexts/FormContext';
 
-const FormListScreen: React.FC<any> = () => {
+const FormListScreen: React.FC = () => {
   const { forms, deleteForm } = useContext(FormContext);
 
   if (forms.length === 0) {

@@ -1,9 +1,12 @@
+import React from 'react';
+import { InputFieldPropType } from './PropTypes';
+
 export default interface FieldDescriptor {
   name: string;
   type: string;
-  initialValue: any;
+  initialValue: string | boolean;
   placeholder?: string;
   label: string;
   choices?: Record<string, string>[];
-  inputField?: any;
+  inputField?: React.FC<InputFieldPropType>;
 }

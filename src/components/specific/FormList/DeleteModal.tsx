@@ -12,7 +12,6 @@ const modalStyle: CSS.Properties = {
   width: '400px',
   height: 'auto',
   backgroundColor: 'white',
-  // border: '2px solid #666',
   padding: '20px',
 };
 

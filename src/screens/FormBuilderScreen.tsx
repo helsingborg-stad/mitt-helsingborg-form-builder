@@ -2,40 +2,24 @@ import React, { useState, useEffect, useContext } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import FormBuilder from '../components/specific/FormBuilder';
-import { Question, Form } from '../types/FormTypes';
+import { Form } from '../types/FormTypes';
 import { useParams, Link, Redirect } from 'react-router-dom';
 import FormContext from '../contexts/FormContext';
 
-const emptyQuestions: Question[] = [];
-const emptyBanner = {
-  imageSrc: '',
-  iconSrc: '',
-  backgroundColor: '',
-};
 const emptyForm = {
   name: '',
   description: '',
-  subform: false,
-  steps: [
-    {
-      title: '',
-      description: '',
-      group: '',
-      banner: emptyBanner,
-      questions: emptyQuestions,
-      id: '' + Math.random(),
-    },
-  ],
+  id: '',
 };
 
 function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const FormBuilderScreen: React.FC<any> = () => {
+const FormBuilderScreen: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [showSnackbar, setShowSnackbar] = useState(false);
-  const [form, setForm] = useState(emptyForm);
+  const [form, setForm] = useState<Form>(emptyForm);
   const [redirectComp, setRedirectComp] = useState(<> </>);
   const { id } = useParams();
 
@@ -54,7 +38,7 @@ const FormBuilderScreen: React.FC<any> = () => {
 
   const loadForm = (id: string): void => {
     if (loading) {
-      getForm(id).then((res: Record<string, any>) => {
+      getForm(id).then((res: { data: Form }) => {
         setForm(res.data);
         setLoading(false);
       });
@@ -62,7 +46,7 @@ const FormBuilderScreen: React.FC<any> = () => {
   };
 
   const create = (form: Form) => {
-    createForm(form).then((res: Record<string, any>) => {
+    createForm(form).then((res: { data: { Item: Form } }) => {
       console.log('create response', res);
       const formId = res.data.Item.id;
       console.log('new id:', formId);

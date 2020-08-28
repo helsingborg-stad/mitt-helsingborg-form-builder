@@ -28,6 +28,7 @@ const emptyForm: Form = {
   description: '',
   steps: [],
   subform: false,
+  id: '',
 };
 interface Props {
   forms: Form[];

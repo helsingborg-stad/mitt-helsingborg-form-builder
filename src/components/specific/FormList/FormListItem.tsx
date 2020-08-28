@@ -14,6 +14,11 @@ const FormListItem: React.FC<Props> = (props) => {
   const { form, index, onDelete } = props;
   const history = useHistory();
 
+  const onDeleteClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+    onDelete();
+  };
+
   return (
     <ListItem
       button
@@ -29,7 +34,7 @@ const FormListItem: React.FC<Props> = (props) => {
       </ListItemAvatar>
       <ListItemText primary={form.name && form.name !== '' ? `${index + 1}. ${form.name}` : 'Unnamed form'} />
       <div style={{ position: 'absolute', right: '5px', top: '-3px', textAlign: 'right' }}>
-        <IconButton onClick={onDelete}>
+        <IconButton onClick={onDeleteClick}>
           <Avatar>
             <DeleteIcon />
           </Avatar>

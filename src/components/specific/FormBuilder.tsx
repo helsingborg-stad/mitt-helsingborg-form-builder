@@ -10,7 +10,7 @@ export interface FormBuilderProps {
   name: string;
   description: string;
   provider?: string;
-  steps: Step[];
+  steps?: Step[];
   id?: string;
   onSubmit: (form: FormType) => void;
   subform?: boolean;
@@ -28,8 +28,9 @@ const FormBuilder: React.FC<FormBuilderProps> = (props: FormBuilderProps) => {
           provider: props.provider ? props.provider : '',
           steps: props.steps,
           subform: props.subform,
+          id: id ? id : '',
         }}
-        onSubmit={(form) => {
+        onSubmit={(form: FormType) => {
           onSubmit(form);
         }}
       >

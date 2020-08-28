@@ -22,6 +22,6 @@ export interface Form {
   name: string;
   description: string;
   steps?: Step[];
-  id?: string;
+  id: string;
   subform?: boolean;
 }
