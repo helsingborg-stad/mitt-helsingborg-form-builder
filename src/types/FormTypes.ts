@@ -2,6 +2,10 @@ export interface Question {
   label: string;
   type: string;
   id: string;
+  description?: string;
+  conditionalOn?: string;
+  placeholder?: string;
+  explainer?: string;
 }
 
 export interface Action {
