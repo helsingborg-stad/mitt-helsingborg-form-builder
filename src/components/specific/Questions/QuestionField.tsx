@@ -11,6 +11,7 @@ const questionFields: FieldDescriptor[] = [
   { name: 'description', type: 'text', initialValue: '', label: 'Description' },
   { name: 'id', type: 'text', initialValue: '', label: 'Id' },
   { name: 'conditionalOn', type: 'text', initialValue: '', label: 'Conditional on (field id)' },
+  { name: 'explainer', type: 'text', initialValue: '', label: 'Explainer' },
   {
     name: 'type',
     type: 'select',
