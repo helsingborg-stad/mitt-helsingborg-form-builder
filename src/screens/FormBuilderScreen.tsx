@@ -10,6 +10,7 @@ const emptyForm = {
   name: '',
   description: '',
   id: '',
+  steps: [],
 };
 
 function Alert(props: AlertProps) {
