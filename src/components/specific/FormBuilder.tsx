@@ -7,29 +7,17 @@ import FieldArrayWrapper from '../general/FieldArrayWrapper';
 import FormDataField from './FormDataField';
 
 export interface FormBuilderProps {
-  name: string;
-  description: string;
-  provider?: string;
-  steps?: Step[];
-  id?: string;
+  form: FormType;
   onSubmit: (form: FormType) => void;
-  subform?: boolean;
 }
 
-const FormBuilder: React.FC<FormBuilderProps> = (props: FormBuilderProps) => {
-  const { id, onSubmit } = props;
+const FormBuilder: React.FC<FormBuilderProps> = ({onSubmit, form}: FormBuilderProps) => {
+  const { id } = form;
   const [showJSON, setShowJSON] = useState(false);
   return (
     <Paper style={{ padding: '20px', marginTop: '5px' }}>
       <Formik
-        initialValues={{
-          name: props.name,
-          description: props.description,
-          provider: props.provider ? props.provider : '',
-          steps: props.steps,
-          subform: props.subform,
-          id: id ? id : '',
-        }}
+        initialValues={ { ...form} }
         onSubmit={(form: FormType) => {
           onSubmit(form);
         }}

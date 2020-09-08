@@ -87,7 +87,7 @@ const FormBuilderScreen: React.FC = () => {
       <Link style={{ color: 'white' }} to="/">
         Back to list
       </Link>
-      <FormBuilder onSubmit={onSubmit} {...form} />
+      <FormBuilder onSubmit={onSubmit} form={form} />
       {redirectComp}
 
       <Snackbar open={showSnackbar} autoHideDuration={6000} onClose={hideMessage}>
