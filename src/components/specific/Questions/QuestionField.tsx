@@ -8,10 +8,10 @@ import { InputFieldPropType } from '../../../types/PropTypes';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
+  { name: 'labelHelp', type: 'text', initialValue: '', label: 'Helper' },
   { name: 'description', type: 'text', initialValue: '', label: 'Description' },
   { name: 'id', type: 'text', initialValue: '', label: 'Id' },
   { name: 'conditionalOn', type: 'text', initialValue: '', label: 'Conditional on (field id)' },
-  { name: 'explainer', type: 'text', initialValue: '', label: 'Explainer' },
   {
     name: 'type',
     type: 'select',
@@ -39,6 +39,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
   checkbox: [
     { name: 'text', type: 'text', initialValue: '', label: 'Text' },
     { name: 'color', type: 'text', initialValue: 'light', label: 'Color' },
+    { name: 'inputHelp', type: 'text', initialValue: '', label: 'Value helper' },
   ],
   button: [{ name: 'text', type: 'text', initialValue: '', label: 'Button Text' }],
   substepList: [
