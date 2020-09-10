@@ -5,6 +5,7 @@ import FieldDescriptor from '../../types/FieldDescriptor';
 import FieldArrayWrapper from './FieldArrayWrapper';
 import FormContext from '../../contexts/FormContext';
 import { MultipleInputFieldPropType } from '../../types/PropTypes';
+import LoadPreviousToggle from './LoadPreviousToggle';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -17,6 +18,7 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
   name,
   value,
   fields,
+  setFieldValue,
   ...other
 }) => {
   const { forms } = useContext(FormContext);
@@ -41,7 +43,7 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
         return (
           <FormGroup style={inputFieldStyle} row>
             <div style={{ paddingTop: '5px', marginRight: '10px' }}>{field.label} </div>
-            <Select name={computedName} onChange={onChange} onBlur={onBlur} value={value[field.name]} {...other}>
+            <Select name={computedName} onChange={onChange} onBlur={onBlur} value={value[field.name] || field.initialValue} {...other}>
               {field.choices
                 ? field.choices.map((choice) => (
                     <MenuItem key={choice.name} value={choice.value}>
@@ -51,6 +53,14 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
                 : null}
             </Select>
           </FormGroup>
+        );
+      case 'loadPreviousToggle':
+        return (
+          <LoadPreviousToggle 
+            name={computedName} 
+            label={field.label} 
+            value={value || field.initialValue}
+            setFieldValue={setFieldValue} />
         );
       case 'checkbox':
         return (
@@ -78,6 +88,7 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
               inputField={field.inputField}
               emptyObject={{}}
               color="green"
+              setFieldValue={setFieldValue}
             />
           );
         }

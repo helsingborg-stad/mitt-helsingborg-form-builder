@@ -7,6 +7,7 @@ const fields: FieldDescriptor[] = [
   { name: 'title', type: 'text', initialValue: '', label: 'Title' },
   { name: 'category', type: 'text', initialValue: '', label: 'Category' },
   { name: 'formId', type: 'formSelect', initialValue: '', label: 'Subform' },
+  { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue:'', label:'Load data from previous case?'},
 ];
 
 const SubstepListItemField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
