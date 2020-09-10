@@ -16,6 +16,7 @@ const formTypeInput: FieldDescriptor = {
   initialValue: '', 
   label:'Form Type (only for main forms)', 
   choices: [
+    { name: 'None', value: ''},
     { name: 'EKB löpande', value: 'EKB-recurring'},
     { name: 'EKB grund', value: 'EKB-new'},
   ]};

@@ -7,7 +7,7 @@ import StepDataField from './StepDataField';
 import BannerField from './BannerField';
 import { InputFieldPropType } from '../../../types/PropTypes';
 
-const StepField: React.FC<InputFieldPropType> = ({ name, value }: InputFieldPropType) => {
+const StepField: React.FC<InputFieldPropType> = ({ name, value, ...other }: InputFieldPropType) => {
   return (
     <div>
       <h2>{value.title && value.title !== '' ? value.title : 'Unnamed step'}</h2>
@@ -27,6 +27,7 @@ const StepField: React.FC<InputFieldPropType> = ({ name, value }: InputFieldProp
           type: '',
           id: '',
         }}
+        {...other}
       />
 
       <FieldArrayWrapper
@@ -37,6 +38,7 @@ const StepField: React.FC<InputFieldPropType> = ({ name, value }: InputFieldProp
         inputField={ActionField}
         emptyObject={{ label: '', type: '' }}
         color="green"
+        {...other}
       />
     </div>
   );

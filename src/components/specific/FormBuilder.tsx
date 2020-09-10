@@ -22,7 +22,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({onSubmit, form}: FormBuilderPr
           onSubmit(form);
         }}
       >
-        {({ values }) => (
+        {({ values, setFieldValue }) => (
           <Form>
             <Typography variant="h3">{values.name !== '' ? values.name : 'Unnamed form'}</Typography>
             {id ? <pre>Form id: {id}</pre> : null}
@@ -37,6 +37,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({onSubmit, form}: FormBuilderPr
                 color="blue"
                 value={values}
                 inputField={StepField}
+                setFieldValue={setFieldValue}
                 emptyObject={{
                   title: '',
                   description: '',

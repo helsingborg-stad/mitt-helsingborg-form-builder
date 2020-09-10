@@ -5,6 +5,7 @@ import EditableListInputField from './EditableListInputField';
 import SubstepListCategoryField from './SubstepList/SubstepListCategoryField';
 import SubstepListItemField from './SubstepList/SubstepListItemField';
 import { InputFieldPropType } from '../../../types/PropTypes';
+import LoadPreviousToggle from '../../general/LoadPreviousToggle';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
@@ -29,8 +30,14 @@ const questionFields: FieldDescriptor[] = [
 ];
 
 const extraInputs: Record<string, FieldDescriptor[]> = {
-  text: [{ name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' }],
-  number: [{ name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' }],
+  text: [ 
+    { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' }, 
+    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue:'', label:'Load data from previous case?'}
+  ],
+  number: [
+    { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' }, 
+    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue:'', label:'Load data from previous case?'}
+  ],
   editableList: [
     { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
     { name: 'title', type: 'text', initialValue: '', label: 'Title' },
@@ -39,6 +46,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
   checkbox: [
     { name: 'text', type: 'text', initialValue: '', label: 'Text' },
     { name: 'color', type: 'text', initialValue: 'light', label: 'Color' },
+    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue:'', label:'Load data from previous case?'},
   ],
   button: [{ name: 'text', type: 'text', initialValue: '', label: 'Button Text' }],
   substepList: [
