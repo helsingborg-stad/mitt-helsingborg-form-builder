@@ -37,11 +37,6 @@ const request = async (
       console.log(res);
       return res.data;
     })
-    .catch((error) => {
-      console.log('API request error', error);
-      return error;
-    });
-
   return req;
 };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { Button, Paper, FormControlLabel, FormGroup, Switch, Typography } from '@material-ui/core';
-import { Step, Form as FormType } from '../../types/FormTypes';
+import { Form as FormType } from '../../types/FormTypes';
 import StepField from './Steps/StepField';
 import FieldArrayWrapper from '../general/FieldArrayWrapper';
 import FormDataField from './FormDataField';
