@@ -55,7 +55,7 @@ const LoadPreviousToggle: React.FC<Props> = ({name, label, value, setFieldValue}
     const onToggle = () => {
       if (usingPreviousForm){
         if (setFieldValue) {
-          const [_, ...rest] = value.loadPrevious;
+          const [, ...rest] = value.loadPrevious;
           setFieldValue(name, rest);
         }
       } else {

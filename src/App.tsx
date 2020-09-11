@@ -5,6 +5,7 @@ import { FormProvider } from './contexts/FormContext';
 import { getAllForms } from './helpers/ApiRequest';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import RootNavigator from './navigator/rootNavigator';
+import { NotificationProvider } from './contexts/NotificationsContext';
 
 const container: CSS.Properties = {
   paddingTop: '40px',
@@ -81,12 +82,14 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <FormProvider apikey={apikey}>
-        <div style={container}>
-          <pre>api url: {process.env.REACT_APP_MITTHELSINGBORG_IO} </pre>
-          {componentSwitcher()}
-        </div>
-      </FormProvider>
+      <NotificationProvider>
+        <FormProvider apikey={apikey}>
+          <div style={container}>
+            <pre>api url: {process.env.REACT_APP_MITTHELSINGBORG_IO} </pre>
+            {componentSwitcher()}
+          </div>
+        </FormProvider>
+      </NotificationProvider>
     </ThemeProvider>
   );
 };

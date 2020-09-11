@@ -16,6 +16,7 @@ const StepField: React.FC<InputFieldPropType> = ({ name, value, ...other }: Inpu
       <Field name={`${name}.banner`} type="input" as={BannerField} />
 
       <FieldArrayWrapper
+        key="questions"
         heading="Questions"
         parentName={name}
         name="questions"
@@ -31,6 +32,7 @@ const StepField: React.FC<InputFieldPropType> = ({ name, value, ...other }: Inpu
       />
 
       <FieldArrayWrapper
+        key="actions"
         heading="Actions"
         parentName={name}
         name="actions"

@@ -5,7 +5,6 @@ import EditableListInputField from './EditableListInputField';
 import SubstepListCategoryField from './SubstepList/SubstepListCategoryField';
 import SubstepListItemField from './SubstepList/SubstepListItemField';
 import { InputFieldPropType } from '../../../types/PropTypes';
-import LoadPreviousToggle from '../../general/LoadPreviousToggle';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
