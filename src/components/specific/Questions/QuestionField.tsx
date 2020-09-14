@@ -23,6 +23,7 @@ const questionFields: FieldDescriptor[] = [
       { name: 'Checkbox', value: 'checkbox' },
       { name: 'Button', value: 'button' },
       { name: 'Substep List', value: 'substepList' },
+      { name: 'Avatar List (family members)', value: 'avatarList' },
     ],
   },
 ];
@@ -45,6 +46,10 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
     { name: 'color', type: 'text', initialValue: 'light', label: 'Color theme' },
     { name: 'categories', type: 'array', initialValue: '', label: 'Categories', inputField: SubstepListCategoryField },
     { name: 'items', type: 'array', initialValue: '', label: 'Items', inputField: SubstepListItemField },
+  ],
+  avatarList: [
+    { name: 'heading', type: 'text', initialValue: '', label: 'Title' },
+    { name: 'formId', type: 'formSelect', initialValue: '', label: 'Subform' },
   ],
 };
 
