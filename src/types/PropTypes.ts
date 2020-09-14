@@ -7,6 +7,7 @@ export interface InputFieldPropType {
   type: string;
   onBlur: (e?: ChangeEvent<Element | { name?: string | undefined; value: unknown }>) => void;
   onChange: (e?: ChangeEvent<Element | { name?: string | undefined; value: unknown }>) => void;
+  setFieldValue?: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }
 
 export interface MultipleInputFieldPropType {
@@ -16,4 +17,5 @@ export interface MultipleInputFieldPropType {
   fields: FieldDescriptor[];
   onBlur: (e?: ChangeEvent | ChangeEvent<{ name?: string | undefined; value: unknown }>) => void;
   onChange: (e?: ChangeEvent | ChangeEvent<{ name?: string | undefined; value: unknown }>) => void;
+  setFieldValue?: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }

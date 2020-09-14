@@ -11,7 +11,7 @@ interface FormContextType {
   fetchForms: (apikey: string & undefined) => void;
   createForm: (form: Form) => Promise<{ data: { Item: Form } }>;
   deleteForm: (id: string) => void;
-  updateForm: (id: string, form: Form) => void;
+  updateForm: (id: string, form: Form) => Promise<{ data: { Item: Form } }>;
 }
 
 const defaultVal: FormContextType = {
@@ -28,7 +28,7 @@ const defaultVal: FormContextType = {
     console.log('Delete is not implemented.');
   },
   updateForm: () => {
-    console.log('Update is not implemented.');
+    return new Promise(() => emptyForm);
   },
   fetchForms: () => {
     console.log('Fetch is not implemented.');
@@ -73,8 +73,11 @@ export const FormProvider: React.FC<Props> = ({ children, apikey }: Props) => {
   };
 
   const updateForm = async (id: string, formData: Form) => {
-    await Api.updateForm(id, formData);
-    fetchForms();
+    return Api.updateForm(id, formData)
+      .then(res => {
+        fetchForms();
+        return res;
+      });
   };
 
   return (

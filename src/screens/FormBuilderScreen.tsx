@@ -1,40 +1,25 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import FormBuilder from '../components/specific/FormBuilder';
 import { Form } from '../types/FormTypes';
 import { useParams, Link, Redirect } from 'react-router-dom';
 import FormContext from '../contexts/FormContext';
+import NotificationContext from '../contexts/NotificationsContext'; 
 
 const emptyForm = {
   name: '',
   description: '',
   id: '',
+  steps: [],
 };
-
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 const FormBuilderScreen: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [showSnackbar, setShowSnackbar] = useState(false);
   const [form, setForm] = useState<Form>(emptyForm);
   const [redirectComp, setRedirectComp] = useState(<> </>);
   const { id } = useParams();
 
   const { updateForm, createForm, getForm } = useContext(FormContext);
-
-  const showMessage = () => {
-    setShowSnackbar(true);
-  };
-  const hideMessage = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setShowSnackbar(false);
-  };
+  const { showNotification } = useContext(NotificationContext);
 
   const loadForm = (id: string): void => {
     if (loading) {
@@ -51,12 +36,25 @@ const FormBuilderScreen: React.FC = () => {
       const formId = res.data.Item.id;
       console.log('new id:', formId);
       setRedirectComp(<Redirect to={`/edit/${formId}`} />);
-    });
+      showNotification('Form successfully created!', 'success');
+    }).catch( e =>{
+      showNotification(`Something went wrong: ${e.message}`, 'error');
+    })
+    ;
   };
 
   const update = (form: Form) => {
     if (id && id !== '') {
-      updateForm(id, form);
+      updateForm(id, form)
+        .then(res => {
+          showNotification('Form successfully updated!', 'success');
+        }).catch(e => {
+          if(e.message === 'Request failed with status code 400'){
+            showNotification(`Request failed with status code 400. This means that the validation failed, i.e. some required field was left empty, probably. `, 'error');
+          } else {
+            showNotification(`Something went wrong: ${e.message}`, 'error');
+          }
+        })
     }
   };
 
@@ -66,7 +64,6 @@ const FormBuilderScreen: React.FC = () => {
     } else {
       create(form);
     }
-    showMessage(); //To do: error handling!
   };
 
   useEffect(() => {
@@ -87,14 +84,8 @@ const FormBuilderScreen: React.FC = () => {
       <Link style={{ color: 'white' }} to="/">
         Back to list
       </Link>
-      <FormBuilder onSubmit={onSubmit} {...form} />
+      <FormBuilder onSubmit={onSubmit} form={form} />
       {redirectComp}
-
-      <Snackbar open={showSnackbar} autoHideDuration={6000} onClose={hideMessage}>
-        <Alert onClose={hideMessage} severity="success">
-          The form was successfully submitted!
-        </Alert>
-      </Snackbar>
     </div>
   );
 };

@@ -37,9 +37,10 @@ interface Props {
   inputField: React.FC<InputFieldPropType>;
   arrayHelpers: ArrayHelpers;
   itemValues?: Record<string, string | boolean | number>;
+  setFieldValue?: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }
 
-const SubContainer: React.FC<Props> = ({ itemValues, name, currentIndex, inputField, arrayHelpers, color }: Props) => {
+const SubContainer: React.FC<Props> = ({ itemValues, name, currentIndex, inputField, arrayHelpers, color, ...other }: Props) => {
   const [collapsed, setCollapsed] = useState(true);
   const classes = useStyles();
 
@@ -47,7 +48,7 @@ const SubContainer: React.FC<Props> = ({ itemValues, name, currentIndex, inputFi
   if (!collapsed) {
     return (
       <Paper elevation={3} style={{ borderColor: color ? color : 'red' }} className={classes.subcontainer} key={name}>
-        <Field name={name} type="input" as={inputField} {...vals} />
+        <Field name={name} type="input" as={inputField} {...vals} {...other} />
 
         <div style={{ display: 'block', textAlign: 'right' }}>
           {currentIndex > 0 ? (

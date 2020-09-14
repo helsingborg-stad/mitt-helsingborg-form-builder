@@ -13,6 +13,7 @@ const actionFields: FieldDescriptor[] = [
       { name: 'Start', value: 'start' },
       { name: 'Next', value: 'next' },
       { name: 'Submit', value: 'submit' },
+      { name: 'Sign', value: 'sign' },
       { name: 'Close', value: 'close' },
     ],
   },
