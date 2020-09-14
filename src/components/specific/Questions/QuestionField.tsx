@@ -57,6 +57,12 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
     { name: 'categories', type: 'array', initialValue: '', label: 'Categories', inputField: SubstepListCategoryField },
     { name: 'items', type: 'array', initialValue: '', label: 'Items', inputField: SubstepListItemField },
   ],
+  substepListSummary: [
+    { name: 'heading', type: 'text', initialValue: '', label: 'Heading' },
+    { name: 'color', type: 'text', initialValue: 'light', label: 'Color theme' },
+    { name: 'categories', type: 'array', initialValue: '', label: 'Categories', inputField: SubstepListCategoryField },
+    { name: 'items', type: 'array', initialValue: '', label: 'Items', inputField: SubstepListItemField },
+  ],
   avatarList: [
     { name: 'heading', type: 'text', initialValue: '', label: 'Title' },
     { name: 'formId', type: 'formSelect', initialValue: '', label: 'Subform' },
