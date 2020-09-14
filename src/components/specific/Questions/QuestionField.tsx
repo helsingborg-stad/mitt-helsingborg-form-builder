@@ -24,6 +24,7 @@ const questionFields: FieldDescriptor[] = [
       { name: 'Checkbox', value: 'checkbox' },
       { name: 'Button', value: 'button' },
       { name: 'Substep List', value: 'substepList' },
+      { name: 'Substep List Summary', value: 'substepListSummary' },
       { name: 'Avatar List (family members)', value: 'avatarList' },
     ],
   },
