@@ -32,11 +32,10 @@ const request = async (
     method,
     headers: newHeaders,
     data: data !== undefined ? data : undefined,
-  })
-    .then((res) => {
-      console.log(res);
-      return res.data;
-    })
+  }).then((res) => {
+    console.log(res);
+    return res.data;
+  });
   return req;
 };
 

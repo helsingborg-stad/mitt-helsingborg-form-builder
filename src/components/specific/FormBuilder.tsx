@@ -11,13 +11,13 @@ export interface FormBuilderProps {
   onSubmit: (form: FormType) => void;
 }
 
-const FormBuilder: React.FC<FormBuilderProps> = ({onSubmit, form}: FormBuilderProps) => {
+const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilderProps) => {
   const { id } = form;
   const [showJSON, setShowJSON] = useState(false);
   return (
     <Paper style={{ padding: '20px', marginTop: '5px' }}>
       <Formik
-        initialValues={ { ...form} }
+        initialValues={{ ...form }}
         onSubmit={(form: FormType) => {
           onSubmit(form);
         }}

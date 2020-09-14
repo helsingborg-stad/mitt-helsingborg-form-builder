@@ -6,7 +6,7 @@ export interface Question {
   conditionalOn?: string;
   placeholder?: string;
   explainer?: string;
-  loadPrevious?: string[];  
+  loadPrevious?: string[];
   items?: SubstepItem[];
   inputs?: ListInput[];
 }

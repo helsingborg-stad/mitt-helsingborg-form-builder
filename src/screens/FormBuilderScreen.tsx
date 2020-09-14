@@ -3,7 +3,7 @@ import FormBuilder from '../components/specific/FormBuilder';
 import { Form } from '../types/FormTypes';
 import { useParams, Link, Redirect } from 'react-router-dom';
 import FormContext from '../contexts/FormContext';
-import NotificationContext from '../contexts/NotificationsContext'; 
+import NotificationContext from '../contexts/NotificationsContext';
 
 const emptyForm = {
   name: '',
@@ -31,30 +31,35 @@ const FormBuilderScreen: React.FC = () => {
   };
 
   const create = (form: Form) => {
-    createForm(form).then((res: { data: { Item: Form } }) => {
-      console.log('create response', res);
-      const formId = res.data.Item.id;
-      console.log('new id:', formId);
-      setRedirectComp(<Redirect to={`/edit/${formId}`} />);
-      showNotification('Form successfully created!', 'success');
-    }).catch( e =>{
-      showNotification(`Something went wrong: ${e.message}`, 'error');
-    })
-    ;
+    createForm(form)
+      .then((res: { data: { Item: Form } }) => {
+        console.log('create response', res);
+        const formId = res.data.Item.id;
+        console.log('new id:', formId);
+        setRedirectComp(<Redirect to={`/edit/${formId}`} />);
+        showNotification('Form successfully created!', 'success');
+      })
+      .catch((e) => {
+        showNotification(`Something went wrong: ${e.message}`, 'error');
+      });
   };
 
   const update = (form: Form) => {
     if (id && id !== '') {
       updateForm(id, form)
-        .then(res => {
+        .then((res) => {
           showNotification('Form successfully updated!', 'success');
-        }).catch(e => {
-          if(e.message === 'Request failed with status code 400'){
-            showNotification(`Request failed with status code 400. This means that the validation failed, i.e. some required field was left empty, probably. `, 'error');
+        })
+        .catch((e) => {
+          if (e.message === 'Request failed with status code 400') {
+            showNotification(
+              `Request failed with status code 400. This means that the validation failed, i.e. some required field was left empty, probably. `,
+              'error',
+            );
           } else {
             showNotification(`Something went wrong: ${e.message}`, 'error');
           }
-        })
+        });
     }
   };
 

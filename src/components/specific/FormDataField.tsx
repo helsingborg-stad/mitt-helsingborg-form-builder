@@ -10,24 +10,24 @@ const formFields: FieldDescriptor[] = [
   { name: 'subform', type: 'checkbox', initialValue: true, label: 'Subform' },
 ];
 
-const formTypeInput: FieldDescriptor = { 
-  name: 'formType', 
-  type: 'select', 
-  initialValue: '', 
-  label:'Form Type (only for main forms)', 
+const formTypeInput: FieldDescriptor = {
+  name: 'formType',
+  type: 'select',
+  initialValue: '',
+  label: 'Form Type (only for main forms)',
   choices: [
-    { name: 'None', value: ''},
-    { name: 'EKB löpande', value: 'EKB-recurring'},
-    { name: 'EKB grund', value: 'EKB-new'},
-  ]};
-
+    { name: 'None', value: '' },
+    { name: 'EKB löpande', value: 'EKB-recurring' },
+    { name: 'EKB grund', value: 'EKB-new' },
+  ],
+};
 
 const FormDataField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   const { value } = props;
   return (
     <>
       <MultipleInputField fields={formFields} {...props} />
-      { !value.subform && <MultipleInputField fields={[formTypeInput]} {...props} /> }
+      {!value.subform && <MultipleInputField fields={[formTypeInput]} {...props} />}
     </>
   );
 };

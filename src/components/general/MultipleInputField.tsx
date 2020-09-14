@@ -43,7 +43,13 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
         return (
           <FormGroup style={inputFieldStyle} row>
             <div style={{ paddingTop: '5px', marginRight: '10px' }}>{field.label} </div>
-            <Select name={computedName} onChange={onChange} onBlur={onBlur} value={value[field.name] || field.initialValue} {...other}>
+            <Select
+              name={computedName}
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value[field.name] || field.initialValue}
+              {...other}
+            >
               {field.choices
                 ? field.choices.map((choice) => (
                     <MenuItem key={choice.name} value={choice.value}>
@@ -56,11 +62,12 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
         );
       case 'loadPreviousToggle':
         return (
-          <LoadPreviousToggle 
-            name={computedName} 
-            label={field.label} 
+          <LoadPreviousToggle
+            name={computedName}
+            label={field.label}
             value={value || field.initialValue}
-            setFieldValue={setFieldValue} />
+            setFieldValue={setFieldValue}
+          />
         );
       case 'checkbox':
         return (

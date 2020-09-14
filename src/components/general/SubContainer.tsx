@@ -40,7 +40,15 @@ interface Props {
   setFieldValue?: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }
 
-const SubContainer: React.FC<Props> = ({ itemValues, name, currentIndex, inputField, arrayHelpers, color, ...other }: Props) => {
+const SubContainer: React.FC<Props> = ({
+  itemValues,
+  name,
+  currentIndex,
+  inputField,
+  arrayHelpers,
+  color,
+  ...other
+}: Props) => {
   const [collapsed, setCollapsed] = useState(true);
   const classes = useStyles();
 

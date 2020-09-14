@@ -30,13 +30,13 @@ const questionFields: FieldDescriptor[] = [
 ];
 
 const extraInputs: Record<string, FieldDescriptor[]> = {
-  text: [ 
-    { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' }, 
-    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue:'', label:'Load data from previous case?'}
+  text: [
+    { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
+    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
   number: [
-    { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' }, 
-    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue:'', label:'Load data from previous case?'}
+    { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
+    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
   editableList: [
     { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
@@ -47,7 +47,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
     { name: 'text', type: 'text', initialValue: '', label: 'Text' },
     { name: 'color', type: 'text', initialValue: 'light', label: 'Color' },
     { name: 'inputHelp', type: 'text', initialValue: '', label: 'Value helper' },
-    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue:'', label:'Load data from previous case?'},
+    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
   button: [{ name: 'text', type: 'text', initialValue: '', label: 'Button Text' }],
   substepList: [

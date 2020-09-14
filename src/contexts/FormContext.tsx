@@ -73,11 +73,10 @@ export const FormProvider: React.FC<Props> = ({ children, apikey }: Props) => {
   };
 
   const updateForm = async (id: string, formData: Form) => {
-    return Api.updateForm(id, formData)
-      .then(res => {
-        fetchForms();
-        return res;
-      });
+    return Api.updateForm(id, formData).then((res) => {
+      fetchForms();
+      return res;
+    });
   };
 
   return (
