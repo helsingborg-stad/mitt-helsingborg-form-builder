@@ -69,7 +69,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
   ],
 };
 
-const QuestionField: React.FC<InputFieldPropType> = (props) => {
+const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   const { value } = props;
   const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type];
   return (

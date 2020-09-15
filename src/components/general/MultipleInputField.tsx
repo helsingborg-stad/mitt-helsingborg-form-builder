@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import CSS from 'csstype';
 import { TextField, Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
+import ColorPicker from 'material-ui-color-picker';
 import FieldDescriptor from '../../types/FieldDescriptor';
 import FieldArrayWrapper from './FieldArrayWrapper';
 import FormContext from '../../contexts/FormContext';
 import { MultipleInputFieldPropType } from '../../types/PropTypes';
 import LoadPreviousToggle from './LoadPreviousToggle';
+import { Form } from '../../types/FormTypes';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -20,7 +22,7 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
   fields,
   setFieldValue,
   ...other
-}) => {
+}: MultipleInputFieldPropType) => {
   const { forms } = useContext(FormContext);
 
   const inputComponent = (field: FieldDescriptor, computedName: string) => {
@@ -107,14 +109,39 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
             <Select name={computedName} onChange={onChange} onBlur={onBlur} value={value[field.name]} {...other}>
               {forms
                 ? forms
-                    .filter((f) => f.subform)
-                    .map((form) => (
+                    .filter((f: Form) => f.subform)
+                    .map((form: Form) => (
                       <MenuItem key={form.id} value={form.id}>
                         {form.name}
                       </MenuItem>
                     ))
                 : null}
             </Select>
+          </FormGroup>
+        );
+      case 'colorPicker':
+        return (
+          <FormGroup style={inputFieldStyle} row>
+            <div style={{ paddingTop: '18px', marginRight: '8px' }}>{field.label} </div>
+            <ColorPicker
+              name={computedName}
+              onChange={(color: string) => {
+                if (setFieldValue) {
+                  setFieldValue(computedName, color);
+                }
+              }}
+              disabled
+              value={field && value && field.name && value[field.name] ? value[field.name] : field.initialValue}
+              hintText=""
+              style={{
+                backgroundColor: value[field.name],
+                border: '1px solid white',
+                borderRadius: '4px',
+              }}
+            />
+            <p style={{ paddingTop: '0px', marginLeft: '10px' }}>
+              {field && value && field.name && value[field.name] ? value[field.name] : field.initialValue}
+            </p>
           </FormGroup>
         );
       default:

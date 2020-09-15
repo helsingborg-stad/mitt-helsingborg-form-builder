@@ -6,7 +6,7 @@ import { InputFieldPropType } from '../../../types/PropTypes';
 const bannerFields: FieldDescriptor[] = [
   { name: 'imageSrc', type: 'text', initialValue: '', label: 'Image' },
   { name: 'iconSrc', type: 'text', initialValue: '', label: 'Icon' },
-  { name: 'backgroundColor', type: 'text', initialValue: '', label: 'Background Color' },
+  { name: 'backgroundColor', type: 'colorPicker', initialValue: '#FFFFFF', label: 'Background Color' },
 ];
 
 const BannerField: React.FC<InputFieldPropType> = (props) => {
