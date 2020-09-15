@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Field, Form } from 'formik';
+import ReactJson from 'react-json-view';
 import { Button, Paper, FormControlLabel, FormGroup, Switch, Typography } from '@material-ui/core';
 import { Form as FormType } from '../../types/FormTypes';
 import StepField from './Steps/StepField';
@@ -61,7 +62,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
             {showJSON && (
               <div>
                 <h3>JSON Form data</h3>
-                <pre>{JSON.stringify(values, null, 2)}</pre>
+                <ReactJson src={values} name="Form" theme="monokai" />
               </div>
             )}
           </Form>
