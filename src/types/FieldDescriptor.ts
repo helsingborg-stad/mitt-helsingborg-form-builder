@@ -1,6 +1,12 @@
 import React from 'react';
 import { InputFieldPropType } from './PropTypes';
 
+export enum OptionLevel {
+  Basic,
+  Intermediate,
+  Advanced,
+}
+
 export default interface FieldDescriptor {
   name: string;
   type: string;
@@ -9,4 +15,5 @@ export default interface FieldDescriptor {
   label: string;
   choices?: Record<string, string>[];
   inputField?: React.FC<InputFieldPropType>;
+  optionLevel: OptionLevel;
 }

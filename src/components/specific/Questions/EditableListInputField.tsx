@@ -1,5 +1,5 @@
 import React from 'react';
-import FieldDescriptor from '../../../types/FieldDescriptor';
+import FieldDescriptor, { OptionLevel } from '../../../types/FieldDescriptor';
 import MultipleInputField from '../../general/MultipleInputField';
 import { InputFieldPropType } from '../../../types/PropTypes';
 
@@ -13,10 +13,17 @@ const editableListFields: FieldDescriptor[] = [
       { name: 'Text', value: 'text' },
       { name: 'Number', value: 'number' },
     ],
+    optionLevel: OptionLevel.Basic,
   },
-  { name: 'label', type: 'text', initialValue: '', label: 'Label' },
-  { name: 'key', type: 'text', initialValue: '', label: 'Key' },
-  { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
+  { name: 'label', type: 'text', initialValue: '', label: 'Label', optionLevel: OptionLevel.Basic },
+  { name: 'key', type: 'text', initialValue: '', label: 'Key', optionLevel: OptionLevel.Advanced },
+  {
+    name: 'loadPrevious',
+    type: 'loadPreviousToggle',
+    initialValue: '',
+    label: 'Load data from previous case?',
+    optionLevel: OptionLevel.Advanced,
+  },
 ];
 
 const EditableListInputField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {

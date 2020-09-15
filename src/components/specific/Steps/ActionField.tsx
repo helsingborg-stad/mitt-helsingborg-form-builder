@@ -1,5 +1,5 @@
 import React from 'react';
-import FieldDescriptor from '../../../types/FieldDescriptor';
+import FieldDescriptor, { OptionLevel } from '../../../types/FieldDescriptor';
 import MultipleInputField from '../../general/MultipleInputField';
 import { InputFieldPropType } from '../../../types/PropTypes';
 
@@ -16,9 +16,10 @@ const actionFields: FieldDescriptor[] = [
       { name: 'Sign', value: 'sign' },
       { name: 'Close', value: 'close' },
     ],
+    optionLevel: OptionLevel.Basic,
   },
-  { name: 'label', type: 'text', initialValue: '', label: 'Label' },
-  { name: 'color', type: 'text', initialValue: 'green', label: 'Button color' },
+  { name: 'label', type: 'text', initialValue: '', label: 'Label', optionLevel: OptionLevel.Basic },
+  { name: 'color', type: 'text', initialValue: 'green', label: 'Button color', optionLevel: OptionLevel.Intermediate },
 ];
 
 const ActionField: React.FC<InputFieldPropType> = (props) => {

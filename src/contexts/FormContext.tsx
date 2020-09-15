@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import * as Api from '../helpers/ApiRequest';
 import { Form } from '../types/FormTypes';
+import { OptionLevel } from '../types/FieldDescriptor';
 
 const emptyFormList: Form[] = [];
 const emptyForm: Form = { name: '', description: '', id: '' };
+const defaultOptionLevel: OptionLevel = OptionLevel.Basic;
 
 interface FormContextType {
   forms: Form[];
+  optionLevel: OptionLevel;
+  setOptionLevel: (optionLevel: OptionLevel) => void;
   getForm: (id: string) => Promise<{ data: Form }>;
   fetchForms: (apikey: string & undefined) => void;
   createForm: (form: Form) => Promise<{ data: { Item: Form } }>;
@@ -16,6 +20,10 @@ interface FormContextType {
 
 const defaultVal: FormContextType = {
   forms: emptyFormList,
+  optionLevel: OptionLevel.Basic,
+  setOptionLevel: (_: OptionLevel) => {
+    console.log('Set option level not implemented');
+  },
   getForm: () => {
     return new Promise(() => {
       return { data: emptyForm };
@@ -44,10 +52,15 @@ const FormContext = React.createContext<FormContextType>(defaultVal);
 
 export const FormProvider: React.FC<Props> = ({ children, apikey }: Props) => {
   const [forms, setForms] = useState(emptyFormList);
+  const [optionLevel, setOptionLevelLocal] = useState<OptionLevel>(defaultOptionLevel);
 
   useEffect(() => {
     fetchForms(apikey);
   }, [apikey]);
+
+  const setOptionLevel = (optionLevel: OptionLevel) => {
+    setOptionLevelLocal(optionLevel);
+  };
 
   const getForm = (id: string) => {
     return Api.getForm(id);
@@ -80,7 +93,9 @@ export const FormProvider: React.FC<Props> = ({ children, apikey }: Props) => {
   };
 
   return (
-    <FormContext.Provider value={{ forms, fetchForms, getForm, createForm, deleteForm, updateForm }}>
+    <FormContext.Provider
+      value={{ forms, optionLevel, setOptionLevel, fetchForms, getForm, createForm, deleteForm, updateForm }}
+    >
       {children}
     </FormContext.Provider>
   );

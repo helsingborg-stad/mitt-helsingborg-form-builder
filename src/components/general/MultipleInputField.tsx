@@ -8,6 +8,7 @@ import FormContext from '../../contexts/FormContext';
 import { MultipleInputFieldPropType } from '../../types/PropTypes';
 import LoadPreviousToggle from './LoadPreviousToggle';
 import { Form } from '../../types/FormTypes';
+import { OptionLevel } from '../../types/FieldDescriptor';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -23,7 +24,7 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
   setFieldValue,
   ...other
 }: MultipleInputFieldPropType) => {
-  const { forms } = useContext(FormContext);
+  const { forms, optionLevel } = useContext(FormContext);
 
   const inputComponent = (field: FieldDescriptor, computedName: string) => {
     switch (field.type) {
@@ -160,14 +161,16 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
 
   return (
     <FormGroup>
-      {fields.map((field) => {
-        const computedName = !name || name === '' ? field.name : name + '.' + field.name;
-        return (
-          <div key={computedName} style={inputFieldStyle}>
-            {inputComponent(field, computedName)}
-          </div>
-        );
-      })}
+      {fields
+        .filter((field) => field.optionLevel <= optionLevel)
+        .map((field) => {
+          const computedName = !name || name === '' ? field.name : name + '.' + field.name;
+          return (
+            <div key={computedName} style={inputFieldStyle}>
+              {inputComponent(field, computedName)}
+            </div>
+          );
+        })}
     </FormGroup>
   );
 };
