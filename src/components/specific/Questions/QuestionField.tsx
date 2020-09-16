@@ -20,6 +20,7 @@ const questionFields: FieldDescriptor[] = [
     choices: [
       { name: 'Text', value: 'text' },
       { name: 'Number', value: 'number' },
+      { name: 'Date', value: 'date' },
       { name: 'Editable List', value: 'editableList' },
       { name: 'Checkbox', value: 'checkbox' },
       { name: 'Button', value: 'button' },
