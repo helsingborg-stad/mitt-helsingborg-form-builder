@@ -15,8 +15,15 @@ export function objectWithoutProperties(obj: Record<string, any>, keys: Array<st
 
 export function getPropertyFromDottedString(obj: Record<string, any>, dottedString: string): any {
   const strArr = dottedString.split('.');
-  return strArr.reduce((prev, current) => {
-    if (prev && prev[current]) return prev[current];
-    return undefined;
-  }, obj);
+  const [res, _] = strArr.reduce(
+    (prev: any, current: string) => {
+      if (!prev[0] && !prev[1]) return [undefined, false];
+      if (!prev[0] && prev[1] && obj[current]) return [obj[current], true];
+      if (prev[0] && prev[1] && prev[0][current]) return [prev[0][current], true];
+      if (prev[0] && prev[1] && !prev[0][current]) return [undefined, false];
+      return [undefined, true];
+    },
+    [undefined, true],
+  );
+  return res;
 }

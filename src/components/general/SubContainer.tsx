@@ -57,10 +57,12 @@ const SubContainer: React.FC<Props> = ({
   const classes = useStyles();
 
   const makeCopy = (index: number): void => {
-    const copy = getPropertyFromDottedString(value, name);
+    const copy = JSON.parse(JSON.stringify(getPropertyFromDottedString(value, name)));
+
     if (copy?.title && typeof copy.title === 'string') copy.title += ' Copy';
     if (copy?.label && typeof copy.label === 'string') copy.label += ' Copy';
     if (copy?.description && typeof copy.description === 'string') copy.description += ' Copy';
+
     arrayHelpers.insert(index + 1, copy);
   };
 
