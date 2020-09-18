@@ -29,6 +29,12 @@ export interface Action {
   label: string;
 }
 
+export interface Banner {
+  iconSrc?: string;
+  imageSrc?: string;
+  backgroundColor?: string;
+}
+
 export interface Step {
   title: string;
   description: string;
@@ -36,6 +42,7 @@ export interface Step {
   group: string;
   questions?: Question[];
   actions?: Action[];
+  banner?: Banner;
 }
 
 export interface Form {

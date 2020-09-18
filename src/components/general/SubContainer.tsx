@@ -4,6 +4,8 @@ import { ArrayHelpers, FastField } from 'formik';
 import { Button, Paper } from '@material-ui/core';
 import StepField from '../specific/Steps/StepField';
 import { InputFieldPropType } from '../../types/PropTypes';
+import { ValueArray } from './FieldArrayWrapper';
+import { getPropertyFromDottedString } from '../../helpers/object';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   name: string;
   currentIndex: number;
+  value: Record<string, boolean | string | ValueArray | undefined>;
   color: string;
   inputField: React.FC<InputFieldPropType>;
   arrayHelpers: ArrayHelpers;
@@ -47,10 +50,19 @@ const SubContainer: React.FC<Props> = ({
   inputField,
   arrayHelpers,
   color,
+  value,
   ...other
 }: Props) => {
   const [collapsed, setCollapsed] = useState(true);
   const classes = useStyles();
+
+  const makeCopy = (index: number): void => {
+    const copy = getPropertyFromDottedString(value, name);
+    if (copy?.title && typeof copy.title === 'string') copy.title += ' Copy';
+    if (copy?.label && typeof copy.label === 'string') copy.label += ' Copy';
+    if (copy?.description && typeof copy.description === 'string') copy.description += ' Copy';
+    arrayHelpers.insert(index + 1, copy);
+  };
 
   const vals = inputField === StepField ? { value: itemValues } : {};
   if (!collapsed) {
@@ -71,6 +83,15 @@ const SubContainer: React.FC<Props> = ({
           ) : null}
           <Button style={{ margin: '5px' }} variant="contained" color="default" onClick={() => setCollapsed(true)}>
             Collapse
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              makeCopy(currentIndex);
+            }}
+          >
+            Copy
           </Button>
           <Button variant="contained" color="secondary" onClick={() => arrayHelpers.remove(currentIndex)}>
             X
@@ -107,6 +128,15 @@ const SubContainer: React.FC<Props> = ({
 
           <Button style={{ margin: '5px' }} variant="contained" color="default" onClick={() => setCollapsed(false)}>
             Show
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              makeCopy(currentIndex);
+            }}
+          >
+            Copy
           </Button>
           <Button
             style={{ margin: '5px' }}

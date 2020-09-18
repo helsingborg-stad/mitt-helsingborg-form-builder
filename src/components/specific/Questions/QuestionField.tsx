@@ -20,6 +20,7 @@ const questionFields: FieldDescriptor[] = [
     choices: [
       { name: 'Text', value: 'text' },
       { name: 'Number', value: 'number' },
+      { name: 'Date', value: 'date' },
       { name: 'Editable List', value: 'editableList' },
       { name: 'Checkbox', value: 'checkbox' },
       { name: 'Button', value: 'button' },
@@ -69,7 +70,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
   ],
 };
 
-const QuestionField: React.FC<InputFieldPropType> = (props) => {
+const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   const { value } = props;
   const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type];
   return (

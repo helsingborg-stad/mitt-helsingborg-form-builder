@@ -5,7 +5,7 @@ import SubContainer from './SubContainer';
 import { InputFieldPropType } from '../../types/PropTypes';
 import { Step, Question, Action } from '../../types/FormTypes';
 
-type ValueArray = (Step | Action | Question)[];
+export type ValueArray = (Step | Action | Question)[];
 
 interface Props {
   heading: string;
@@ -47,6 +47,7 @@ const FieldArrayWrapper: React.FC<Props> = ({
                   key={qName}
                   itemValues={qs}
                   name={qName}
+                  value={value}
                   currentIndex={i}
                   inputField={inputField}
                   arrayHelpers={arrayHelpers}
