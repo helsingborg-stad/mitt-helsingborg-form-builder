@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Formik, Field, Form } from 'formik';
+import { Formik, FastField, Form } from 'formik';
 import ReactJson from 'react-json-view';
 import { Button, Paper, FormControlLabel, FormGroup, Switch, Typography } from '@material-ui/core';
 import { Form as FormType } from '../../types/FormTypes';
@@ -28,7 +28,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
             <Typography variant="h3">{values.name !== '' ? values.name : 'Unnamed form'}</Typography>
             {id ? <pre>Form id: {id}</pre> : null}
             <h3>Form data</h3>
-            <Field type="input" as={FormDataField} />
+            <FastField type="input" as={FormDataField} />
 
             <div style={{ border: '1px solid gray', padding: '10px' }}>
               <FieldArrayWrapper

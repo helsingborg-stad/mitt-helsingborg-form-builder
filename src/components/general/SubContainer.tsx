@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Field, ArrayHelpers } from 'formik';
+import { ArrayHelpers, FastField } from 'formik';
 import { Button, Paper } from '@material-ui/core';
 import StepField from '../specific/Steps/StepField';
 import { InputFieldPropType } from '../../types/PropTypes';
@@ -68,7 +68,7 @@ const SubContainer: React.FC<Props> = ({
   if (!collapsed) {
     return (
       <Paper elevation={3} style={{ borderColor: color ? color : 'red' }} className={classes.subcontainer} key={name}>
-        <Field name={name} type="input" as={inputField} {...vals} {...other} />
+        <FastField name={name} type="input" as={inputField} {...vals} {...other} />
 
         <div style={{ display: 'block', textAlign: 'right' }}>
           {currentIndex > 0 ? (
