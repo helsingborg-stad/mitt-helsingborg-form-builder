@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form } from '../../../types/FormTypes';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Button, Typography, List } from '@material-ui/core';
+import { Button, Typography, List, TextField } from '@material-ui/core';
 import FormListItem from './FormListItem';
 import DeleteModal from './DeleteModal';
 
@@ -30,6 +30,16 @@ const emptyForm: Form = {
   subform: false,
   id: '',
 };
+
+const formFilter = (filterString: string) => (form: Form): boolean => {
+  if (form.name) {
+    const match = form.name.toLowerCase().match(filterString.toLowerCase());
+    if (!match) return false;
+    return match.length > 0;
+  }
+  return false;
+};
+
 interface Props {
   forms: Form[];
   count: number;
@@ -38,6 +48,8 @@ interface Props {
 const FormList: React.FC<Props> = ({ forms, deleteForm }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedForm, selectForm] = useState(emptyForm);
+  const [subformFilter, setSubformFilter] = useState('');
+  const [mainformFilter, setMainformFilter] = useState('');
   const classes = useStyles();
   const history = useHistory();
 
@@ -71,9 +83,17 @@ const FormList: React.FC<Props> = ({ forms, deleteForm }: Props) => {
       <Typography variant="h5" className={classes.title}>
         Main Forms
       </Typography>
+      <TextField
+        value={mainformFilter}
+        fullWidth
+        label="Filter main forms"
+        onChange={(e) => {
+          setMainformFilter(e.target.value);
+        }}
+      />
       <div className={classes.demo}>
         <List>
-          {mainForms.map((form, i) => {
+          {mainForms.filter(formFilter(mainformFilter)).map((form, i) => {
             return (
               <FormListItem
                 key={form.id || form.name}
@@ -91,9 +111,17 @@ const FormList: React.FC<Props> = ({ forms, deleteForm }: Props) => {
       <Typography variant="h5" className={classes.title}>
         Subforms
       </Typography>
+      <TextField
+        value={subformFilter}
+        fullWidth
+        label="Filter subforms"
+        onChange={(e) => {
+          setSubformFilter(e.target.value);
+        }}
+      />
       <div className={classes.demo}>
         <List>
-          {subforms.map((form, i) => {
+          {subforms.filter(formFilter(subformFilter)).map((form, i) => {
             return (
               <FormListItem
                 key={form.id || form.name}
