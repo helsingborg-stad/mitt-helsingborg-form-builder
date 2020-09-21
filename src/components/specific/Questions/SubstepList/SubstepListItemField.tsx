@@ -5,7 +5,8 @@ import { InputFieldPropType } from '../../../../types/PropTypes';
 
 const fields: FieldDescriptor[] = [
   { name: 'title', type: 'text', initialValue: '', label: 'Title' },
-  { name: 'category', type: 'text', initialValue: '', label: 'Category' },
+  { name: 'category', type: 'text', initialValue: '', label: 'Category (should match a category defined above)' },
+  { name: 'key', type: 'text', initialValue: '', label: 'Key (for tracking the data)' },
   { name: 'formId', type: 'formSelect', initialValue: '', label: 'Subform' },
   { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
 ];
