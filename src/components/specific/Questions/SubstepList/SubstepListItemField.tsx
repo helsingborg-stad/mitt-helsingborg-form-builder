@@ -2,17 +2,36 @@ import React from 'react';
 import FieldDescriptor from '../../../../types/FieldDescriptor';
 import MultipleInputField from '../../../general/MultipleInputField';
 import { InputFieldPropType } from '../../../../types/PropTypes';
+import SubstepListItemAmountConfig from './SubstepListItemAmountConfig';
+import FieldArrayWrapper from '../../../general/FieldArrayWrapper';
 
 const fields: FieldDescriptor[] = [
   { name: 'title', type: 'text', initialValue: '', label: 'Title' },
-  { name: 'category', type: 'text', initialValue: '', label: 'Category (should match a category defined above)' },
   { name: 'key', type: 'text', initialValue: '', label: 'Key (for tracking the data)' },
   { name: 'formId', type: 'formSelect', initialValue: '', label: 'Subform' },
   { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
 ];
 
 const SubstepListItemField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
-  return <MultipleInputField fields={fields} {...props} />;
+  const { name, value, ...other } = props;
+  return (
+    <>
+      <MultipleInputField fields={fields} {...props} />
+      <FieldArrayWrapper
+        key="config"
+        heading="Amount Config"
+        parentName={name}
+        name="amountConfig"
+        value={value}
+        inputField={SubstepListItemAmountConfig}
+        emptyObject={{
+          category: '',
+          description: '',
+        }}
+        {...other}
+      />
+    </>
+  );
 };
 
 export default SubstepListItemField;
