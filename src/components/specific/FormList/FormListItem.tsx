@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form } from '../../../types/FormTypes';
 import { ListItem, ListItemText, IconButton, ListItemAvatar, Avatar } from '@material-ui/core';
-import { Delete as DeleteIcon, FormatAlignLeft as FormIcon } from '@material-ui/icons';
+import { Delete as DeleteIcon, FormatAlignLeft as FormIcon, FileCopyRounded as CopyIcon } from '@material-ui/icons';
 
 interface Props {
   form: Form;
@@ -34,6 +34,16 @@ const FormListItem: React.FC<Props> = (props) => {
       </ListItemAvatar>
       <ListItemText primary={form.name && form.name !== '' ? `${index + 1}. ${form.name}` : 'Unnamed form'} />
       <div style={{ position: 'absolute', right: '5px', top: '-3px', textAlign: 'right' }}>
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            history.push(`/edit`, { form });
+          }}
+        >
+          <Avatar>
+            <CopyIcon />
+          </Avatar>
+        </IconButton>
         <IconButton onClick={onDeleteClick}>
           <Avatar>
             <DeleteIcon />

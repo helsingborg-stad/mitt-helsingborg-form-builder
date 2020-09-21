@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import FormBuilder from '../components/specific/FormBuilder';
 import { Form } from '../types/FormTypes';
-import { useParams, Link, Redirect } from 'react-router-dom';
+import { useParams, Link, Redirect, useLocation } from 'react-router-dom';
+import { Location } from 'history';
 import FormContext from '../contexts/FormContext';
 import NotificationContext from '../contexts/NotificationsContext';
 
@@ -17,16 +18,22 @@ const FormBuilderScreen: React.FC = () => {
   const [form, setForm] = useState<Form>(emptyForm);
   const [redirectComp, setRedirectComp] = useState(<> </>);
   const { id } = useParams();
+  const location = useLocation<{ form?: Form }>();
 
   const { updateForm, createForm, getForm } = useContext(FormContext);
   const { showNotification } = useContext(NotificationContext);
 
   const loadForm = (id: string): void => {
     if (loading) {
-      getForm(id).then((res: { data: Form }) => {
-        setForm(res.data);
-        setLoading(false);
-      });
+      getForm(id)
+        .then((res: { data: Form }) => {
+          setForm(res.data);
+          setLoading(false);
+        })
+        .catch((e) => {
+          console.log('load error', JSON.stringify(e, null, 2));
+          showNotification(`Something went wrong: ${e.message}`, 'error');
+        });
     }
   };
 
@@ -63,6 +70,17 @@ const FormBuilderScreen: React.FC = () => {
     }
   };
 
+  const copy = (form: Form) => {
+    getForm(form.id).then((res: { data: Form }) => {
+      const newForm: Form & { PK: string | undefined } = JSON.parse(JSON.stringify(res.data));
+      newForm.id = '';
+      newForm.PK = undefined;
+      newForm.name += ' Copy';
+      setForm(newForm);
+      setLoading(false);
+    });
+  };
+
   const onSubmit = (form: Form) => {
     if (id && id !== '') {
       update(form);
@@ -74,6 +92,8 @@ const FormBuilderScreen: React.FC = () => {
   useEffect(() => {
     if (id && id !== '') {
       loadForm(id);
+    } else if (location?.state?.form) {
+      copy(location.state.form);
     } else {
       setLoading(false);
     }
