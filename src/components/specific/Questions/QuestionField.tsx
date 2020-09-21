@@ -55,6 +55,10 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
   substepList: [
     { name: 'heading', type: 'text', initialValue: '', label: 'Heading' },
     { name: 'color', type: 'text', initialValue: 'light', label: 'Color theme' },
+    { name: 'buttonHelpText', type: 'text', initialValue: '', label: 'Help text for the add-item buttons' },
+    { name: 'buttonHelpHeading', type: 'text', initialValue: '', label: 'Helper heading' },
+    { name: 'buttonHelpTagline', type: 'text', initialValue: '', label: 'Helper tagline' },
+    { name: 'buttonHelpUrl', type: 'text', initialValue: '', label: 'Helper url' },
     { name: 'categories', type: 'array', initialValue: '', label: 'Categories', inputField: SubstepListCategoryField },
     { name: 'items', type: 'array', initialValue: '', label: 'Items', inputField: SubstepListItemField },
   ],
