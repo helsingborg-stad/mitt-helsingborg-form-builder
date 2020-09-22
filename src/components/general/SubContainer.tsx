@@ -103,14 +103,13 @@ const SubContainer: React.FC<Props> = ({
     );
   }
 
-  const containerName =
-    itemValues?.title && itemValues.title !== ''
-      ? itemValues.title
-      : itemValues?.label && itemValues.label !== ''
-      ? itemValues.label
-      : itemValues?.description && itemValues.description !== ''
-      ? itemValues.description
-      : 'Unnamed';
+  const prioritizedTitles = ['title', 'label', 'heading', 'description'];
+  const n = prioritizedTitles.reduce((foundTitle: string, current: string) => {
+    if (foundTitle !== '') return foundTitle;
+    if (itemValues && itemValues[current] && itemValues[current] !== '') return itemValues[current] as string;
+    return '';
+  }, '');
+  const containerName = n !== '' ? n : 'Unnamed';
 
   return (
     <div key={currentIndex}>

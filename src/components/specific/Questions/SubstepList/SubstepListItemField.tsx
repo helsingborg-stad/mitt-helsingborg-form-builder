@@ -2,7 +2,7 @@ import React from 'react';
 import FieldDescriptor from '../../../../types/FieldDescriptor';
 import MultipleInputField from '../../../general/MultipleInputField';
 import { InputFieldPropType } from '../../../../types/PropTypes';
-import SubstepListItemAmountConfig from './SubstepListItemAmountConfig';
+import SubstepListItemShowField from './SubstepListItemAmountConfig';
 import FieldArrayWrapper from '../../../general/FieldArrayWrapper';
 
 const fields: FieldDescriptor[] = [
@@ -19,11 +19,11 @@ const SubstepListItemField: React.FC<InputFieldPropType> = (props: InputFieldPro
       <MultipleInputField fields={fields} {...props} />
       <FieldArrayWrapper
         key="config"
-        heading="Amount Config"
+        heading="Fields to show in the list"
         parentName={name}
-        name="amountConfig"
+        name="shownFields"
         value={value}
-        inputField={SubstepListItemAmountConfig}
+        inputField={SubstepListItemShowField}
         emptyObject={{
           category: '',
           description: '',

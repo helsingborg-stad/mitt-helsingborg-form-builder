@@ -7,15 +7,7 @@ import { Form as FormType } from '../../../../types/FormTypes';
 import { getPropertyFromDottedString } from '../../../../helpers/object';
 import FormContext from '../../../../contexts/FormContext';
 
-const emptyForm: FormType = {
-  name: '',
-  description: '',
-  steps: [],
-  subform: false,
-  id: '',
-};
-
-const SubstepListItemAmountConfig: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
+const SubstepListItemShowField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   const { values }: { values: Record<string, any> } = useFormikContext();
   const questionName = props.name.split('.').slice(0, -4).join('.');
   const categories = getPropertyFromDottedString(values, `${questionName}.categories`);
@@ -51,14 +43,20 @@ const SubstepListItemAmountConfig: React.FC<InputFieldPropType> = (props: InputF
   const fields: FieldDescriptor[] = [
     { name: 'category', type: 'select', initialValue: '', label: 'Category', choices: categoryChoices },
     {
-      name: 'amountId',
+      name: 'fieldId',
       type: 'select',
       initialValue: '',
       label: 'Subform question to show input from',
       choices: subformIdChoices,
     },
+    {
+      name: 'heading',
+      type: 'text',
+      initialValue: '',
+      label: 'Heading to show in the list',
+    },
   ];
   return <MultipleInputField fields={fields} {...props} />;
 };
 
-export default SubstepListItemAmountConfig;
+export default SubstepListItemShowField;
