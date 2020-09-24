@@ -12,9 +12,8 @@ jobs:
       uses: actions/checkout@master
     - name: Build step
       run: |
-        npm install --only=dev
         npm install 
-        npm run build
+        CI=false npm run build
     - name: Sync to S3 bucket
       uses: jakejarvis/s3-sync-action@master
       with:
