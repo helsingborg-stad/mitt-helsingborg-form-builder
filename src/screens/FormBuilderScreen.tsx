@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import FormBuilder from '../components/specific/FormBuilder';
 import { Form } from '../types/FormTypes';
 import { useParams, Link, Redirect, useLocation } from 'react-router-dom';
-import { Location } from 'history';
 import FormContext from '../contexts/FormContext';
 import NotificationContext from '../contexts/NotificationsContext';
 
