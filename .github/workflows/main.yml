@@ -12,6 +12,7 @@ jobs:
       uses: actions/checkout@master
     - name: Build step
       run: |
+        echo "REACT_APP_MITTHELSINGBORG_IO=https://dev.api.helsingborg.io/forms3" >> .env
         npm install
         CI=false npm run build
     - name: Sync to S3 bucket
