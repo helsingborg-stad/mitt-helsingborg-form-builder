@@ -13,7 +13,6 @@ const container: CSS.Properties = {
   marginLeft: 'auto',
   marginRight: 'auto',
   padding: '20px',
-  maxWidth: '800px',
 };
 
 const App: React.FC = () => {
@@ -85,7 +84,9 @@ const App: React.FC = () => {
       <NotificationProvider>
         <FormProvider apikey={apikey}>
           <div style={container}>
-            <pre>api url: {process.env.REACT_APP_MITTHELSINGBORG_IO} </pre>
+            <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '800px' }}>
+              <pre>api url: {process.env.REACT_APP_MITTHELSINGBORG_IO} </pre>
+            </div>
             {componentSwitcher()}
           </div>
         </FormProvider>
