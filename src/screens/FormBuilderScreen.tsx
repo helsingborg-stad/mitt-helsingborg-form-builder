@@ -137,23 +137,11 @@ const FormBuilderScreen: React.FC = () => {
 
   return (
     <div>
-      <div className={classes.wrapper}>
-        <div className={classes.column}>
-          <StepList
-            steps={[]}
-            deleteStep={(id) => {
-              console.log(`Delete step ${id} triggered`);
-            }}
-          />
-        </div>
-        <div className={classes.column}>
-          <Link style={{ color: 'white' }} to="/">
-            Back to list
-          </Link>
-          <FormBuilder onSubmit={onSubmit} form={form} />
-          {redirectComp}
-        </div>
-      </div>
+      <Link style={{ color: 'white' }} to="/">
+        Back to list
+      </Link>
+      <FormBuilder onSubmit={onSubmit} form={form} />
+      {redirectComp}
     </div>
   );
 };
