@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as Api from '../helpers/ApiRequest';
-import { Form } from '../types/FormTypes';
+import { Form, emptyForm } from '../types/FormTypes';
 
 const emptyFormList: Form[] = [];
-const emptyForm: Form = { name: '', description: '', id: '' };
 
 interface FormContextType {
   forms: Form[];

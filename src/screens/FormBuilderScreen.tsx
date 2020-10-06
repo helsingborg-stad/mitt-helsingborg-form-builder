@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useParams, Link, Redirect, useLocation } from 'react-router-dom';
 import FormBuilder from '../components/specific/FormBuilder';
-import { Form } from '../types/FormTypes';
+import { Form, emptyForm } from '../types/FormTypes';
 import FormContext from '../contexts/FormContext';
 import NotificationContext from '../contexts/NotificationsContext';
 import StepList from '../components/specific/StepList/StepList';
@@ -28,20 +28,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     wrapper: {
       display: 'grid',
-      gridTemplateColumns: '300px 800px',
+      gridTemplateColumns: '500px 800px',
     },
     column: {
       padding: theme.spacing(2),
     },
   }),
 );
-
-const emptyForm = {
-  name: '',
-  description: '',
-  id: '',
-  steps: [],
-};
 
 const FormBuilderScreen: React.FC = () => {
   const classes = useStyles();

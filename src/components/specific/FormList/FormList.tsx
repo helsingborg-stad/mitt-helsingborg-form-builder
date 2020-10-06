@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Form } from '../../../types/FormTypes';
+import { Form, emptyForm } from '../../../types/FormTypes';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Button, Typography, List, TextField } from '@material-ui/core';
 import FormListItem from './FormListItem';
@@ -22,14 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
-const emptyForm: Form = {
-  name: '',
-  description: '',
-  steps: [],
-  subform: false,
-  id: '',
-};
 
 const formFilter = (filterString: string) => (form: Form): boolean => {
   if (form.name) {
