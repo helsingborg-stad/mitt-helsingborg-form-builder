@@ -64,8 +64,7 @@ const computeMatrix = (stepStruct: ListItem[], steps: Step[]): StepperActions[][
     res[current.id] = index;
     return res;
   }, {});
-  console.log('indices', indices);
-  const matrix = new Array(steps.length).fill(new Array(steps.length).fill('none'));
+  const emptyMatrix = [...Array(steps.length)].map((e) => Array(steps.length).fill('none'));
 
   const getDownIndices = (item: ListItem) => {
     if (item.children) {
@@ -74,34 +73,41 @@ const computeMatrix = (stepStruct: ListItem[], steps: Step[]): StepperActions[][
     return [];
   };
 
-  const recursiveBuild = (stepStruct: ListItem[]) => {
-    stepStruct.forEach((s, index) => {
-      console.log(index);
-      const sInd = indices[s.id];
-
-      if (index > 0) {
-        const backIndex = indices[stepStruct[index - 1].id];
-        matrix[sInd][backIndex] = 'back';
-        console.log('back', sInd, backIndex);
+  const recursiveBuild = (stepStruct: ListItem[], matrix: StepperActions[][], currentLevel: number) => {
+    stepStruct.forEach((currentStep, index) => {
+      const currentStepIndex = indices[currentStep.id];
+      if (currentLevel === 0) {
+        if (index > 0) {
+          console.log(index);
+          const backIndex = indices[stepStruct[index - 1].id];
+          matrix[currentStepIndex][backIndex] = 'back';
+        }
+        if (index < stepStruct.length - 1) {
+          const nextIndex = indices[stepStruct[index + 1].id];
+          matrix[currentStepIndex][nextIndex] = 'next';
+        }
       }
-      // if (index < stepStruct.length - 1) {
-      //   const nextIndex = indices[stepStruct[index + 1].id];
-      //   matrix[sInd][nextIndex] = 'next';
-      // }
 
-      // getDownIndices(s).forEach((n) => {
-      //   matrix[sInd][n] = 'down';
-      //   matrix[n][sInd] = 'up';
-      // });
-      // if (s.children) {
-      //   recursiveBuild(s.children);
-      // }
+      getDownIndices(currentStep).forEach((n) => {
+        matrix[currentStepIndex][n] = 'down';
+        matrix[n][currentStepIndex] = 'up';
+      });
+      if (currentStep.children) {
+        recursiveBuild(currentStep.children, matrix, currentLevel + 1);
+      }
     });
+    return matrix;
   };
-  recursiveBuild(stepStruct);
-
+  const matrix = recursiveBuild(stepStruct, emptyMatrix, 0);
   return matrix;
 };
+
+// const computeStepStruct = (matrix: StepperActions[][]): ListItem[] => {
+//   const steps: ListItem[] = [];
+//   matrix.forEach(row => {
+
+//   })
+// }
 
 const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilderProps) => {
   const { id } = form;

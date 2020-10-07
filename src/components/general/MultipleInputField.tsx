@@ -8,6 +8,7 @@ import FormContext from '../../contexts/FormContext';
 import { MultipleInputFieldPropType } from '../../types/PropTypes';
 import LoadPreviousToggle from './LoadPreviousToggle';
 import { Form } from '../../types/FormTypes';
+import NavigationButtonInput from '../specific/Questions/NavigationButtonInput';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -71,6 +72,8 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
             setFieldValue={setFieldValue}
           />
         );
+      case 'navigationButton':
+        return <NavigationButtonInput name={computedName} label={field.label} value={value || field.initialValue} />;
       case 'checkbox':
         return (
           <FormGroup style={inputFieldStyle} row>

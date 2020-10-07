@@ -27,6 +27,7 @@ const questionFields: FieldDescriptor[] = [
       { name: 'Substep List', value: 'substepList' },
       { name: 'Substep List Summary', value: 'substepListSummary' },
       { name: 'Avatar List (family members)', value: 'avatarList' },
+      { name: 'Navigation button', value: 'navigationButton' },
     ],
   },
 ];
@@ -71,6 +72,17 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
   avatarList: [
     { name: 'heading', type: 'text', initialValue: '', label: 'Title' },
     { name: 'formId', type: 'formSelect', initialValue: '', label: 'Subform' },
+  ],
+  navigationButton: [
+    { name: 'text', type: 'text', initialValue: '', label: 'Button text' },
+    { name: 'color', type: 'text', initialValue: 'light', label: 'Color' },
+    { name: 'iconName', type: 'text', initialValue: '', label: 'Icon name' },
+    {
+      name: 'navigationType',
+      type: 'navigationButton',
+      initialValue: '',
+      label: 'Navigation Button',
+    },
   ],
 };
 
