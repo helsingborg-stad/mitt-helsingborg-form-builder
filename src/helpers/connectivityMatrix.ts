@@ -19,7 +19,7 @@ function findRelatedStepIndexes(nestableListItem: ListItem, stepIndexes: Record<
  * Function for connecting two steps in the connectivity matrix with a navigation action.
  * @param matrix - a 2 dimensional array.
  * @param navigationAction - the navigation action that should be inserted.
- * @param firstIndex - the index of the first item to connect in the matrix.
+ * @param firstIndex - index of the first item to connect in the matrix.
  * @param secondIndex - index of the second item to connect in the matrix.
  * @returns - a connectivity matrix.
  */
