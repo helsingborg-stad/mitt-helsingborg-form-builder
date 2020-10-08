@@ -5,33 +5,12 @@ import FormBuilder from '../components/specific/FormBuilder';
 import { Form, emptyForm } from '../types/FormTypes';
 import FormContext from '../contexts/FormContext';
 import NotificationContext from '../contexts/NotificationsContext';
-import StepList from '../components/specific/StepList/StepList';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '20ch',
-      },
-    },
-    input: {
-      '& > *': {
-        width: '500px',
-      },
-    },
-    button: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '2ch',
-      },
-    },
-    wrapper: {
-      display: 'grid',
-      gridTemplateColumns: '500px 800px',
-    },
-    column: {
-      padding: theme.spacing(2),
+    inner: {
+      width: '90%',
+      margin: '0 auto',
     },
   }),
 );
@@ -130,11 +109,13 @@ const FormBuilderScreen: React.FC = () => {
 
   return (
     <div>
-      <Link style={{ color: 'white' }} to="/">
-        Back to list
-      </Link>
-      <FormBuilder onSubmit={onSubmit} form={form} />
-      {redirectComp}
+      <div className={classes.inner}>
+        <Link style={{ color: 'white' }} to="/">
+          Back to list
+        </Link>
+        <FormBuilder onSubmit={onSubmit} form={form} />
+        {redirectComp}
+      </div>
     </div>
   );
 };

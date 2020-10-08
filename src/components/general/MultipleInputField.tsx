@@ -8,7 +8,7 @@ import FormContext from '../../contexts/FormContext';
 import { MultipleInputFieldPropType } from '../../types/PropTypes';
 import LoadPreviousToggle from './LoadPreviousToggle';
 import { Form } from '../../types/FormTypes';
-import NavigationButtonInput from '../specific/Questions/NavigationButtonInput';
+import NavigationButtonInput from '../specific/Questions/NavigationButton/NavigationButtonInput';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',

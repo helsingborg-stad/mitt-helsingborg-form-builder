@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     wrapper: {
       display: 'grid',
-      gridTemplateColumns: '400px 800px',
+      gridTemplateColumns: '400px 800px 200px',
     },
     column: {
       padding: theme.spacing(2),
@@ -78,7 +78,6 @@ const computeMatrix = (stepStruct: ListItem[], steps: Step[]): StepperActions[][
       const currentStepIndex = indices[currentStep.id];
       if (currentLevel === 0) {
         if (index > 0) {
-          console.log(index);
           const backIndex = indices[stepStruct[index - 1].id];
           matrix[currentStepIndex][backIndex] = 'back';
         }
@@ -101,13 +100,6 @@ const computeMatrix = (stepStruct: ListItem[], steps: Step[]): StepperActions[][
   const matrix = recursiveBuild(stepStruct, emptyMatrix, 0);
   return matrix;
 };
-
-// const computeStepStruct = (matrix: StepperActions[][]): ListItem[] => {
-//   const steps: ListItem[] = [];
-//   matrix.forEach(row => {
-
-//   })
-// }
 
 const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilderProps) => {
   const { id } = form;
@@ -211,16 +203,20 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
                 />
               </div>
               <div className={classes.column}>{renderFormOrStep(values)}</div>
+              <div className={classes.column}>
+                <FormGroup>
+                  <Button style={{ margin: '5px' }} variant="contained" color="primary" type="submit">
+                    Save form
+                  </Button>
+                  <FormControlLabel
+                    control={
+                      <Switch checked={showJSON} onChange={() => setShowJSON(!showJSON)} name="showJsonToggle" />
+                    }
+                    label="Show JSON"
+                  />
+                </FormGroup>
+              </div>
             </div>
-            <FormGroup row>
-              <Button style={{ margin: '5px' }} variant="contained" color="primary" type="submit">
-                Submit
-              </Button>
-              <FormControlLabel
-                control={<Switch checked={showJSON} onChange={() => setShowJSON(!showJSON)} name="showJsonToggle" />}
-                label="Show JSON"
-              />
-            </FormGroup>
 
             {showJSON && (
               <div>

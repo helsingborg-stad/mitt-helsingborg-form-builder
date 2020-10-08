@@ -4,7 +4,11 @@ import MultipleInputField from '../../general/MultipleInputField';
 import EditableListInputField from './EditableListInputField';
 import SubstepListCategoryField from './SubstepList/SubstepListCategoryField';
 import SubstepListItemField from './SubstepList/SubstepListItemField';
+import NavigationButton from './NavigationButton/NavigationButtonField';
 import { InputFieldPropType } from '../../../types/PropTypes';
+import NavigationButtonField from './NavigationButton/NavigationButtonField';
+import SummaryListItemField from './SummaryListItemField';
+import RepeaterInputField from './RepeaterInputField';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
@@ -28,6 +32,9 @@ const questionFields: FieldDescriptor[] = [
       { name: 'Substep List Summary', value: 'substepListSummary' },
       { name: 'Avatar List (family members)', value: 'avatarList' },
       { name: 'Navigation button', value: 'navigationButton' },
+      { name: 'Navigation button group', value: 'navigationButtonGroup' },
+      { name: 'Summary List', value: 'summaryList' },
+      { name: 'Repeater Field', value: 'repeaterField' },
     ],
   },
 ];
@@ -83,6 +90,22 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
       initialValue: '',
       label: 'Navigation Button',
     },
+  ],
+  navigationButtonGroup: [
+    { name: 'horizontal', type: 'checkbox', initialValue: false, label: 'Horizontal' },
+    { name: 'buttons', type: 'array', initialValue: '', label: 'Buttons', inputField: NavigationButtonField },
+  ],
+  summaryList: [
+    { name: 'heading', type: 'text', initialValue: '', label: 'List heading' },
+    { name: 'color', type: 'text', initialValue: 'light', label: 'Color theme' },
+    { name: 'categories', type: 'array', initialValue: '', label: 'Categories', inputField: SubstepListCategoryField },
+    { name: 'items', type: 'array', initialValue: '', label: 'Items', inputField: SummaryListItemField },
+  ],
+  repeaterField: [
+    { name: 'heading', type: 'text', initialValue: '', label: 'List heading' },
+    { name: 'addButtonText', type: 'text', initialValue: '', label: 'Button Text (to add an item)' },
+    { name: 'color', type: 'text', initialValue: 'light', label: 'Color theme' },
+    { name: 'inputs', type: 'array', initialValue: '', label: 'Inputs (rows)', inputField: RepeaterInputField },
   ],
 };
 
