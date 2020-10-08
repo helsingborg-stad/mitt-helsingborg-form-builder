@@ -38,47 +38,6 @@ interface ListItem {
   children?: ListItem[];
 }
 
-const computeMatrix = (stepStruct: ListItem[], steps: Step[]): StepperActions[][] => {
-  const indices: Record<string, number> = steps.reduce((res: Record<string, number>, current, index) => {
-    res[current.id] = index;
-    return res;
-  }, {});
-  const matrix = new Array(steps.length).fill(new Array(steps.length).fill('none'));
-
-  const getDownIndices = (item: ListItem) => {
-    if (item.children) {
-      return item.children.map((i) => indices[i.id]);
-    }
-    return [];
-  };
-
-  const recursiveBuild = (stepStruct: ListItem[]) => {
-    stepStruct.forEach((s, index) => {
-      const sInd = indices[s.id];
-
-      if (index > 0) {
-        const backIndex = indices[stepStruct[index - 1].id];
-        matrix[sInd][backIndex] = 'back';
-      }
-      if (index < stepStruct.length - 1) {
-        const nextIndex = indices[stepStruct[index + 1].id];
-        matrix[sInd][nextIndex] = 'next';
-      }
-
-      getDownIndices(s).forEach((n) => {
-        matrix[sInd][n] = 'down';
-        matrix[n][sInd] = 'up';
-      });
-      if (s.children) {
-        recursiveBuild(s.children);
-      }
-    });
-  };
-  recursiveBuild(stepStruct);
-
-  return matrix;
-};
-
 const StepList: React.FC<Props> = ({
   steps,
   deleteStep,
@@ -146,6 +105,7 @@ const StepList: React.FC<Props> = ({
       return [...l, { id: newStep?.id || '', text: newStep.title === '' ? 'Unnamed' : newStep.title }];
     });
   };
+
   const toggleSelection = (item: Item) => () => {
     if (item.id === selectedStepId) {
       selectStep('');
@@ -153,6 +113,7 @@ const StepList: React.FC<Props> = ({
       selectStep(item.id);
     }
   };
+
   const renderItem = ({ item, collapseIcon }: { item: Item; collapseIcon: React.ReactNode }) => {
     return (
       <div>
@@ -162,7 +123,7 @@ const StepList: React.FC<Props> = ({
           onClick={toggleSelection(item)}
         >
           <Typography>
-            {collapseIcon} {item.text}
+            {collapseIcon} {item.text} {item.id}
             <span className={classes.floatRight}>
               <IconButton color="primary" onClick={copyStep(item)}>
                 <FileCopy />

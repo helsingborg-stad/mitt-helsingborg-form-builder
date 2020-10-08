@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Formik, FastField, Form, Field } from 'formik';
+import { Formik, FastField, Form } from 'formik';
 import ReactJson from 'react-json-view';
 import { Button, Paper, FormControlLabel, FormGroup, Switch, Typography } from '@material-ui/core';
-import { Form as FormType, Step, StepperActions } from '../../types/FormTypes';
+import { Form as FormType, Step, ListItem } from '../../types/FormTypes';
 import StepField from './Steps/StepField';
-import FieldArrayWrapper from '../general/FieldArrayWrapper';
 import FormDataField from './FormDataField';
 import StepList from './StepList/StepList';
+import { generateNavigationConnectivityMatrix } from '../../helpers/connectivityMatrix';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,64 +49,81 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-interface ListItem {
-  id: string;
-  text: string;
-  children?: ListItem[];
-}
 export interface FormBuilderProps {
   form: FormType;
   onSubmit: (form: FormType) => void;
 }
 
-const computeMatrix = (stepStruct: ListItem[], steps: Step[]): StepperActions[][] => {
-  const indices: Record<string, number> = steps.reduce((res: Record<string, number>, current, index) => {
-    res[current.id] = index;
-    return res;
-  }, {});
-  const emptyMatrix = [...Array(steps.length)].map((e) => Array(steps.length).fill('none'));
+// /**
+//  * Function for finding related steps, based on items generated from the library nestable.
+//  * @param nestableListItem - items generated from the Nestled
+//  * @param stepIndexes
+//  */
+// function findRelatedStepIndexes(nestableListItem: ListItem, stepIndexes: Record<string, number>) {
+//   if (nestableListItem.children) {
+//     return nestableListItem.children.map((nestableListItemChild) => stepIndexes[nestableListItemChild.id]);
+//   }
+//   return [];
+// }
 
-  const getDownIndices = (item: ListItem) => {
-    if (item.children) {
-      return item.children.map((i) => indices[i.id]);
-    }
-    return [];
-  };
+// /**
+//  * Funtion for recursivley inserting navigation actions into a connectivty matrix,
+//  * this is done by matching the step indexes with the data (listItems) recieved from the Nestable component.
+//  */
+// function insertNavigationActionsInMatrix(
+//   stepIndexes: Record<string, number>,
+//   nestableListItems: ListItem[],
+//   matrix: StepperActions[][],
+//   currentLevel = 0,
+// ) {
+//   nestableListItems.forEach((listItem, index) => {
+//     const currentStepIndex = stepIndexes[listItem.id];
+//     if (currentLevel === 0) {
+//       if (index > 0) {
+//         console.log(index);
+//         const backIndex = stepIndexes[nestableListItems[index - 1].id];
+//         matrix[currentStepIndex][backIndex] = 'back';
+//       }
+//       if (index < nestableListItems.length - 1) {
+//         const nextIndex = stepIndexes[nestableListItems[index + 1].id];
+//         matrix[currentStepIndex][nextIndex] = 'next';
+//       }
+//     }
 
-  const recursiveBuild = (stepStruct: ListItem[], matrix: StepperActions[][], currentLevel: number) => {
-    stepStruct.forEach((currentStep, index) => {
-      const currentStepIndex = indices[currentStep.id];
-      if (currentLevel === 0) {
-        if (index > 0) {
-          console.log(index);
-          const backIndex = indices[stepStruct[index - 1].id];
-          matrix[currentStepIndex][backIndex] = 'back';
-        }
-        if (index < stepStruct.length - 1) {
-          const nextIndex = indices[stepStruct[index + 1].id];
-          matrix[currentStepIndex][nextIndex] = 'next';
-        }
-      }
+//     const relatedStepIndexes = findRelatedStepIndexes(listItem, stepIndexes);
 
-      getDownIndices(currentStep).forEach((n) => {
-        matrix[currentStepIndex][n] = 'down';
-        matrix[n][currentStepIndex] = 'up';
-      });
-      if (currentStep.children) {
-        recursiveBuild(currentStep.children, matrix, currentLevel + 1);
-      }
-    });
-    return matrix;
-  };
-  const matrix = recursiveBuild(stepStruct, emptyMatrix, 0);
-  return matrix;
-};
+//     relatedStepIndexes.forEach((relatedStepIndex) => {
+//       matrix[currentStepIndex][relatedStepIndex] = 'down';
+//       matrix[relatedStepIndex][currentStepIndex] = 'up';
+//     });
 
-// const computeStepStruct = (matrix: StepperActions[][]): ListItem[] => {
-//   const steps: ListItem[] = [];
-//   matrix.forEach(row => {
+//     if (listItem.children) {
+//       insertNavigationActionsInMatrix(stepIndexes, listItem.children, matrix, currentLevel + 1);
+//     }
+//   });
+//   return matrix;
+// }
 
-//   })
+// /**
+//  * Function to generate a connectivity matrix that is used to define the connection between steps in a form.
+//  * The connectivity matrix is used to determine the navigation from one step to another in a form.
+//  * @param listItems - Array of list item objects.
+//  * @param steps - Array of steps in a form.
+//  * @returns a connectivity matrix.
+//  */
+// function generateFormConnectivityMatrix(nestableListItems: ListItem[], steps: Step[]): StepperActions[][] {
+//   const stepIndexes: Record<string, number> = steps.reduce((object: Record<string, number>, step, stepIndex) => {
+//     object[step.id] = stepIndex;
+//     return object;
+//   }, {});
+
+//   // Creates an empty 2 dimensional array (matrix) based on the number of steps passed,
+//   // where all values are set to a string with the value of 'none'.
+//   const emptyMatrix = [...Array(steps.length)].map(() => Array(steps.length).fill('none'));
+
+//   const matrix = insertNavigationActionsInMatrix(stepIndexes, nestableListItems, emptyMatrix);
+
+//   return matrix;
 // }
 
 const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilderProps) => {
@@ -180,7 +197,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
     steps: Step[],
   ) => (items: ListItem[] | ((prevState: ListItem[]) => ListItem[])) => {
     if (Array.isArray(items)) {
-      const matrix = computeMatrix(items, steps);
+      const matrix = generateNavigationConnectivityMatrix(items, steps);
       setFieldValue('connectivityMatrix', matrix);
     }
     setStepStructure(items);
