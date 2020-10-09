@@ -16,13 +16,49 @@ const fields: FieldDescriptor[] = [
       { name: 'Text', value: 'text' },
       { name: 'Number', value: 'number' },
       { name: 'Date', value: 'date' },
-      { name: 'Checkbox', value: 'checkbox' },
+      { name: 'ArrayText', value: 'arrayText' },
+      { name: 'ArrayNumber', value: 'arrayNumber' },
+      { name: 'ArrayDate', value: 'arrayDate' },
     ],
   },
 ];
 
+const extraInputs: Record<string, FieldDescriptor[]> = {
+  arrayText: [
+    {
+      name: 'inputId',
+      type: 'text',
+      initialValue: '',
+      label: 'Input id (should match the id of repeater input field id)',
+    },
+  ],
+  arrayNumber: [
+    {
+      name: 'inputId',
+      type: 'text',
+      initialValue: '',
+      label: 'Input id (should match the id of repeater input field id)',
+    },
+  ],
+  arrayDate: [
+    {
+      name: 'inputId',
+      type: 'text',
+      initialValue: '',
+      label: 'Input id (should match the id of repeater input field id)',
+    },
+  ],
+};
+
 const SummaryListItemField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
-  return <MultipleInputField fields={fields} {...props} />;
+  const { value } = props;
+  const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type];
+  return (
+    <>
+      <MultipleInputField fields={fields} {...props} />
+      {extraInput ? <MultipleInputField fields={extraInput} {...props} /> : null}
+    </>
+  );
 };
 
 export default SummaryListItemField;
