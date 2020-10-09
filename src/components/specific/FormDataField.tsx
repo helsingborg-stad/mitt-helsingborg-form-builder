@@ -7,7 +7,6 @@ const formFields: FieldDescriptor[] = [
   { name: 'name', type: 'text', initialValue: '', label: 'Name' },
   { name: 'description', type: 'text', initialValue: '', label: 'Description' },
   { name: 'provider', type: 'text', initialValue: '', label: 'Provider' },
-  { name: 'subform', type: 'checkbox', initialValue: true, label: 'Subform' },
 ];
 
 const formTypeInput: FieldDescriptor = {
@@ -27,7 +26,7 @@ const FormDataField: React.FC<InputFieldPropType> = (props: InputFieldPropType) 
   return (
     <>
       <MultipleInputField fields={formFields} {...props} />
-      {!value.subform && <MultipleInputField fields={[formTypeInput]} {...props} />}
+      <MultipleInputField fields={[formTypeInput]} {...props} />
     </>
   );
 };

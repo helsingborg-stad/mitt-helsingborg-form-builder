@@ -2,13 +2,12 @@ import React from 'react';
 import FieldDescriptor from '../../../types/FieldDescriptor';
 import MultipleInputField from '../../general/MultipleInputField';
 import EditableListInputField from './EditableListInputField';
-import SubstepListCategoryField from './SubstepList/SubstepListCategoryField';
-import SubstepListItemField from './SubstepList/SubstepListItemField';
 import NavigationButton from './NavigationButton/NavigationButtonField';
 import { InputFieldPropType } from '../../../types/PropTypes';
 import NavigationButtonField from './NavigationButton/NavigationButtonField';
-import SummaryListItemField from './SummaryListItemField';
+import SummaryListItemField from './SummaryList/SummaryListItemField';
 import RepeaterInputField from './RepeaterInputField';
+import CategoryField from './SummaryList/CategoryField';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
@@ -28,8 +27,6 @@ const questionFields: FieldDescriptor[] = [
       { name: 'Editable List', value: 'editableList' },
       { name: 'Checkbox', value: 'checkbox' },
       { name: 'Button', value: 'button' },
-      { name: 'Substep List', value: 'substepList' },
-      { name: 'Substep List Summary', value: 'substepListSummary' },
       { name: 'Avatar List (family members)', value: 'avatarList' },
       { name: 'Navigation button', value: 'navigationButton' },
       { name: 'Navigation button group', value: 'navigationButtonGroup' },
@@ -59,23 +56,6 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
     { name: 'inputHelp', type: 'text', initialValue: '', label: 'Value helper' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
-  button: [{ name: 'text', type: 'text', initialValue: '', label: 'Button Text' }],
-  substepList: [
-    { name: 'heading', type: 'text', initialValue: '', label: 'Heading' },
-    { name: 'color', type: 'text', initialValue: 'light', label: 'Color theme' },
-    { name: 'buttonHelpText', type: 'text', initialValue: '', label: 'Help text for the add-item buttons' },
-    { name: 'buttonHelpHeading', type: 'text', initialValue: '', label: 'Helper heading' },
-    { name: 'buttonHelpTagline', type: 'text', initialValue: '', label: 'Helper tagline' },
-    { name: 'buttonHelpUrl', type: 'text', initialValue: '', label: 'Helper url' },
-    { name: 'categories', type: 'array', initialValue: '', label: 'Categories', inputField: SubstepListCategoryField },
-    { name: 'items', type: 'array', initialValue: '', label: 'Items', inputField: SubstepListItemField },
-  ],
-  substepListSummary: [
-    { name: 'heading', type: 'text', initialValue: '', label: 'Heading' },
-    { name: 'color', type: 'text', initialValue: 'light', label: 'Color theme' },
-    { name: 'categories', type: 'array', initialValue: '', label: 'Categories', inputField: SubstepListCategoryField },
-    { name: 'items', type: 'array', initialValue: '', label: 'Items', inputField: SubstepListItemField },
-  ],
   avatarList: [
     { name: 'heading', type: 'text', initialValue: '', label: 'Title' },
     { name: 'formId', type: 'formSelect', initialValue: '', label: 'Subform' },
@@ -98,7 +78,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
   summaryList: [
     { name: 'heading', type: 'text', initialValue: '', label: 'List heading' },
     { name: 'color', type: 'text', initialValue: 'light', label: 'Color theme' },
-    { name: 'categories', type: 'array', initialValue: '', label: 'Categories', inputField: SubstepListCategoryField },
+    { name: 'categories', type: 'array', initialValue: '', label: 'Categories', inputField: CategoryField },
     { name: 'items', type: 'array', initialValue: '', label: 'Items', inputField: SummaryListItemField },
   ],
   repeaterField: [

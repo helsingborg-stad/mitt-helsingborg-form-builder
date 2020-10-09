@@ -105,23 +105,6 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
           );
         }
         break;
-      case 'formSelect':
-        return (
-          <FormGroup style={inputFieldStyle} row>
-            <div style={{ paddingTop: '5px', marginRight: '10px' }}>{field.label} </div>
-            <Select name={computedName} onChange={onChange} onBlur={onBlur} value={value[field.name]} {...other}>
-              {forms
-                ? forms
-                    .filter((f: Form) => f.subform)
-                    .map((form: Form) => (
-                      <MenuItem key={form.id} value={form.id}>
-                        {form.name}
-                      </MenuItem>
-                    ))
-                : null}
-            </Select>
-          </FormGroup>
-        );
       case 'colorPicker':
         return (
           <FormGroup style={inputFieldStyle} row>
