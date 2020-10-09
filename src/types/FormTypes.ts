@@ -1,3 +1,4 @@
+import { ConnectivityMatrixType } from '../helpers/connectivityMatrix';
 export interface Question {
   label: string;
   type: string;
@@ -51,8 +52,6 @@ export interface Step {
   banner?: Banner;
 }
 
-export type StepperActions = 'next' | 'back' | 'up' | 'down' | 'none';
-
 export interface Form {
   name: string;
   description: string;
@@ -62,7 +61,7 @@ export interface Form {
   formType?: string;
   provider?: string;
   stepStructure: ListItem[];
-  connectivityMatrix: StepperActions[][];
+  connectivityMatrix: ConnectivityMatrixType;
 }
 
 export const emptyForm: Form = {

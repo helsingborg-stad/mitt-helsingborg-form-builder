@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Step, StepperActions } from '../../../types/FormTypes';
+import { Step } from '../../../types/FormTypes';
 import Nestable, { Item } from 'react-nestable';
 import { Button, createStyles, IconButton, makeStyles, Paper, Theme, Typography } from '@material-ui/core';
 import { ExpandMore, ExpandLess, Clear, FileCopy } from '@material-ui/icons';

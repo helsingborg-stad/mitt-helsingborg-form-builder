@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import CSS from 'csstype';
-import { Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
+import { Select, MenuItem, FormGroup } from '@material-ui/core';
 import { useFormikContext } from 'formik';
 import { getPropertyFromDottedString } from '../../../helpers/object';
-import { Form, StepperActions } from '../../../types/FormTypes';
+import { ConnectivityMatrixType, navigationActions } from '../../../helpers/connectivityMatrix';
+import { Form } from '../../../types/FormTypes';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -16,14 +17,14 @@ interface Props {
   value: Record<string, any>;
 }
 
-function getNestedSteps(matrix: StepperActions[][], currentIndex: number): number[] {
+function getNestedSteps(matrix: ConnectivityMatrixType, currentIndex: number): number[] {
   return matrix[currentIndex].reduce((prev: number[], curr, currIndex) => {
-    if (curr === 'down') return [currIndex, ...prev];
+    if (curr === navigationActions.DOWN) return [currIndex, ...prev];
     return prev;
   }, []);
 }
-const getParentStep = (matrix: StepperActions[][], currentIndex: number) =>
-  matrix[currentIndex].findIndex((val) => val === 'up');
+const getParentStep = (matrix: ConnectivityMatrixType, currentIndex: number) =>
+  matrix[currentIndex].findIndex((val) => val === navigationActions.UP);
 
 const NavigationButtonInput: React.FC<Props> = ({ name }: Props) => {
   const { setFieldValue, values } = useFormikContext();

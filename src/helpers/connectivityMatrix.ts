@@ -1,7 +1,13 @@
 import { ListItem, Step } from '../types/FormTypes';
 
 export type ConnectivityMatrixNavigationActionsTypes = 'next' | 'back' | 'up' | 'down' | 'none';
-export type ConnectivityMatrix = ConnectivityMatrixNavigationActionsTypes[][];
+export type ConnectivityMatrixType = ConnectivityMatrixNavigationActionsTypes[][];
+export const navigationActions = {
+  UP: 'up',
+  DOWN: 'down',
+  NEXT: 'next',
+  BACK: 'back',
+};
 
 /**
  * Function for finding related steps, based on items generated from the library react-nestable.
@@ -24,7 +30,7 @@ function findRelatedStepIndexes(nestableListItem: ListItem, stepIndexes: Record<
  * @returns - a connectivity matrix.
  */
 function addNavigationActionInConnectivityMatrix(
-  matrix: ConnectivityMatrix,
+  matrix: ConnectivityMatrixType,
   navigationAction: ConnectivityMatrixNavigationActionsTypes,
   firstIndex: number,
   secondIndex: number,
@@ -45,7 +51,7 @@ function addNavigationActionInConnectivityMatrix(
 function insertNavigationActionsInConnectivityMatrix(
   stepIndexes: Record<string, number>,
   nestableListItems: ListItem[],
-  matrix: ConnectivityMatrix,
+  matrix: ConnectivityMatrixType,
   currentLevel = 0,
 ) {
   nestableListItems.forEach((listItem, index) => {
@@ -83,7 +89,10 @@ function insertNavigationActionsInConnectivityMatrix(
  * @param steps - array of steps in a form.
  * @returns a connectivity matrix.
  */
-export function generateNavigationConnectivityMatrix(nestableListItems: ListItem[], steps: Step[]): ConnectivityMatrix {
+export function generateNavigationConnectivityMatrix(
+  nestableListItems: ListItem[],
+  steps: Step[],
+): ConnectivityMatrixType {
   const stepIndexes: Record<string, number> = steps.reduce((object: Record<string, number>, step, stepIndex) => {
     object[step.id] = stepIndex;
     return object;
@@ -94,6 +103,5 @@ export function generateNavigationConnectivityMatrix(nestableListItems: ListItem
   const emptyMatrix = [...Array(steps.length)].map(() => Array(steps.length).fill('none'));
 
   const matrix = insertNavigationActionsInConnectivityMatrix(stepIndexes, nestableListItems, emptyMatrix);
-  console.log(matrix);
   return matrix;
 }
