@@ -169,7 +169,10 @@ const StepList: React.FC<Props> = ({
   const renderItem = ({ item, collapseIcon }: { item: Item; collapseIcon: React.ReactNode }) => {
     return (
       <div>
-        <Paper style={{ height: '40px' }} className={selectedStepId === item.id ? classes.selected : ''}>
+        <Paper
+          style={{ minHeight: '40px', padding: '8px' }}
+          className={selectedStepId === item.id ? classes.selected : ''}
+        >
           <div className="row">
             <span className={classes.col}>{collapseIcon}</span>
             <span onClick={toggleSelection(item)} className={classes.colCenter}>
@@ -197,7 +200,7 @@ const StepList: React.FC<Props> = ({
     <div>
       <Paper
         className={selectedStepId === '' ? classes.selected : ''}
-        style={{ height: '40px' }}
+        style={{ minHeight: '40px' }}
         onClick={() => selectStep('')}
       >
         <Typography style={{ paddingTop: '8px', paddingLeft: '5px' }}>Form data</Typography>
