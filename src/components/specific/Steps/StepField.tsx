@@ -11,9 +11,9 @@ const StepField: React.FC<InputFieldPropType> = ({ name, value, type, ...other }
   return (
     <div>
       <h2>{value.title && value.title !== '' ? value.title : 'Unnamed step'}</h2>
-      <FastField name={name} type="input" as={StepDataField} {...other}/>
+      <FastField name={name} type="input" as={StepDataField} {...other} />
       <h3>Banner</h3>
-      <FastField name={`${name}.banner`} type="input" as={BannerField} {...other}/>
+      <FastField name={`${name}.banner`} type="input" as={BannerField} {...other} />
 
       <FieldArrayWrapper
         key="questions"

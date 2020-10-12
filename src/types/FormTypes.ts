@@ -33,6 +33,7 @@ export interface ListInput {
 export interface Action {
   type: string;
   label: string;
+  color?: string;
 }
 
 export interface Banner {

@@ -74,7 +74,7 @@ const FormList: React.FC<Props> = ({ forms, deleteForm }: Props) => {
       <TextField
         value={formFilter}
         fullWidth
-        label="Filter main forms"
+        label="Filter forms"
         onChange={(e) => {
           setFormFilter(e.target.value);
         }}

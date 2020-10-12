@@ -1,13 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import CSS from 'csstype';
 import { TextField, Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import ColorPicker from 'material-ui-color-picker';
 import FieldDescriptor from '../../types/FieldDescriptor';
 import FieldArrayWrapper from './FieldArrayWrapper';
-import FormContext from '../../contexts/FormContext';
 import { MultipleInputFieldPropType } from '../../types/PropTypes';
 import LoadPreviousToggle from './LoadPreviousToggle';
-import { Form } from '../../types/FormTypes';
 import NavigationButtonInput from '../specific/Questions/NavigationButton/NavigationButtonInput';
 
 const inputFieldStyle: CSS.Properties = {
@@ -24,8 +22,6 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
   setFieldValue,
   ...other
 }: MultipleInputFieldPropType) => {
-  const { forms } = useContext(FormContext);
-
   const inputComponent = (field: FieldDescriptor, computedName: string) => {
     switch (field.type) {
       case 'text':
