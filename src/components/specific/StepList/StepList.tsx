@@ -19,6 +19,19 @@ const useStyles = makeStyles((theme: Theme) =>
     floatRight: {
       float: 'right',
     },
+    iconButtons: {
+      width: '100px',
+    },
+    row: {
+      display: 'table',
+    },
+    col: {
+      display: 'table-cell',
+    },
+    colCenter: {
+      display: 'table-cell',
+      width: '100%',
+    },
   }),
 );
 interface Props {
@@ -156,22 +169,23 @@ const StepList: React.FC<Props> = ({
   const renderItem = ({ item, collapseIcon }: { item: Item; collapseIcon: React.ReactNode }) => {
     return (
       <div>
-        <Paper
-          style={{ height: '40px' }}
-          className={selectedStepId === item.id ? classes.selected : ''}
-          onClick={toggleSelection(item)}
-        >
-          <Typography>
-            {collapseIcon} {item.text}
-            <span className={classes.floatRight}>
+        <Paper style={{ height: '40px' }} className={selectedStepId === item.id ? classes.selected : ''}>
+          <div className="row">
+            <span className={classes.col}>{collapseIcon}</span>
+            <span onClick={toggleSelection(item)} className={classes.colCenter}>
+              {item.text}
+            </span>
+            <div className={`${classes.col}`} style={{ width: 30 }}>
               <IconButton color="primary" onClick={copyStep(item)}>
                 <FileCopy />
               </IconButton>
+            </div>
+            <div className={`${classes.col}`} style={{ width: 30 }}>
               <IconButton color="secondary" onClick={delStep(item)}>
                 <Clear />
               </IconButton>
-            </span>
-          </Typography>
+            </div>
+          </div>
         </Paper>
       </div>
     );
