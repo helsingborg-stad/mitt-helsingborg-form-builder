@@ -11,6 +11,12 @@ export interface Question {
   inputs?: ListInput[];
 }
 
+export interface ListItem {
+  id: string;
+  text: string;
+  children?: ListItem[];
+}
+
 export interface SubstepItem {
   category: string;
   title: string;
@@ -27,6 +33,7 @@ export interface ListInput {
 export interface Action {
   type: string;
   label: string;
+  color?: string;
 }
 
 export interface Banner {
@@ -38,12 +45,14 @@ export interface Banner {
 export interface Step {
   title: string;
   description: string;
-  id?: string;
+  id: string;
   group: string;
   questions?: Question[];
   actions?: Action[];
   banner?: Banner;
 }
+
+export type StepperActions = 'next' | 'back' | 'up' | 'down' | 'none';
 
 export interface Form {
   name: string;
@@ -53,4 +62,16 @@ export interface Form {
   subform?: boolean;
   formType?: string;
   provider?: string;
+  stepStructure: ListItem[];
+  connectivityMatrix: StepperActions[][];
 }
+
+export const emptyForm: Form = {
+  name: '',
+  description: '',
+  steps: [],
+  subform: false,
+  id: '',
+  stepStructure: [],
+  connectivityMatrix: [[]],
+};

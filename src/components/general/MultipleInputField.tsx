@@ -1,13 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import CSS from 'csstype';
 import { TextField, Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import ColorPicker from 'material-ui-color-picker';
 import FieldDescriptor from '../../types/FieldDescriptor';
 import FieldArrayWrapper from './FieldArrayWrapper';
-import FormContext from '../../contexts/FormContext';
 import { MultipleInputFieldPropType } from '../../types/PropTypes';
 import LoadPreviousToggle from './LoadPreviousToggle';
-import { Form } from '../../types/FormTypes';
+import NavigationButtonInput from '../specific/Questions/NavigationButton/NavigationButtonInput';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -23,8 +22,6 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
   setFieldValue,
   ...other
 }: MultipleInputFieldPropType) => {
-  const { forms } = useContext(FormContext);
-
   const inputComponent = (field: FieldDescriptor, computedName: string) => {
     switch (field.type) {
       case 'text':
@@ -71,6 +68,8 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
             setFieldValue={setFieldValue}
           />
         );
+      case 'navigationButton':
+        return <NavigationButtonInput name={computedName} label={field.label} value={value || field.initialValue} />;
       case 'checkbox':
         return (
           <FormGroup style={inputFieldStyle} row>
@@ -102,23 +101,6 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
           );
         }
         break;
-      case 'formSelect':
-        return (
-          <FormGroup style={inputFieldStyle} row>
-            <div style={{ paddingTop: '5px', marginRight: '10px' }}>{field.label} </div>
-            <Select name={computedName} onChange={onChange} onBlur={onBlur} value={value[field.name]} {...other}>
-              {forms
-                ? forms
-                    .filter((f: Form) => f.subform)
-                    .map((form: Form) => (
-                      <MenuItem key={form.id} value={form.id}>
-                        {form.name}
-                      </MenuItem>
-                    ))
-                : null}
-            </Select>
-          </FormGroup>
-        );
       case 'colorPicker':
         return (
           <FormGroup style={inputFieldStyle} row>

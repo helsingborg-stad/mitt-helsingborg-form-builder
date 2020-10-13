@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Form } from '../../../types/FormTypes';
+import { Form, emptyForm } from '../../../types/FormTypes';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Button, Typography, List, TextField } from '@material-ui/core';
 import FormListItem from './FormListItem';
@@ -23,14 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const emptyForm: Form = {
-  name: '',
-  description: '',
-  steps: [],
-  subform: false,
-  id: '',
-};
-
 const formFilter = (filterString: string) => (form: Form): boolean => {
   if (form.name) {
     const match = form.name.toLowerCase().match(filterString.toLowerCase());
@@ -48,8 +40,7 @@ interface Props {
 const FormList: React.FC<Props> = ({ forms, deleteForm }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedForm, selectForm] = useState(emptyForm);
-  const [subformFilter, setSubformFilter] = useState('');
-  const [mainformFilter, setMainformFilter] = useState('');
+  const [formFilterString, setFormFilter] = useState('');
   const classes = useStyles();
   const history = useHistory();
 
@@ -63,9 +54,6 @@ const FormList: React.FC<Props> = ({ forms, deleteForm }: Props) => {
   const delForm = (formId: string) => {
     deleteForm(formId);
   };
-
-  const mainForms = forms.filter((f) => !f.subform);
-  const subforms = forms.filter((f) => f.subform);
 
   return (
     <div>
@@ -81,47 +69,19 @@ const FormList: React.FC<Props> = ({ forms, deleteForm }: Props) => {
       </Button>
 
       <Typography variant="h5" className={classes.title}>
-        Main Forms
+        Forms
       </Typography>
       <TextField
-        value={mainformFilter}
+        value={formFilterString}
         fullWidth
-        label="Filter main forms"
+        label="Filter forms"
         onChange={(e) => {
-          setMainformFilter(e.target.value);
+          setFormFilter(e.target.value);
         }}
       />
       <div className={classes.demo}>
         <List>
-          {mainForms.filter(formFilter(mainformFilter)).map((form, i) => {
-            return (
-              <FormListItem
-                key={form.id || form.name}
-                form={form}
-                onDelete={() => {
-                  selectForm(form);
-                  show();
-                }}
-                index={i}
-              />
-            );
-          })}
-        </List>
-      </div>
-      <Typography variant="h5" className={classes.title}>
-        Subforms
-      </Typography>
-      <TextField
-        value={subformFilter}
-        fullWidth
-        label="Filter subforms"
-        onChange={(e) => {
-          setSubformFilter(e.target.value);
-        }}
-      />
-      <div className={classes.demo}>
-        <List>
-          {subforms.filter(formFilter(subformFilter)).map((form, i) => {
+          {forms.filter(formFilter(formFilterString)).map((form, i) => {
             return (
               <FormListItem
                 key={form.id || form.name}

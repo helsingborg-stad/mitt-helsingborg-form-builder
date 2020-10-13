@@ -1,18 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react';
-import FormBuilder from '../components/specific/FormBuilder';
-import { Form } from '../types/FormTypes';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useParams, Link, Redirect, useLocation } from 'react-router-dom';
+import FormBuilder from '../components/specific/FormBuilder';
+import { Form, emptyForm } from '../types/FormTypes';
 import FormContext from '../contexts/FormContext';
 import NotificationContext from '../contexts/NotificationsContext';
 
-const emptyForm = {
-  name: '',
-  description: '',
-  id: '',
-  steps: [],
-};
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    inner: {
+      width: '90%',
+      margin: '0 auto',
+    },
+  }),
+);
 
 const FormBuilderScreen: React.FC = () => {
+  const classes = useStyles();
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState<Form>(emptyForm);
   const [redirectComp, setRedirectComp] = useState(<> </>);
@@ -105,11 +109,13 @@ const FormBuilderScreen: React.FC = () => {
 
   return (
     <div>
-      <Link style={{ color: 'white' }} to="/">
-        Back to list
-      </Link>
-      <FormBuilder onSubmit={onSubmit} form={form} />
-      {redirectComp}
+      <div className={classes.inner}>
+        <Link style={{ color: 'white' }} to="/">
+          Back to list
+        </Link>
+        <FormBuilder onSubmit={onSubmit} form={form} />
+        {redirectComp}
+      </div>
     </div>
   );
 };

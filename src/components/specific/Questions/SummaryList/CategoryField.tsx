@@ -8,8 +8,8 @@ const fields: FieldDescriptor[] = [
   { name: 'description', type: 'text', initialValue: '', label: 'Display name' },
 ];
 
-const SubstepListCategoryField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
+const CategoryField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   return <MultipleInputField fields={fields} {...props} />;
 };
 
-export default SubstepListCategoryField;
+export default CategoryField;
