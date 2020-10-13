@@ -20,7 +20,7 @@ const FormListScreen: React.FC = () => {
   }
   return (
     <div style={container}>
-      <FormList forms={forms} count={forms.length} deleteForm={deleteForm} />;
+      <FormList forms={forms} count={forms.length} deleteForm={deleteForm} />
     </div>
   );
 };

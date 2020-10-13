@@ -72,7 +72,7 @@ const FormList: React.FC<Props> = ({ forms, deleteForm }: Props) => {
         Forms
       </Typography>
       <TextField
-        value={formFilter}
+        value={formFilterString}
         fullWidth
         label="Filter forms"
         onChange={(e) => {
