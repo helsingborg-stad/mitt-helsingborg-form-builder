@@ -5,8 +5,9 @@ import ColorPicker from 'material-ui-color-picker';
 import FieldDescriptor from '../../types/FieldDescriptor';
 import FieldArrayWrapper from './FieldArrayWrapper';
 import { MultipleInputFieldPropType } from '../../types/PropTypes';
-import LoadPreviousToggle from './LoadPreviousToggle';
+import LoadPreviousToggle from './SmartInputs/LoadPreviousToggle';
 import NavigationButtonInput from '../specific/Questions/NavigationButton/NavigationButtonInput';
+import InputFieldSelect from './SmartInputs/InputFieldSelect';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -125,6 +126,15 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
               {field && value && field.name && value[field.name] ? value[field.name] : field.initialValue}
             </p>
           </FormGroup>
+        );
+      case 'questionIdPicker':
+        return (
+          <InputFieldSelect
+            name={computedName}
+            label={field.label}
+            value={value || field.initialValue}
+            setFieldValue={setFieldValue}
+          />
         );
       default:
         return (
