@@ -6,6 +6,7 @@ import { InputFieldPropType } from '../../../types/PropTypes';
 const fields: FieldDescriptor[] = [
   { name: 'title', type: 'text', initialValue: '', label: 'Title' },
   { name: 'id', type: 'text', initialValue: '', label: 'Field id' },
+  { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
   {
     name: 'type',
     type: 'select',

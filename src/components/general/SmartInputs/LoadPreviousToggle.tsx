@@ -1,7 +1,7 @@
 import React from 'react';
 import CSS from 'csstype';
 import { Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
-import { User } from '../../types/UserType';
+import { User } from '../../../types/UserType';
 
 const emptyUser: User = {
   firstName: '',
