@@ -8,6 +8,7 @@ import { MultipleInputFieldPropType } from '../../types/PropTypes';
 import LoadPreviousToggle from './SmartInputs/LoadPreviousToggle';
 import NavigationButtonInput from '../specific/Questions/NavigationButton/NavigationButtonInput';
 import InputFieldSelect from './SmartInputs/InputFieldSelect';
+import TagsInput from './SmartInputs/TagsInput';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -133,6 +134,15 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
             name={computedName}
             label={field.label}
             value={value || field.initialValue}
+            setFieldValue={setFieldValue}
+          />
+        );
+      case 'tags':
+        return (
+          <TagsInput
+            name={computedName}
+            label={field.label}
+            value={value[field.name] || field.initialValue}
             setFieldValue={setFieldValue}
           />
         );
