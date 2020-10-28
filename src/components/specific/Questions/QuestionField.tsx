@@ -39,15 +39,15 @@ const questionFields: FieldDescriptor[] = [
 const extraInputs: Record<string, FieldDescriptor[]> = {
   text: [
     { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
-    { name: 'tags', type: 'tags', initialValue: '[]', label: 'Tags (enter as comma-separated list of words)' },
+    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
   number: [
     { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
-    { name: 'tags', type: 'tags', initialValue: '[]', label: 'Tags (enter as comma-separated list of words)' },
+    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
-  date: [{ name: 'tags', type: 'tags', initialValue: '[]', label: 'Tags (enter as comma-separated list of words)' }],
+  date: [{ name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' }],
   editableList: [
     { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
     { name: 'title', type: 'text', initialValue: '', label: 'Title' },
@@ -57,7 +57,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
     { name: 'text', type: 'text', initialValue: '', label: 'Text' },
     { name: 'color', type: 'text', initialValue: 'light', label: 'Color' },
     { name: 'inputHelp', type: 'text', initialValue: '', label: 'Value helper' },
-    { name: 'tags', type: 'tags', initialValue: '[]', label: 'Tags (enter as comma-separated list of words)' },
+    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
   avatarList: [

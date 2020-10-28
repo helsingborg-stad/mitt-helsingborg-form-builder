@@ -16,6 +16,7 @@ const editableListFields: FieldDescriptor[] = [
   },
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
   { name: 'key', type: 'text', initialValue: '', label: 'Key' },
+  { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
   { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
 ];
 

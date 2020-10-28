@@ -21,7 +21,6 @@ const TagsInput: React.FC<Props> = ({ name, label, value, setFieldValue }: Props
       setFieldValue(name, tags);
     }
   };
-  console.log('value', value);
   return <TextField fullWidth multiline rowsMax={3} name={name} onChange={onChange} value={value} label={label} />;
 };
 
