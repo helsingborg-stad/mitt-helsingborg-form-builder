@@ -2,7 +2,6 @@ import React from 'react';
 import FieldDescriptor from '../../../types/FieldDescriptor';
 import MultipleInputField from '../../general/MultipleInputField';
 import EditableListInputField from './EditableListInputField';
-import NavigationButton from './NavigationButton/NavigationButtonField';
 import { InputFieldPropType } from '../../../types/PropTypes';
 import NavigationButtonField from './NavigationButton/NavigationButtonField';
 import SummaryListItemField from './SummaryList/SummaryListItemField';
@@ -21,8 +20,12 @@ const questionFields: FieldDescriptor[] = [
     initialValue: 'text',
     label: 'Type',
     choices: [
-      { name: 'Text', value: 'text' },
-      { name: 'Number', value: 'number' },
+      { name: 'Text', value: 'text', validation: 'text' },
+      { name: 'Email', value: 'text', validation: 'email' },
+      { name: 'Postnummer', value: 'number', validation: 'postalcode' },
+      { name: 'Personnummer', value: 'number', validation: 'personalNumber' },
+      { name: 'Telefonnummer', value: 'number', validation: 'phonenumber' },
+      { name: 'Number', value: 'number', validation: 'number' },
       { name: 'Date', value: 'date' },
       { name: 'Editable List', value: 'editableList' },
       { name: 'Checkbox', value: 'checkbox' },
@@ -95,7 +98,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
 };
 
 const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
-  const { value } = props;
+  const { value, name } = props;
   const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type];
   return (
     <>
