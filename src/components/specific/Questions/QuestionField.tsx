@@ -85,6 +85,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
     { name: 'heading', type: 'text', initialValue: '', label: 'List heading' },
     { name: 'addButtonText', type: 'text', initialValue: '', label: 'Button Text (to add an item)' },
     { name: 'color', type: 'text', initialValue: 'light', label: 'Color theme' },
+    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
     { name: 'inputs', type: 'array', initialValue: '', label: 'Inputs (rows)', inputField: RepeaterInputField },
   ],
 };
