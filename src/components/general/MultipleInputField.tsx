@@ -155,16 +155,7 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
           />
         );
       default:
-        return (
-          <TextField
-            name={computedName}
-            onChange={onChange}
-            onBlur={onBlur}
-            value={value[field.name]}
-            label={field.label}
-            {...other}
-          />
-        );
+        throw new Error(`Missing type ${field.type}`);
     }
   };
 

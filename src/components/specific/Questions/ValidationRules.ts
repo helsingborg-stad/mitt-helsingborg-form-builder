@@ -1,6 +1,20 @@
-import ValidationRules from '../../../types/ValidationRules';
+import ValidationObject, { ValidationRule } from '../../../types/ValidationRules';
 
-const ValidationFieldRules: Record<string, ValidationRules> = {
+export const isRequiredRule: ValidationRule = {
+  method: 'isEmpty',
+  validWhen: false,
+  message: 'Du får inte lämna detta fält tomt',
+};
+
+const ValidationFieldRules: Record<string, ValidationObject> = {
+  text: {
+    isRequired: false,
+    rules: [],
+  },
+  date: {
+    isRequired: false,
+    rules: [],
+  },
   email: {
     isRequired: false,
     rules: [
@@ -10,10 +24,6 @@ const ValidationFieldRules: Record<string, ValidationRules> = {
         message: 'Du måste ange en giltig emailadress',
       },
     ],
-  },
-  text: {
-    isRequired: false,
-    rules: [],
   },
   personalNumber: {
     isRequired: false,
@@ -37,7 +47,7 @@ const ValidationFieldRules: Record<string, ValidationRules> = {
     ],
   },
   number: {
-    isRequired: true,
+    isRequired: false,
     rules: [
       {
         method: 'isNumeric',
@@ -47,26 +57,13 @@ const ValidationFieldRules: Record<string, ValidationRules> = {
           },
         },
         validWhen: true,
-        message: 'Du har angett en siffra som är mindre än 1',
-      },
-      {
-        method: 'isPostalCode',
-        args: {
-          locale: 'SE',
-        },
-        validWhen: true,
-        message: 'Postnummret du angav är inte giltligt',
+        message: 'Du måste ange en siffra',
       },
     ],
   },
   phonenumber: {
     isRequired: true,
     rules: [
-      {
-        method: 'isEmpty',
-        validWhen: false,
-        message: 'Du får inte lämna detta fält tomt',
-      },
       {
         method: 'isMobilePhone',
         args: {

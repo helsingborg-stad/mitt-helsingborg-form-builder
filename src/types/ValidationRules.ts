@@ -1,4 +1,4 @@
-type ValidatorMethod =
+export type ValidatorMethod =
   | 'isEmpty'
   | 'isEmail'
   | 'isUrl'
@@ -12,15 +12,17 @@ type ValidatorMethod =
   | 'isLength'
   | 'isInt';
 
-export default interface ValidationRules {
+export interface ValidationRule {
+  method: ValidatorMethod;
+  validWhen: boolean;
+  args?: {
+    options?: Record<string, string | boolean | number>;
+    locale?: string;
+  };
+  message: string;
+}
+
+export default interface ValidationObject {
   isRequired: boolean;
-  rules: {
-    method: ValidatorMethod;
-    validWhen: boolean;
-    args?: {
-      options?: Record<string, string | boolean | number>;
-      locale?: string;
-    };
-    message: string;
-  }[];
+  rules: ValidationRule[];
 }

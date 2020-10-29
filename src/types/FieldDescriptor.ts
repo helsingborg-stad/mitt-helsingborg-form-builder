@@ -1,9 +1,30 @@
 import React from 'react';
 import { InputFieldPropType } from './PropTypes';
 
+export type InputType =
+  | 'text'
+  | 'number'
+  | 'date'
+  | 'checkbox'
+  | 'array'
+  | 'select'
+  | 'editableList'
+  | 'avatarList'
+  | 'navigationButton'
+  | 'navigationButtonGroup'
+  | 'summaryList'
+  | 'repeaterField'
+  | 'questionIdPicker'
+  | 'loadPreviousToggle'
+  | 'tags'
+  | 'colorPicker'
+  | 'arrayText'
+  | 'arrayNumber'
+  | 'arrayDate';
+
 export default interface FieldDescriptor {
   name: string;
-  type: string;
+  type: InputType;
   initialValue: string | boolean;
   placeholder?: string;
   label: string;
