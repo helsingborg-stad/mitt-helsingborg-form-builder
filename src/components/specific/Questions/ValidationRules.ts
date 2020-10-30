@@ -6,7 +6,16 @@ export const isRequiredRule: ValidationRule = {
   message: 'Du får inte lämna detta fält tomt',
 };
 
-const ValidationFieldRules: Record<string, ValidationObject> = {
+export type ValidationFieldTypes =
+  | 'text'
+  | 'date'
+  | 'email'
+  | 'number'
+  | 'personalNumber'
+  | 'phoneNumber'
+  | 'postalCode';
+
+const ValidationFieldRules: Record<ValidationFieldTypes, ValidationObject> = {
   text: {
     isRequired: false,
     rules: [],
@@ -61,7 +70,7 @@ const ValidationFieldRules: Record<string, ValidationObject> = {
       },
     ],
   },
-  phonenumber: {
+  phoneNumber: {
     isRequired: true,
     rules: [
       {
@@ -74,7 +83,7 @@ const ValidationFieldRules: Record<string, ValidationObject> = {
       },
     ],
   },
-  postalcode: {
+  postalCode: {
     isRequired: false,
     rules: [
       {

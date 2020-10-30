@@ -3,6 +3,7 @@ import FieldDescriptor, { InputType } from '../../../../types/FieldDescriptor';
 import MultipleInputField from '../../../general/MultipleInputField';
 import { InputFieldPropType } from '../../../../types/PropTypes';
 import QuestionTypeSelect from '../QuestionTypeSelect';
+import { ValidationFieldTypes } from '../ValidationRules';
 
 const fields: FieldDescriptor[] = [
   { name: 'title', type: 'text', initialValue: '', label: 'Title' },
@@ -10,22 +11,27 @@ const fields: FieldDescriptor[] = [
   { name: 'category', type: 'text', initialValue: '', label: 'Category' },
 ];
 
-const typeChoices: { displayName: string; selectValue: string; inputType: InputType; validationType?: string }[] = [
+const typeChoices: {
+  displayName: string;
+  selectValue: string;
+  inputType: InputType;
+  validationType?: ValidationFieldTypes;
+}[] = [
   { selectValue: 'text', displayName: 'Text', inputType: 'text', validationType: 'text' },
   { selectValue: 'email', displayName: 'Email', inputType: 'text', validationType: 'email' },
-  { selectValue: 'postalCode', displayName: 'Postnummer', inputType: 'number', validationType: 'postalcode' },
+  { selectValue: 'postalCode', displayName: 'Postnummer', inputType: 'number', validationType: 'postalCode' },
   { selectValue: 'personalNumber', displayName: 'Personnummer', inputType: 'number', validationType: 'personalNumber' },
-  { selectValue: 'phone', displayName: 'Telefonnummer', inputType: 'number', validationType: 'phonenumber' },
+  { selectValue: 'phone', displayName: 'Telefonnummer', inputType: 'number', validationType: 'phoneNumber' },
   { selectValue: 'number', displayName: 'Number', inputType: 'number', validationType: 'number' },
   { selectValue: 'date', displayName: 'Date', inputType: 'date' },
-  // Array types
+  // Array types for repeater fields
   { selectValue: 'arrayText', displayName: 'Repeater Text', inputType: 'arrayText', validationType: 'text' },
   { selectValue: 'arrayEmail', displayName: 'Repeater Email', inputType: 'arrayText', validationType: 'email' },
   {
     selectValue: 'arrayPostalCode',
     displayName: 'Repeater Postnummer',
     inputType: 'arrayNumber',
-    validationType: 'postalcode',
+    validationType: 'postalCode',
   },
   {
     selectValue: 'arrayPersonalNumber',
@@ -37,7 +43,7 @@ const typeChoices: { displayName: string; selectValue: string; inputType: InputT
     selectValue: 'arrayPhone',
     displayName: 'Repeater Telefonnummer',
     inputType: 'arrayNumber',
-    validationType: 'phonenumber',
+    validationType: 'phoneNumber',
   },
   { selectValue: 'arrayNumber', displayName: 'Repeater Number', inputType: 'arrayNumber', validationType: 'number' },
   { selectValue: 'arrayDate', displayName: 'Repeater Date', inputType: 'arrayDate' },
@@ -79,7 +85,6 @@ const SummaryListItemField: React.FC<InputFieldPropType> = (props: InputFieldPro
       <QuestionTypeSelect
         name={props.name}
         value={props.value}
-        initialValue={'text'}
         label="Input field type"
         choices={typeChoices}
         setFieldValue={props.setFieldValue}

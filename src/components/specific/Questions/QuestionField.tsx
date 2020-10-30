@@ -8,6 +8,7 @@ import SummaryListItemField from './SummaryList/SummaryListItemField';
 import RepeaterInputField from './RepeaterInputField';
 import CategoryField from './SummaryList/CategoryField';
 import QuestionTypeSelect from './QuestionTypeSelect';
+import { ValidationFieldTypes } from './ValidationRules';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
@@ -17,12 +18,17 @@ const questionFields: FieldDescriptor[] = [
   { name: 'conditionalOn', type: 'text', initialValue: '', label: 'Conditional on (field id)' },
 ];
 
-const typeChoices: { displayName: string; selectValue: string; inputType: InputType; validationType?: string }[] = [
+const typeChoices: {
+  displayName: string;
+  selectValue: string;
+  inputType: InputType;
+  validationType?: ValidationFieldTypes;
+}[] = [
   { selectValue: 'text', displayName: 'Text', inputType: 'text', validationType: 'text' },
   { selectValue: 'email', displayName: 'Email', inputType: 'text', validationType: 'email' },
-  { selectValue: 'postalCode', displayName: 'Postnummer', inputType: 'number', validationType: 'postalcode' },
+  { selectValue: 'postalCode', displayName: 'Postnummer', inputType: 'number', validationType: 'postalCode' },
   { selectValue: 'personalNumber', displayName: 'Personnummer', inputType: 'number', validationType: 'personalNumber' },
-  { selectValue: 'phone', displayName: 'Telefonnummer', inputType: 'number', validationType: 'phonenumber' },
+  { selectValue: 'phone', displayName: 'Telefonnummer', inputType: 'number', validationType: 'phoneNumber' },
   { selectValue: 'number', displayName: 'Number', inputType: 'number', validationType: 'number' },
   { selectValue: 'date', displayName: 'Date', inputType: 'date' },
   { selectValue: 'editableList', displayName: 'Editable List', inputType: 'editableList' },
@@ -98,7 +104,6 @@ const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) 
       <QuestionTypeSelect
         name={name}
         value={value}
-        initialValue={'text'}
         label="Input Type"
         choices={typeChoices}
         setFieldValue={setFieldValue}
