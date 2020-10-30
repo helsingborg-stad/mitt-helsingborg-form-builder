@@ -1,13 +1,14 @@
 import React from 'react';
-import FieldDescriptor from '../../../types/FieldDescriptor';
+import FieldDescriptor, { InputType } from '../../../types/FieldDescriptor';
 import MultipleInputField from '../../general/MultipleInputField';
 import EditableListInputField from './EditableListInputField';
-import NavigationButton from './NavigationButton/NavigationButtonField';
 import { InputFieldPropType } from '../../../types/PropTypes';
 import NavigationButtonField from './NavigationButton/NavigationButtonField';
 import SummaryListItemField from './SummaryList/SummaryListItemField';
 import RepeaterInputField from './RepeaterInputField';
 import CategoryField from './SummaryList/CategoryField';
+import QuestionTypeSelect from './QuestionTypeSelect';
+import { ValidationFieldTypes } from './ValidationRules';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
@@ -15,25 +16,28 @@ const questionFields: FieldDescriptor[] = [
   { name: 'description', type: 'text', initialValue: '', label: 'Description' },
   { name: 'id', type: 'text', initialValue: '', label: 'Id' },
   { name: 'conditionalOn', type: 'text', initialValue: '', label: 'Conditional on (field id)' },
-  {
-    name: 'type',
-    type: 'select',
-    initialValue: 'text',
-    label: 'Type',
-    choices: [
-      { name: 'Text', value: 'text' },
-      { name: 'Number', value: 'number' },
-      { name: 'Date', value: 'date' },
-      { name: 'Editable List', value: 'editableList' },
-      { name: 'Checkbox', value: 'checkbox' },
-      { name: 'Button', value: 'button' },
-      { name: 'Avatar List (family members)', value: 'avatarList' },
-      { name: 'Navigation button', value: 'navigationButton' },
-      { name: 'Navigation button group', value: 'navigationButtonGroup' },
-      { name: 'Summary List', value: 'summaryList' },
-      { name: 'Repeater Field', value: 'repeaterField' },
-    ],
-  },
+];
+
+const typeChoices: {
+  displayName: string;
+  selectValue: string;
+  inputType: InputType;
+  validationType?: ValidationFieldTypes;
+}[] = [
+  { selectValue: 'text', displayName: 'Text', inputType: 'text', validationType: 'text' },
+  { selectValue: 'email', displayName: 'Email', inputType: 'text', validationType: 'email' },
+  { selectValue: 'postalCode', displayName: 'Postnummer', inputType: 'number', validationType: 'postalCode' },
+  { selectValue: 'personalNumber', displayName: 'Personnummer', inputType: 'number', validationType: 'personalNumber' },
+  { selectValue: 'phone', displayName: 'Telefonnummer', inputType: 'number', validationType: 'phoneNumber' },
+  { selectValue: 'number', displayName: 'Number', inputType: 'number', validationType: 'number' },
+  { selectValue: 'date', displayName: 'Date', inputType: 'date' },
+  { selectValue: 'editableList', displayName: 'Editable List', inputType: 'editableList' },
+  { selectValue: 'checkbox', displayName: 'Checkbox', inputType: 'checkbox' },
+  { selectValue: 'avatarList', displayName: 'Avatar List (family members)', inputType: 'avatarList' },
+  { selectValue: 'navigationButton', displayName: 'Navigation button', inputType: 'navigationButton' },
+  { selectValue: 'navigationButtonGroup', displayName: 'Navigation button group', inputType: 'navigationButtonGroup' },
+  { selectValue: 'summaryList', displayName: 'Summary List', inputType: 'summaryList' },
+  { selectValue: 'repeaterField', displayName: 'Repeater Field', inputType: 'repeaterField' },
 ];
 
 const extraInputs: Record<string, FieldDescriptor[]> = {
@@ -60,10 +64,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
     { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
-  avatarList: [
-    { name: 'heading', type: 'text', initialValue: '', label: 'Title' },
-    { name: 'formId', type: 'formSelect', initialValue: '', label: 'Subform' },
-  ],
+  avatarList: [{ name: 'heading', type: 'text', initialValue: '', label: 'Title' }],
   navigationButton: [
     { name: 'text', type: 'text', initialValue: '', label: 'Button text' },
     { name: 'color', type: 'text', initialValue: 'light', label: 'Color' },
@@ -95,12 +96,19 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
 };
 
 const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
-  const { value } = props;
+  const { value, name, setFieldValue } = props;
   const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type];
   return (
     <>
       <MultipleInputField fields={questionFields} {...props} />
-      {extraInput ? <MultipleInputField fields={extraInput} {...props} /> : null}
+      <QuestionTypeSelect
+        name={name}
+        value={value}
+        label="Input Type"
+        choices={typeChoices}
+        setFieldValue={setFieldValue}
+      />
+      {extraInput && <MultipleInputField fields={extraInput} {...props} />}
     </>
   );
 };

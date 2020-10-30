@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CSS from 'csstype';
 import { TextField, Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import ColorPicker from 'material-ui-color-picker';
@@ -22,8 +22,16 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
   value,
   fields,
   setFieldValue,
+  validation,
   ...other
 }: MultipleInputFieldPropType) => {
+  useEffect(() => {
+    if (validation) {
+      const computedName = !name || name === '' ? 'validation' : name + '.validation';
+      setFieldValue(computedName, validation);
+    }
+  }, [validation, setFieldValue, name]);
+
   const inputComponent = (field: FieldDescriptor, computedName: string) => {
     switch (field.type) {
       case 'text':
@@ -147,16 +155,7 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
           />
         );
       default:
-        return (
-          <TextField
-            name={computedName}
-            onChange={onChange}
-            onBlur={onBlur}
-            value={value[field.name]}
-            label={field.label}
-            {...other}
-          />
-        );
+        throw new Error(`Missing type ${field.type}`);
     }
   };
 

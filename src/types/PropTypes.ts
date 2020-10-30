@@ -1,5 +1,6 @@
 import FieldDescriptor from './FieldDescriptor';
 import { ChangeEvent } from 'react';
+import ValidationRules from './ValidationRules';
 
 export interface InputFieldPropType {
   name: string;
@@ -18,4 +19,5 @@ export interface MultipleInputFieldPropType {
   onBlur: (e?: ChangeEvent | ChangeEvent<{ name?: string | undefined; value: unknown }>) => void;
   onChange: (e?: ChangeEvent | ChangeEvent<{ name?: string | undefined; value: unknown }>) => void;
   setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
+  validation?: ValidationRules;
 }
