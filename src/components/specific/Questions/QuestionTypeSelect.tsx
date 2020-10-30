@@ -3,7 +3,7 @@ import CSS from 'csstype';
 import { Select, MenuItem, FormGroup, Switch } from '@material-ui/core';
 import { InputType } from '../../../types/FieldDescriptor';
 import ValidationFieldRules, { isRequiredRule } from './ValidationRules';
-import ValidationObject, { ValidationRule } from '../../../types/ValidationRules';
+import ValidationObject from '../../../types/ValidationRules';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -15,19 +15,18 @@ interface Props {
   name: string;
   label: string;
   value: Record<string, any>;
-  initialValue: string;
   choices: { displayName: string; selectValue: string; inputType: InputType; validationType?: ValidationType }[];
   setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }
 
-const QuestionTypeSelect: React.FC<Props> = ({ name, label, value, initialValue, choices, setFieldValue }) => {
+const QuestionTypeSelect: React.FC<Props> = ({ name, label, value, choices, setFieldValue }) => {
   const [currentChoice, setCurrentChoice] = useState(choices.find((ch) => ch.selectValue === value.inputSelectValue));
   const [required, setRequired] = useState(false);
   useEffect(() => {
     if (currentChoice?.validationType) {
       setRequired((value.validation as ValidationObject).isRequired);
     }
-  }, [setRequired]);
+  }, [setRequired, currentChoice, value.validation]);
 
   const onChange = (
     event: React.ChangeEvent<{
@@ -67,7 +66,7 @@ const QuestionTypeSelect: React.FC<Props> = ({ name, label, value, initialValue,
   return (
     <FormGroup style={inputFieldStyle} row>
       <div style={{ paddingTop: '5px', marginRight: '10px' }}>{label} </div>
-      <Select onChange={onChange} value={value['inputSelectValue'] || initialValue}>
+      <Select onChange={onChange} value={value['inputSelectValue'] || ''}>
         {choices
           ? choices.map((choice) => (
               <MenuItem key={choice.selectValue} value={choice.selectValue}>

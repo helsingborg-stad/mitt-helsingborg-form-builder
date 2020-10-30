@@ -7,7 +7,7 @@ const actionFields: FieldDescriptor[] = [
   {
     name: 'type',
     type: 'select',
-    initialValue: 'next',
+    initialValue: '',
     label: 'Type',
     choices: [
       { name: 'Start', value: 'start' },
