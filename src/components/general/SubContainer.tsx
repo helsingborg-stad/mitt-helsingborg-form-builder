@@ -104,7 +104,7 @@ const SubContainer: React.FC<Props> = ({
   }
 
   // Which fields to look for when generating a title to show when collapsed, in falling priority.
-  const prioritizedTitles = ['title', 'label', 'heading', 'description', 'text'];
+  const prioritizedTitles = ['title', 'label', 'heading', 'description', 'displayText', 'text'];
   const n = prioritizedTitles.reduce((foundTitle: string, current: string) => {
     if (foundTitle !== '') return foundTitle;
     if (itemValues && itemValues[current] && itemValues[current] !== '') return itemValues[current] as string;

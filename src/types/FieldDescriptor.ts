@@ -12,6 +12,7 @@ export type InputType =
   | 'avatarList'
   | 'navigationButton'
   | 'navigationButtonGroup'
+  | 'radioGroup'
   | 'summaryList'
   | 'repeaterField'
   | 'questionIdPicker'
