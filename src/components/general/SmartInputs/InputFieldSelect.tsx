@@ -1,6 +1,6 @@
 import React from 'react';
 import CSS from 'csstype';
-import { Select, MenuItem, FormGroup, FormControlLabel, Typography } from '@material-ui/core';
+import { Select, MenuItem, FormGroup, Typography } from '@material-ui/core';
 import { useFormikContext } from 'formik';
 import { Form } from '../../../types/FormTypes';
 

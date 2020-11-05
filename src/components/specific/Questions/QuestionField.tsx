@@ -9,6 +9,7 @@ import RepeaterInputField from './RepeaterInputField';
 import CategoryField from './SummaryList/CategoryField';
 import QuestionTypeSelect from './QuestionTypeSelect';
 import { ValidationFieldTypes } from './ValidationRules';
+import RadioButtonChoice from './RadioButtonChoice';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
@@ -38,9 +39,10 @@ const typeChoices: {
   { selectValue: 'navigationButtonGroup', displayName: 'Navigation button group', inputType: 'navigationButtonGroup' },
   { selectValue: 'summaryList', displayName: 'Summary List', inputType: 'summaryList' },
   { selectValue: 'repeaterField', displayName: 'Repeater Field', inputType: 'repeaterField' },
+  { selectValue: 'radioGroup', displayName: 'Radio buttons', inputType: 'radioGroup' },
 ];
 
-const extraInputs: Record<string, FieldDescriptor[]> = {
+const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   text: [
     { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
     { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
@@ -93,11 +95,12 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
     { name: 'inputs', type: 'array', initialValue: '', label: 'Inputs (rows)', inputField: RepeaterInputField },
   ],
+  radioGroup: [{ name: 'choices', type: 'array', initialValue: '', label: 'Choices', inputField: RadioButtonChoice }],
 };
 
 const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   const { value, name, setFieldValue } = props;
-  const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type];
+  const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type as InputType];
   return (
     <>
       <MultipleInputField fields={questionFields} {...props} />
