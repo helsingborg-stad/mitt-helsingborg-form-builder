@@ -85,6 +85,7 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   summaryList: [
     { name: 'heading', type: 'text', initialValue: '', label: 'List heading' },
     { name: 'color', type: 'text', initialValue: 'light', label: 'Color theme' },
+    { name: 'showSum', type: 'checkbox', initialValue: 'true', label: 'Show sum' },
     { name: 'categories', type: 'array', initialValue: '', label: 'Categories', inputField: CategoryField },
     { name: 'items', type: 'array', initialValue: '', label: 'Items', inputField: SummaryListItemField },
   ],
