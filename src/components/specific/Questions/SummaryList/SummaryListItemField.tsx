@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FieldDescriptor, { InputType } from '../../../../types/FieldDescriptor';
 import MultipleInputField from '../../../general/MultipleInputField';
 import { InputFieldPropType } from '../../../../types/PropTypes';
@@ -59,15 +59,25 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
 const SummaryListItemField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   const { values } = useFormikContext<Form>();
   const { value, name } = props;
+  const [categoryChoices, setCategoryChoices] = useState<{ value: string; displayName: string }[]>([]);
+  const [categoryName, setCategoryName] = useState('');
 
-  const categoryNameArray = name.split('.').slice(0, name.split('.').length - 2);
-  categoryNameArray.push('categories');
-  console.log(categoryNameArray.join('.'));
-  const categories = getPropertyFromDottedString(values, categoryNameArray.join('.'));
-  const categoryChoices = categories.map((cat: { category: string; description: string }) => ({
-    displayName: cat.description,
-    value: cat.category,
-  }));
+  useEffect(() => {
+    const categoryNameArray = name.split('.').slice(0, name.split('.').length - 2);
+    categoryNameArray.push('categories');
+    setCategoryName(categoryNameArray.join('.'));
+  }, [name]);
+
+  useEffect(() => {
+    const categories = getPropertyFromDottedString(values, categoryName);
+    if (categories && categories.length > 0) {
+      const categoryChoices = categories.map((cat: { category: string; description: string }) => ({
+        displayName: cat.description,
+        value: cat.category,
+      }));
+      setCategoryChoices(categoryChoices);
+    }
+  }, [name, categoryName]);
 
   const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type];
   return (
@@ -80,14 +90,16 @@ const SummaryListItemField: React.FC<InputFieldPropType> = (props: InputFieldPro
         value={value.category}
         setFieldValue={props.setFieldValue}
       />
-      <QuestionTypeSelect
-        name={props.name}
-        value={props.value}
-        label="Input field type"
-        choices={typeChoices}
-        setFieldValue={props.setFieldValue}
-        showRequiredToggle={false}
-      />
+      {categoryChoices.length > 0 && (
+        <QuestionTypeSelect
+          name={props.name}
+          value={props.value}
+          label="Input field type"
+          choices={typeChoices}
+          setFieldValue={props.setFieldValue}
+          showRequiredToggle={false}
+        />
+      )}
       {extraInput ? <MultipleInputField fields={extraInput} {...props} /> : null}
     </>
   );
