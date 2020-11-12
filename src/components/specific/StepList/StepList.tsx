@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Step, StepperActions } from '../../../types/FormTypes';
 import Nestable, { Item } from 'react-nestable';
 import { Button, createStyles, IconButton, makeStyles, Paper, Theme, Typography } from '@material-ui/core';
