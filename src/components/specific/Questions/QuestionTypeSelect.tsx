@@ -17,9 +17,17 @@ interface Props {
   value: Record<string, any>;
   choices: { displayName: string; selectValue: string; inputType: InputType; validationType?: ValidationType }[];
   setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
+  showRequiredToggle?: boolean;
 }
 
-const QuestionTypeSelect: React.FC<Props> = ({ name, label, value, choices, setFieldValue }) => {
+const QuestionTypeSelect: React.FC<Props> = ({
+  name,
+  label,
+  value,
+  choices,
+  setFieldValue,
+  showRequiredToggle = true,
+}) => {
   const [currentChoice, setCurrentChoice] = useState(choices.find((ch) => ch.selectValue === value.inputSelectValue));
   const [required, setRequired] = useState(false);
   useEffect(() => {
@@ -75,7 +83,7 @@ const QuestionTypeSelect: React.FC<Props> = ({ name, label, value, choices, setF
             ))
           : null}
       </Select>
-      {currentChoice?.validationType && (
+      {currentChoice?.validationType && showRequiredToggle && (
         <>
           <div style={{ paddingTop: '5px', marginRight: '10px', marginLeft: '20px' }}>Is required?</div>
           <Switch checked={required} onChange={onToggleRequire} />
