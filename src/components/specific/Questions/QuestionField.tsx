@@ -10,6 +10,7 @@ import CategoryField from './SummaryList/CategoryField';
 import QuestionTypeSelect from './QuestionTypeSelect';
 import { ValidationFieldTypes } from './ValidationRules';
 import RadioButtonChoice from './RadioButtonChoice';
+import SelectChoice from './SelectChoice';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
@@ -40,6 +41,7 @@ const typeChoices: {
   { selectValue: 'summaryList', displayName: 'Summary List', inputType: 'summaryList' },
   { selectValue: 'repeaterField', displayName: 'Repeater Field', inputType: 'repeaterField' },
   { selectValue: 'radioGroup', displayName: 'Radio buttons', inputType: 'radioGroup' },
+  { selectValue: 'select', displayName: 'Select (dropdown menu)', inputType: 'select' },
 ];
 
 const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
@@ -98,6 +100,7 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     { name: 'inputs', type: 'array', initialValue: '', label: 'Inputs (rows)', inputField: RepeaterInputField },
   ],
   radioGroup: [{ name: 'choices', type: 'array', initialValue: '', label: 'Choices', inputField: RadioButtonChoice }],
+  select: [{ name: 'items', type: 'array', initialValue: '', label: 'Choices', inputField: SelectChoice }],
 };
 
 const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
