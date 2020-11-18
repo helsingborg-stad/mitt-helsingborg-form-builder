@@ -1680,6 +1680,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/classnames@^2.2.11":
+  version "2.2.11"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.11.tgz#2521cc86f69d15c5b90664e4829d84566052c1cf"
+  integrity sha512-2koNhpWm3DgWRp5tpkiJ8JGc1xTn2q0l+jUNUE7oMKXUf5NpI9AIdC4kbjGNFBdHtcxBD18LAksoudAVhFKCjw==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -1778,6 +1783,20 @@
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
+
+"@types/react-addons-shallow-compare@^0.14.22":
+  version "0.14.22"
+  resolved "https://registry.yarnpkg.com/@types/react-addons-shallow-compare/-/react-addons-shallow-compare-0.14.22.tgz#25177d8ab88aedfc2937b434b09b1fcbc9c2eccd"
+  integrity sha512-krgFRorWtbVJLzpJsJD6O27Lew3YHuemVZbL9RFvq8TF1w9DbrHjiiLuIyWIL6AjunBkUrQlErfbUv1TYKiK9w==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-addons-update@^0.14.20":
+  version "0.14.20"
+  resolved "https://registry.yarnpkg.com/@types/react-addons-update/-/react-addons-update-0.14.20.tgz#f88c83aa4a6f34832c9d7cb021c7120d92585907"
+  integrity sha512-k25VHmbIoaSaSr0rqgANa/84IvJG8MRKiObMJ8FXnFE0QRU7S5fV95/Cr6Ttz7CZFla01Db/q7vX4Ei+SOuvIA==
+  dependencies:
+    "@types/react" "*"
 
 "@types/react-dom@*", "@types/react-dom@^16.9.8":
   version "16.9.8"
@@ -3250,7 +3269,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.5:
+classnames@^2.2.5, classnames@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
   integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
@@ -9427,7 +9446,7 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-addons-shallow-compare@^15.3.1:
+react-addons-shallow-compare@^15.3.1, react-addons-shallow-compare@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.6.2.tgz#198a00b91fc37623db64a28fd17b596ba362702f"
   integrity sha1-GYoAuR/DdiPbZKKP0XtZa6NicC8=
@@ -9435,7 +9454,7 @@ react-addons-shallow-compare@^15.3.1:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-addons-update@^15.3.2:
+react-addons-update@^15.3.2, react-addons-update@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react-addons-update/-/react-addons-update-15.6.2.tgz#e53753c5b34887974510c882d7fb075851d5e504"
   integrity sha1-5TdTxbNIh5dFEMiC1/sHWFHV5QQ=
