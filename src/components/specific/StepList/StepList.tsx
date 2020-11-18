@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Step } from '../../../types/FormTypes';
-import Nestable, { Item } from 'react-nestable';
+// import Nestable, { Item } from 'react-nestable';
+import { Item } from 'react-nestable';
+import Nestable from '../../../nestable/Nestable';
 import { Button, createStyles, IconButton, makeStyles, Paper, Theme, Typography } from '@material-ui/core';
 import { ExpandMore, ExpandLess, Clear, FileCopy } from '@material-ui/icons';
 
@@ -166,7 +168,7 @@ const StepList: React.FC<Props> = ({
         renderItem={renderItem}
         maxDepth={3}
         renderCollapseIcon={renderCollapseIcon}
-        onChange={(items) => {
+        onChange={(items: Item[]) => {
           setStepStructure(items);
         }}
       />
