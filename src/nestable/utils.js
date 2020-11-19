@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export const objectType = (obj) => {
   return Object.prototype.toString.call(obj).slice(8, -1);
 };
@@ -74,6 +76,16 @@ export const listWithChildren = (list, childrenProp) => {
     return {
       ...item,
       [childrenProp]: item[childrenProp] ? listWithChildren(item[childrenProp], childrenProp) : [],
+    };
+  });
+};
+export const listWithGroup = (list, childrenProp) => {
+  return list.map((item) => {
+    return {
+      ...item,
+      group: item.group ? item.group : uuidv4(),
+      [childrenProp]:
+        item[childrenProp] && item[childrenProp].length > 0 ? listWithGroup(item[childrenProp], childrenProp) : [],
     };
   });
 };

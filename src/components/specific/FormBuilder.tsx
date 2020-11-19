@@ -4,7 +4,7 @@ import { Formik, Form } from 'formik';
 import { Button, Paper, FormControlLabel, FormGroup, Switch, Typography } from '@material-ui/core';
 import ReactJson from 'react-json-view';
 import { v4 as uuidv4 } from 'uuid';
-import { Form as FormType, Step, StepperActions } from '../../types/FormTypes';
+import { Form as FormType, Step, StepperActions, ListItem } from '../../types/FormTypes';
 import StepField from './Steps/StepField';
 import FormDataField from './FormDataField';
 import StepList from './StepList/StepList';
@@ -50,11 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-interface ListItem {
-  id: string;
-  text: string;
-  children?: ListItem[];
-}
+
 export interface FormBuilderProps {
   form: FormType;
   onSubmit: (form: FormType) => void;

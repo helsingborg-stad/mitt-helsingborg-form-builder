@@ -15,6 +15,7 @@ export interface ListItem {
   id: string;
   text: string;
   children?: ListItem[];
+  group: string;
 }
 
 export interface SubstepItem {

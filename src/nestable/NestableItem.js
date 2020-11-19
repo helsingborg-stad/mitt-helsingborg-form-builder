@@ -8,10 +8,13 @@ class NestableItem extends Component {
   static propTypes = {
     item: PropTypes.shape({
       id: PropTypes.any.isRequired,
+      group: PropTypes.string,
     }),
     isCopy: PropTypes.bool,
     options: PropTypes.object,
     index: PropTypes.number,
+    showAppendGroup: PropTypes.bool,
+    level: PropTypes.number,
   };
 
   renderCollapseIcon = ({ isCollapsed }) => (
@@ -24,7 +27,7 @@ class NestableItem extends Component {
   );
 
   render() {
-    const { item, isCopy, options, index } = this.props;
+    const { item, isCopy, options, index, showAppendGroup, level } = this.props;
     const { dragItem, renderItem, handler, childrenProp, renderCollapseIcon = this.renderCollapseIcon } = options;
 
     const isCollapsed = options.isCollapsed(item);
@@ -82,16 +85,59 @@ class NestableItem extends Component {
 
     if (!content) return null;
 
+    const divProps = {};
+    const newGroupDivProps = {};
+    if (dragItem) {
+      divProps.onMouseEnter = (e) => options.onMouseEnterGroupDiv(e, item);
+      newGroupDivProps.onMouseEnter = (e) => options.onMouseEnterNewGroupDiv(e, item);
+    }
+    const color = options.getGroupColor(item.group);
+
     return (
       <li {...itemProps}>
-        <div className="nestable-item-name" {...rowProps}>
+        <div
+          className="nestable-item-name"
+          {...rowProps}
+          style={
+            level > 0
+              ? {
+                  borderLeftColor: color,
+                  borderLeftWidth: '5px',
+                  borderLeftStyle: 'solid',
+                  borderTopLeftRadius: '3px',
+                  borderBottomLeftRadius: '3px',
+                }
+              : {}
+          }
+        >
           {content}
         </div>
+        {(!dragItem || (dragItem && item.id !== dragItem.id)) && showAppendGroup && dragItem && (
+          <div style={{ background: color, paddingBottom: '20px', fontSize: '14px' }} {...divProps}></div>
+        )}
+        {showAppendGroup && dragItem && (
+          <div style={{ background: 'darkgreen', paddingBottom: '25px', fontSize: '14px' }} {...newGroupDivProps}>
+            Make new group
+          </div>
+        )}
 
         {hasChildren && !isCollapsed && (
           <ol className="nestable-list">
-            {item[childrenProp].map((item, i) => {
-              return <NestableItem key={i} index={i} item={item} options={options} isCopy={isCopy} />;
+            {item[childrenProp].map((child, i) => {
+              const showAppendGroup =
+                (i < item[childrenProp].length - 1 && child.group !== item[childrenProp][i + 1].group) ||
+                i === item[childrenProp].length - 1;
+              return (
+                <NestableItem
+                  key={i}
+                  index={i}
+                  item={child}
+                  options={options}
+                  isCopy={isCopy}
+                  showAppendGroup={showAppendGroup}
+                  level={level + 1}
+                />
+              );
             })}
           </ol>
         )}
