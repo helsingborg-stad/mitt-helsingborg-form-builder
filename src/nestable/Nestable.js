@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import shallowCompare from 'react-addons-shallow-compare';
 import update from 'react-addons-update';
 import cn from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
   isArray,
@@ -11,11 +12,65 @@ import {
   getTotalScroll,
   getTransformProps,
   listWithChildren,
+  listWithGroup,
   getAllNonEmptyNodesIds,
 } from './utils';
 
 import './Nestable.css';
 import NestableItem from './NestableItem';
+
+const randomColors = [
+  '#FF6633',
+  '#FFB399',
+  '#FF33FF',
+  '#FFFF99',
+  '#00B3E6',
+  '#E6B333',
+  '#3366E6',
+  '#999966',
+  '#99FF99',
+  '#B34D4D',
+  '#80B300',
+  '#809900',
+  '#E6B3B3',
+  '#6680B3',
+  '#66991A',
+  '#FF99E6',
+  '#CCFF1A',
+  '#FF1A66',
+  '#E6331A',
+  '#33FFCC',
+  '#66994D',
+  '#B366CC',
+  '#4D8000',
+  '#B33300',
+  '#CC80CC',
+  '#66664D',
+  '#991AFF',
+  '#E666FF',
+  '#4DB3FF',
+  '#1AB399',
+  '#E666B3',
+  '#33991A',
+  '#CC9999',
+  '#B3B31A',
+  '#00E680',
+  '#4D8066',
+  '#809980',
+  '#E6FF80',
+  '#1AFF33',
+  '#999933',
+  '#FF3380',
+  '#CCCC00',
+  '#66E64D',
+  '#4D80CC',
+  '#9900B3',
+  '#E64D66',
+  '#4DB380',
+  '#FF4D4D',
+  '#99E6E6',
+  '#6666FF',
+];
 
 class Nestable extends Component {
   constructor(props) {
@@ -26,6 +81,7 @@ class Nestable extends Component {
       dragItem: null,
       isDirty: false,
       collapsedGroups: [],
+      groupColors: {},
     };
 
     this.el = null;
@@ -67,14 +123,26 @@ class Nestable extends Component {
   };
 
   componentDidMount() {
-    let { items, childrenProp } = this.props;
-
+    let { items, childrenProp, onChange } = this.props;
+    const { groupColors } = this.state;
     // make sure every item has property 'children'
     items = listWithChildren(items, childrenProp);
+    // make sure each item has a group
+    items = listWithGroup(items, childrenProp);
 
-    this.setState({ items });
+    const addColorsRecursively = (list, childrenProp) => {
+      list.forEach((item) => {
+        this.addGroupColor(item.group);
+        if (item[childrenProp]?.length > 0) {
+          addColorsRecursively(item[childrenProp], childrenProp);
+        }
+      });
+    };
+    addColorsRecursively(items, childrenProp);
+    console.log(items);
+    onChange && onChange(items);
+    this.setState({ items, groupColors });
   }
-
   componentDidUpdate(prevProps) {
     const { items: itemsNew, childrenProp } = this.props;
     const isPropsUpdated = shallowCompare({ props: prevProps, state: {} }, this.props, {});
@@ -87,6 +155,22 @@ class Nestable extends Component {
       if (prevProps.collapsed !== this.props.collapsed) {
         extra.collapsedGroups = [];
       }
+      const { items } = this.state;
+      const addGroupRecursively = (newList, oldList, childrenProp) => {
+        newList.forEach((newItem) => {
+          const oldItem = oldList.find((o) => o.id === newItem.id);
+          if (oldItem) {
+            newItem.group = oldItem.group;
+          } else {
+            newItem.group = uuidv4();
+            this.addGroupColor(newItem.group);
+          }
+          if (newItem[childrenProp]?.length > 0) {
+            addGroupRecursively(newItem[childrenProp], oldItem ? oldItem[childrenProp] : [], childrenProp);
+          }
+        });
+      };
+      addGroupRecursively(itemsNew, items, childrenProp);
 
       this.setState({
         items: listWithChildren(itemsNew, childrenProp),
@@ -173,6 +257,14 @@ class Nestable extends Component {
 
     this.setState({
       items,
+      isDirty: true,
+      ...extraProps,
+    });
+  }
+  changeGroup({ dragItem, newGroup }, extraProps = {}) {
+    dragItem.group = newGroup;
+    this.setState({
+      dragItem,
       isDirty: true,
       ...extraProps,
     });
@@ -390,6 +482,9 @@ class Nestable extends Component {
       onMouseEnter: this.onMouseEnter,
       isCollapsed: this.isCollapsed,
       onToggleCollapse: this.onToggleCollapse,
+      onMouseEnterGroupDiv: this.onMouseEnterGroupDiv,
+      onMouseEnterNewGroupDiv: this.onMouseEnterNewGroupDiv,
+      getGroupColor: this.getGroupColor,
     };
   }
 
@@ -400,6 +495,14 @@ class Nestable extends Component {
     return !!((collapsedGroups.indexOf(item.id) > -1) ^ collapsed);
   };
 
+  getGroupColor = (group) => {
+    const { groupColors } = this.state;
+    if (Object.keys(groupColors).includes(group)) {
+      return groupColors[group];
+    } else {
+      return 'red';
+    }
+  };
   // ––––––––––––––––––––––––––––––––––––
   // Click handlers or event handlers
   // ––––––––––––––––––––––––––––––––––––
@@ -503,6 +606,28 @@ class Nestable extends Component {
     this.moveItem({ dragItem, pathFrom, pathTo }, collapseProps);
   };
 
+  onMouseEnterGroupDiv = (e, item) => {
+    const { dragItem } = this.state;
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (item.id === dragItem.id) return;
+
+    this.changeGroup({ dragItem, newGroup: item.group });
+  };
+
+  onMouseEnterNewGroupDiv = (e, item) => {
+    const { dragItem, groupColors } = this.state;
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const newGroupId = uuidv4();
+    this.addGroupColor(newGroupId);
+    this.changeGroup({ dragItem, newGroup: newGroupId });
+  };
+
   onToggleCollapse = (item, isGetter) => {
     const { collapsed } = this.props;
     const { collapsedGroups } = this.state;
@@ -527,6 +652,12 @@ class Nestable extends Component {
     }
   };
 
+  addGroupColor = (group) => {
+    const { groupColors } = this.state;
+    if (groupColors[group]) return;
+    groupColors[group] = randomColors[Math.floor(randomColors.length * Math.random())];
+  };
+
   // ––––––––––––––––––––––––––––––––––––
   // Render methods
   // ––––––––––––––––––––––––––––––––––––
@@ -547,7 +678,6 @@ class Nestable extends Component {
     }
 
     const options = this.getItemOptions();
-
     return (
       <div className="nestable-drag-layer">
         <ol className="nestable-list" style={listStyles}>
@@ -566,7 +696,7 @@ class Nestable extends Component {
       <div className={cn(className, 'nestable', 'nestable-' + group, { 'is-drag-active': dragItem })}>
         <ol className="nestable-list nestable-group">
           {items.map((item, i) => {
-            return <NestableItem key={i} index={i} item={item} options={options} />;
+            return <NestableItem key={i} index={i} item={item} options={options} level={0} />;
           })}
         </ol>
 

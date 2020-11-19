@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { Step } from '../../../types/FormTypes';
+import { Step, ListItem } from '../../../types/FormTypes';
 // import Nestable, { Item } from 'react-nestable';
 import { Item } from 'react-nestable';
 import Nestable from '../../../nestable/Nestable';
 import { Button, createStyles, IconButton, makeStyles, Paper, Theme, Typography } from '@material-ui/core';
 import { ExpandMore, ExpandLess, Clear, FileCopy } from '@material-ui/icons';
+import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,11 +48,6 @@ interface Props {
   stepStructure: ListItem[];
   setStepStructure: React.Dispatch<React.SetStateAction<ListItem[]>>;
 }
-interface ListItem {
-  id: string;
-  text: string;
-  children?: ListItem[];
-}
 
 const StepList: React.FC<Props> = ({
   steps,
@@ -71,13 +67,14 @@ const StepList: React.FC<Props> = ({
         id: item.id,
         text: titles[item.id] || 'Unnamed',
         children: item?.children ? item.children.map((i) => recursiveReplace(titles, i)) : [],
+        group: item.group,
       };
     };
 
     if (steps && stepStructure.length === 0) {
       setStepStructure(
         steps.map((step) => {
-          return { id: step.id || '', text: step.title !== '' ? step.title : 'Unnamed' };
+          return { id: step.id || '', text: step.title !== '' ? step.title : 'Unnamed', group: uuidv4() };
         }),
       );
     } else if (steps) {
@@ -99,7 +96,7 @@ const StepList: React.FC<Props> = ({
         return i?.children || [];
       }
       if (i.children) {
-        return [{ id: i.id, text: i.text, children: i.children.flatMap((e) => recursiveDelete(e)) }];
+        return [{ id: i.id, group: i.group, text: i.text, children: i.children.flatMap((e) => recursiveDelete(e)) }];
       }
       return [];
     };
@@ -111,13 +108,13 @@ const StepList: React.FC<Props> = ({
     e.stopPropagation();
     const newStep = cpStep(item.id);
     setStepStructure((l) => {
-      return [...l, { id: newStep?.id || '', text: newStep.title }];
+      return [...l, { id: newStep?.id || '', text: newStep.title, group: uuidv4() }];
     });
   };
   const addStep = () => {
     const newStep = aStep();
     setStepStructure((l) => {
-      return [...l, { id: newStep?.id || '', text: newStep.title === '' ? 'Unnamed' : newStep.title }];
+      return [...l, { id: newStep?.id || '', text: newStep.title === '' ? 'Unnamed' : newStep.title, group: uuidv4() }];
     });
   };
   const toggleSelection = (item: Item) => () => {
@@ -168,7 +165,7 @@ const StepList: React.FC<Props> = ({
         renderItem={renderItem}
         maxDepth={3}
         renderCollapseIcon={renderCollapseIcon}
-        onChange={(items: Item[]) => {
+        onChange={(items: ListItem[]) => {
           setStepStructure(items);
         }}
       />
