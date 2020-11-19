@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 interface Props {
-  steps?: Step[];
+  steps: Step[];
   count?: number;
   deleteStep: (id: string) => void;
   copyStep: (id: string) => Step;
@@ -46,7 +46,11 @@ interface Props {
   selectedStepId: string;
   selectStep: (id: string) => void;
   stepStructure: ListItem[];
-  setStepStructure: React.Dispatch<React.SetStateAction<ListItem[]>>;
+  setStepStructure: (
+    steps: Step[],
+    items: ListItem[] | ((prevState: ListItem[]) => ListItem[]),
+    updateMatrix?: boolean,
+  ) => void;
 }
 
 const StepList: React.FC<Props> = ({
@@ -73,17 +77,19 @@ const StepList: React.FC<Props> = ({
 
     if (steps && stepStructure.length === 0) {
       setStepStructure(
+        steps,
         steps.map((step) => {
           return { id: step.id || '', text: step.title !== '' ? step.title : 'Unnamed', group: uuidv4() };
         }),
+        true,
       );
-    } else if (steps) {
+    } else {
       const titles = steps.reduce((acc: Record<string, string>, curr: Step) => {
         acc[curr.id] = curr.title === '' ? 'Unnamed' : curr.title;
         return acc;
       }, {});
       const newStepStruct = stepStructure.map((s) => recursiveReplace(titles, s));
-      setStepStructure(newStepStruct);
+      setStepStructure(steps, newStepStruct);
     }
   }, [steps]);
 
@@ -101,21 +107,23 @@ const StepList: React.FC<Props> = ({
       return [];
     };
     const newStepStruct = stepStructure.flatMap((i) => recursiveDelete(i));
-    setStepStructure(newStepStruct);
+    setStepStructure(steps, newStepStruct, true);
     deleteStep(item.id);
   };
+
   const copyStep = (item: Item) => (e: React.MouseEvent) => {
     e.stopPropagation();
     const newStep = cpStep(item.id);
-    setStepStructure((l) => {
-      return [...l, { id: newStep?.id || '', text: newStep.title, group: uuidv4() }];
-    });
+    const newSteps = [...stepStructure, { id: newStep?.id || '', text: newStep.title, group: uuidv4() }];
+    setStepStructure([...steps, newStep], newSteps, true);
   };
   const addStep = () => {
     const newStep = aStep();
-    setStepStructure((l) => {
-      return [...l, { id: newStep?.id || '', text: newStep.title === '' ? 'Unnamed' : newStep.title, group: uuidv4() }];
-    });
+    const newSteps = [
+      ...stepStructure,
+      { id: newStep?.id || '', text: newStep.title === '' ? 'Unnamed' : newStep.title, group: uuidv4() },
+    ];
+    setStepStructure([...steps, newStep], newSteps, true);
   };
   const toggleSelection = (item: Item) => () => {
     selectStep(item.id);
@@ -166,7 +174,7 @@ const StepList: React.FC<Props> = ({
         maxDepth={3}
         renderCollapseIcon={renderCollapseIcon}
         onChange={(items: ListItem[]) => {
-          setStepStructure(items);
+          setStepStructure(steps || [], items, true);
         }}
       />
       <Button className={classes.button} variant="contained" color="primary" onClick={addStep}>

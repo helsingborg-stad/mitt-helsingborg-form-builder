@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Formik, Form } from 'formik';
 import { Button, Paper, FormControlLabel, FormGroup, Switch, Typography } from '@material-ui/core';
@@ -65,8 +65,19 @@ const computeMatrix = (stepStruct: ListItem[], steps: Step[]): StepperActions[][
 
   const getDownIndices = (item: ListItem) => {
     if (item.children) {
-      return item.children.map((i) => indices[i.id]);
+      const downIndices: number[] = [];
+      const children = item.children;
+      children.forEach((child, index) => {
+        if (index === 0 || child.group !== children[index - 1].group) {
+          downIndices.push(indices[child.id]);
+        }
+      });
+      return downIndices;
     }
+    return [];
+  };
+  const getUpIndices = (item: ListItem) => {
+    if (item.children) return item.children.map((child) => indices[child.id]);
     return [];
   };
 
@@ -83,9 +94,21 @@ const computeMatrix = (stepStruct: ListItem[], steps: Step[]): StepperActions[][
           matrix[currentStepIndex][nextIndex] = 'next';
         }
       }
+      if (currentLevel > 0) {
+        if (index > 0 && currentStep.group === stepStruct[index - 1].group) {
+          const backIndex = indices[stepStruct[index - 1].id];
+          matrix[currentStepIndex][backIndex] = 'back';
+        }
+        if (index < stepStruct.length - 1 && currentStep.group === stepStruct[index + 1].group) {
+          const nextIndex = indices[stepStruct[index + 1].id];
+          matrix[currentStepIndex][nextIndex] = 'next';
+        }
+      }
 
       getDownIndices(currentStep).forEach((n) => {
         matrix[currentStepIndex][n] = 'down';
+      });
+      getUpIndices(currentStep).forEach((n) => {
         matrix[n][currentStepIndex] = 'up';
       });
       if (currentStep.children) {
@@ -94,8 +117,7 @@ const computeMatrix = (stepStruct: ListItem[], steps: Step[]): StepperActions[][
     });
     return matrix;
   };
-  const matrix = recursiveBuild(stepStruct, emptyMatrix, 0);
-  return matrix;
+  return recursiveBuild(stepStruct, emptyMatrix, 0);
 };
 
 const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilderProps) => {
@@ -173,14 +195,15 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
     }
   };
 
-  const setStepStruct = (
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void,
+  const setStepStruct = (setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void) => (
     steps: Step[],
-  ) => (items: ListItem[] | ((prevState: ListItem[]) => ListItem[])) => {
-    if (Array.isArray(items)) {
-      const matrix = computeMatrix(items, steps);
-      setFieldValue('connectivityMatrix', matrix);
-    }
+    items: ListItem[] | ((prevState: ListItem[]) => ListItem[]),
+    updateMatrix?: boolean,
+  ) => {
+    //if (Array.isArray(items) && updateMatrix) {
+    //  const matrix = computeMatrix(items, steps);
+    //  setFieldValue('connectivityMatrix', matrix);
+    //}
     setStepStructure(items);
     setFieldValue('stepStructure', items);
   };
@@ -189,23 +212,32 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
     <Formik
       initialValues={{ ...form }}
       onSubmit={(form: FormType) => {
+        console.log('onSubmit formik triggered');
         onSubmit(form);
       }}
     >
-      {({ values, setFieldValue }) => {
+      {({ values, setFieldValue, handleSubmit, setValues }) => {
         return (
-          <Form>
+          <Form
+            onSubmit={(e) => {
+              console.log('onSubmit triggered');
+              const matrix = computeMatrix(stepStructure, values.steps || []);
+              values.connectivityMatrix = matrix;
+              setValues(values);
+              handleSubmit(e);
+            }}
+          >
             <div className={classes.wrapper}>
               <div className={classes.column}>
                 <StepList
-                  steps={values.steps}
+                  steps={values.steps || []}
                   deleteStep={deleteStep(values.steps || [], setFieldValue)}
                   copyStep={copyStep(values.steps || [], setFieldValue)}
                   addStep={addStep(values.steps || [], setFieldValue)}
                   selectedStepId={selectedStepId}
                   selectStep={selectStep}
                   stepStructure={stepStructure}
-                  setStepStructure={setStepStruct(setFieldValue, values?.steps || [])}
+                  setStepStructure={setStepStruct(setFieldValue)}
                 />
               </div>
               <div className={classes.column}>{renderFormOrStep(values)}</div>

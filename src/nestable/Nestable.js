@@ -139,7 +139,6 @@ class Nestable extends Component {
       });
     };
     addColorsRecursively(items, childrenProp);
-    console.log(items);
     onChange && onChange(items);
     this.setState({ items, groupColors });
   }

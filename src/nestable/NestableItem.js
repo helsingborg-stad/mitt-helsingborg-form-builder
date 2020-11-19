@@ -112,14 +112,6 @@ class NestableItem extends Component {
         >
           {content}
         </div>
-        {(!dragItem || (dragItem && item.id !== dragItem.id)) && showAppendGroup && dragItem && (
-          <div style={{ background: color, paddingBottom: '20px', fontSize: '14px' }} {...divProps}></div>
-        )}
-        {showAppendGroup && dragItem && (
-          <div style={{ background: 'darkgreen', paddingBottom: '25px', fontSize: '14px' }} {...newGroupDivProps}>
-            Make new group
-          </div>
-        )}
 
         {hasChildren && !isCollapsed && (
           <ol className="nestable-list">
@@ -140,6 +132,14 @@ class NestableItem extends Component {
               );
             })}
           </ol>
+        )}
+        {(!dragItem || (dragItem && item.id !== dragItem.id)) && showAppendGroup && dragItem && (
+          <div style={{ background: color, paddingBottom: '20px', fontSize: '14px' }} {...divProps}></div>
+        )}
+        {showAppendGroup && dragItem && (
+          <div style={{ background: 'darkgreen', paddingBottom: '25px', fontSize: '14px' }} {...newGroupDivProps}>
+            Make new group
+          </div>
         )}
       </li>
     );
