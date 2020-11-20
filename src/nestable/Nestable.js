@@ -4,7 +4,6 @@ import shallowCompare from 'react-addons-shallow-compare';
 import update from 'react-addons-update';
 import cn from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
-
 import {
   isArray,
   closest,
@@ -15,10 +14,10 @@ import {
   listWithGroup,
   getAllNonEmptyNodesIds,
 } from './utils';
-
 import './Nestable.css';
 import NestableItem from './NestableItem';
 import randomColors from './groupColors';
+
 class Nestable extends Component {
   constructor(props) {
     super(props);
