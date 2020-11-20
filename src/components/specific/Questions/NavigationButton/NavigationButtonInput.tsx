@@ -3,7 +3,7 @@ import CSS from 'csstype';
 import { Select, MenuItem, FormGroup } from '@material-ui/core';
 import { useFormikContext } from 'formik';
 import { getPropertyFromDottedString } from '../../../../helpers/object';
-import { Form, StepperActions } from '../../../../types/FormTypes';
+import { Form, Step, StepperActions, ListItem } from '../../../../types/FormTypes';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -16,17 +16,31 @@ interface Props {
   value: Record<string, any>;
 }
 
-function getNestedSteps(matrix: StepperActions[][], currentIndex: number): number[] {
-  return matrix[currentIndex].reduce((prev: number[], curr, currIndex) => {
-    if (curr === 'down') return [currIndex, ...prev];
-    return prev;
-  }, []);
+const findCurrentStepItem = (root: ListItem[], id: string): ListItem | undefined => {
+  const step = root.find((i) => i.id === id);
+  if (step) return step;
+  for (const step of root) {
+    if (step.children) {
+      const c = findCurrentStepItem(step.children, id);
+      if (c) return c;
+    }
+  }
+  return undefined;
+};
+
+/** get the indices in form.steps of all the child steps of the current step */
+function getNestedSteps(stepStructure: ListItem[], steps: Step[], currentStepId: string): number[] {
+  const step = findCurrentStepItem(stepStructure, currentStepId);
+  if (step && step.children) {
+    return step.children.map((s) => steps.findIndex((st) => st.id === s.id));
+  }
+  return [];
 }
 const getConnectionIndex = (matrix: StepperActions[][], currentIndex: number, conn: StepperActions) =>
   matrix[currentIndex].findIndex((val) => val === conn);
 
 const NavigationButtonInput: React.FC<Props> = ({ name }: Props) => {
-  const { setFieldValue, values } = useFormikContext();
+  const { setFieldValue, values } = useFormikContext<Form>();
 
   const [navType, setNavType] = useState('navigateNext');
   const [targetStepId, setTargetStepId] = useState('');
@@ -61,7 +75,10 @@ const NavigationButtonInput: React.FC<Props> = ({ name }: Props) => {
     setTargetStepId(val);
   };
   const currentStepIndex = parseInt(name.split('.')[1]);
-  const childSteps = getNestedSteps((values as Form).connectivityMatrix, currentStepIndex);
+  const currentStep = ((values as Form)?.steps || [])[currentStepIndex];
+
+  const childSteps = getNestedSteps((values as Form).stepStructure, (values as Form).steps || [], currentStep.id);
+
   const childChoices = childSteps.map((i) => {
     const form = values as Form;
     const steps = form.steps;
