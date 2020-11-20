@@ -68,10 +68,12 @@ const SubContainer: React.FC<Props> = ({
 
   const vals = inputField === StepField ? { value: itemValues } : {};
   if (!collapsed) {
+    const value = vals.value as Record<string, any>;
+    const input = React.createElement(inputField, { value, name, onChange: () => {}, ...other });
     return (
       <Paper elevation={3} style={{ borderColor: color ? color : 'red' }} className={classes.subcontainer} key={name}>
-        <FastField name={name} type="input" as={inputField} {...vals} {...other} />
-
+        {/* <FastField name={name} type="input" as={inputField} {...vals} {...other} /> */}
+        {input}
         <div style={{ display: 'block', textAlign: 'right' }}>
           {currentIndex > 0 ? (
             <Button

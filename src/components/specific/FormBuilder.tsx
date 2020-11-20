@@ -154,13 +154,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
       if (index >= 0) {
         return (
           <Paper elevation={3} className={classes.subcontainer}>
-            <FastField
-              name={`steps.${index}`}
-              type="input"
-              as={StepField}
-              {...values?.steps}
-              setFieldValue={setFieldValue}
-            />
+            <StepField name={`steps.${index}`} value={values.steps[index]} onChange={() => {}} />
           </Paper>
         );
       }
@@ -171,7 +165,8 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
           <Typography variant="h3">{values.name !== '' ? values.name : 'Unnamed form'}</Typography>
           {id ? <pre>Form id: {id}</pre> : null}
           <h3>Form data</h3>
-          <FastField type="input" as={FormDataField} />
+          {/* <FastField type="input" as={FormDataField} /> */}
+          {/* <FormDataField name="" value={values} /> */}
         </Paper>
       );
     }

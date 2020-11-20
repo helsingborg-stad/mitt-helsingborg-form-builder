@@ -1,6 +1,8 @@
 import React from 'react';
 import CSS from 'csstype';
 import { Select, MenuItem, FormGroup } from '@material-ui/core';
+import { useFormikContext } from 'formik';
+import { Form } from '../../../../types/FormTypes';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -12,10 +14,11 @@ interface Props {
   label: string;
   value: string;
   choices: { displayName: string; value: string }[];
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }
 
-const CategorySelect: React.FC<Props> = ({ name, label, value, choices, setFieldValue }) => {
+const CategorySelect: React.FC<Props> = ({ name, label, value, choices }) => {
+  const { setFieldValue } = useFormikContext<Form>();
+
   const onChange = (
     event: React.ChangeEvent<{
       name?: string | undefined;

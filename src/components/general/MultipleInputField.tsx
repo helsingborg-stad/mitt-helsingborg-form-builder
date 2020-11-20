@@ -11,6 +11,7 @@ import NavigationButtonInput from '../specific/Questions/NavigationButton/Naviga
 import InputFieldSelect from './SmartInputs/InputFieldSelect';
 import TagsInput from './SmartInputs/TagsInput';
 import TextFieldWrapper from './TextFieldWrapper';
+import { useFormikContext } from 'formik';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -19,14 +20,13 @@ const inputFieldStyle: CSS.Properties = {
 
 const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
   onChange,
-  onBlur,
   name,
   value,
   fields,
-  setFieldValue,
   validation,
   ...other
 }: MultipleInputFieldPropType) => {
+  const { setFieldValue } = useFormikContext();
   useEffect(() => {
     if (validation) {
       const computedName = !name || name === '' ? 'validation' : name + '.validation';
@@ -46,13 +46,7 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
         return (
           <FormGroup style={inputFieldStyle} row>
             <div style={{ paddingTop: '5px', marginRight: '10px' }}>{field.label} </div>
-            <Select
-              name={computedName}
-              onChange={onChange}
-              onBlur={onBlur}
-              value={value[field.name] || field.initialValue}
-              {...other}
-            >
+            <Select name={computedName} onChange={onChange} value={value[field.name] || field.initialValue} {...other}>
               {field.choices
                 ? field.choices.map((choice) => (
                     <MenuItem key={choice.name} value={choice.value}>
