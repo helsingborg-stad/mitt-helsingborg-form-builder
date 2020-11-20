@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { FastField } from 'formik';
 import CSS from 'csstype';
 import { TextField, Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import ColorPicker from 'material-ui-color-picker';
@@ -9,6 +10,7 @@ import LoadPreviousToggle from './SmartInputs/LoadPreviousToggle';
 import NavigationButtonInput from '../specific/Questions/NavigationButton/NavigationButtonInput';
 import InputFieldSelect from './SmartInputs/InputFieldSelect';
 import TagsInput from './SmartInputs/TagsInput';
+import TextFieldWrapper from './TextFieldWrapper';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -36,17 +38,9 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
     switch (field.type) {
       case 'text':
         return (
-          <TextField
-            fullWidth
-            multiline
-            rowsMax={3}
-            name={computedName}
-            onChange={onChange}
-            onBlur={onBlur}
-            value={field && value && field.name && value[field.name] ? value[field.name] : field.initialValue}
-            label={field.label}
-            {...other}
-          />
+          <FastField name={computedName}>
+            <TextFieldWrapper fullWidth multiline rowsMax={3} onChange={onChange} label={field.label} {...other} />
+          </FastField>
         );
       case 'select':
         return (
