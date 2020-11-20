@@ -3,6 +3,7 @@ import FieldDescriptor, { InputType } from '../../../types/FieldDescriptor';
 import MultipleInputField from '../../general/MultipleInputField';
 import { InputFieldPropType } from '../../../types/PropTypes';
 import QuestionTypeSelect from './QuestionTypeSelect';
+import SelectChoice from './SelectChoice';
 import { ValidationFieldTypes } from './ValidationRules';
 
 const editableListFields: FieldDescriptor[] = [
@@ -25,9 +26,15 @@ const typeChoices: {
   { selectValue: 'phone', displayName: 'Telefonnummer', inputType: 'number', validationType: 'phoneNumber' },
   { selectValue: 'number', displayName: 'Number', inputType: 'number', validationType: 'number' },
   { selectValue: 'date', displayName: 'Date', inputType: 'date' },
+  { selectValue: 'select', displayName: 'Select (dropdown)', inputType: 'select' },
 ];
+const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
+  select: [{ name: 'items', type: 'array', initialValue: '', label: 'Choices', inputField: SelectChoice }],
+};
 
 const EditableListInputField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
+  const { value } = props;
+  const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type as InputType];
   return (
     <>
       <QuestionTypeSelect
@@ -38,6 +45,7 @@ const EditableListInputField: React.FC<InputFieldPropType> = (props: InputFieldP
         setFieldValue={props.setFieldValue}
       />
       <MultipleInputField fields={editableListFields} {...props} />
+      {extraInput && <MultipleInputField fields={extraInput} {...props} />}
     </>
   );
 };
