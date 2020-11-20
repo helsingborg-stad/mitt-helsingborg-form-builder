@@ -198,12 +198,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
   const setStepStruct = (setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void) => (
     steps: Step[],
     items: ListItem[] | ((prevState: ListItem[]) => ListItem[]),
-    updateMatrix?: boolean,
   ) => {
-    //if (Array.isArray(items) && updateMatrix) {
-    //  const matrix = computeMatrix(items, steps);
-    //  setFieldValue('connectivityMatrix', matrix);
-    //}
     setStepStructure(items);
     setFieldValue('stepStructure', items);
   };
@@ -212,7 +207,6 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
     <Formik
       initialValues={{ ...form }}
       onSubmit={(form: FormType) => {
-        console.log('onSubmit formik triggered');
         onSubmit(form);
       }}
     >
@@ -220,7 +214,6 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
         return (
           <Form
             onSubmit={(e) => {
-              console.log('onSubmit triggered');
               const matrix = computeMatrix(stepStructure, values.steps || []);
               values.connectivityMatrix = matrix;
               setValues(values);

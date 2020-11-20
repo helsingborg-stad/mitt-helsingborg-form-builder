@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
     colCenter: {
       display: 'table-cell',
       width: '100%',
+      paddingTop: 'auto',
+      paddingBottom: 'auto',
     },
   }),
 );
@@ -46,11 +48,7 @@ interface Props {
   selectedStepId: string;
   selectStep: (id: string) => void;
   stepStructure: ListItem[];
-  setStepStructure: (
-    steps: Step[],
-    items: ListItem[] | ((prevState: ListItem[]) => ListItem[]),
-    updateMatrix?: boolean,
-  ) => void;
+  setStepStructure: (steps: Step[], items: ListItem[] | ((prevState: ListItem[]) => ListItem[])) => void;
 }
 
 const StepList: React.FC<Props> = ({
@@ -81,7 +79,6 @@ const StepList: React.FC<Props> = ({
         steps.map((step) => {
           return { id: step.id || '', text: step.title !== '' ? step.title : 'Unnamed', group: uuidv4() };
         }),
-        true,
       );
     } else {
       const titles = steps.reduce((acc: Record<string, string>, curr: Step) => {
@@ -107,7 +104,7 @@ const StepList: React.FC<Props> = ({
       return [];
     };
     const newStepStruct = stepStructure.flatMap((i) => recursiveDelete(i));
-    setStepStructure(steps, newStepStruct, true);
+    setStepStructure(steps, newStepStruct);
     deleteStep(item.id);
   };
 
@@ -115,7 +112,7 @@ const StepList: React.FC<Props> = ({
     e.stopPropagation();
     const newStep = cpStep(item.id);
     const newSteps = [...stepStructure, { id: newStep?.id || '', text: newStep.title, group: uuidv4() }];
-    setStepStructure([...steps, newStep], newSteps, true);
+    setStepStructure([...steps, newStep], newSteps);
   };
   const addStep = () => {
     const newStep = aStep();
@@ -123,7 +120,7 @@ const StepList: React.FC<Props> = ({
       ...stepStructure,
       { id: newStep?.id || '', text: newStep.title === '' ? 'Unnamed' : newStep.title, group: uuidv4() },
     ];
-    setStepStructure([...steps, newStep], newSteps, true);
+    setStepStructure([...steps, newStep], newSteps);
   };
   const toggleSelection = (item: Item) => () => {
     selectStep(item.id);
@@ -132,22 +129,22 @@ const StepList: React.FC<Props> = ({
     return (
       <div>
         <Paper
-          style={{ minHeight: '40px', padding: '8px' }}
+          style={{ height: '34px', paddingLeft: '12px', borderBottomLeftRadius: '0px', borderTopLeftRadius: '0px' }}
           className={selectedStepId === item.id ? classes.selected : ''}
         >
           <div className="row">
             <span className={classes.col}>{collapseIcon}</span>
             <span onClick={toggleSelection(item)} className={classes.colCenter}>
-              {item.text}
+              <Typography style={{ fontSize: '12px' }}>{item.text}</Typography>
             </span>
             <div className={`${classes.col}`} style={{ width: 30 }}>
               <IconButton color="primary" onClick={copyStep(item)}>
-                <FileCopy />
+                <FileCopy fontSize="small" />
               </IconButton>
             </div>
             <div className={`${classes.col}`} style={{ width: 30 }}>
               <IconButton color="secondary" onClick={delStep(item)}>
-                <Clear />
+                <Clear fontSize="small" />
               </IconButton>
             </div>
           </div>
@@ -174,7 +171,7 @@ const StepList: React.FC<Props> = ({
         maxDepth={3}
         renderCollapseIcon={renderCollapseIcon}
         onChange={(items: ListItem[]) => {
-          setStepStructure(steps || [], items, true);
+          setStepStructure(steps || [], items);
         }}
       />
       <Button className={classes.button} variant="contained" color="primary" onClick={addStep}>

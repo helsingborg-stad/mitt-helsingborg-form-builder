@@ -15,6 +15,7 @@ class NestableItem extends Component {
     index: PropTypes.number,
     showAppendGroup: PropTypes.bool,
     level: PropTypes.number,
+    nextInSameGroup: PropTypes.bool,
   };
 
   renderCollapseIcon = ({ isCollapsed }) => (
@@ -27,7 +28,7 @@ class NestableItem extends Component {
   );
 
   render() {
-    const { item, isCopy, options, index, showAppendGroup, level } = this.props;
+    const { item, isCopy, options, index, showAppendGroup, level, nextInSameGroup } = this.props;
     const { dragItem, renderItem, handler, childrenProp, renderCollapseIcon = this.renderCollapseIcon } = options;
 
     const isCollapsed = options.isCollapsed(item);
@@ -98,23 +99,28 @@ class NestableItem extends Component {
         <div
           className="nestable-item-name"
           {...rowProps}
-          style={
-            level > 0
-              ? {
-                  borderLeftColor: color,
-                  borderLeftWidth: '5px',
-                  borderLeftStyle: 'solid',
-                  borderTopLeftRadius: '3px',
-                  borderBottomLeftRadius: '3px',
-                }
-              : {}
-          }
+          style={{
+            borderLeftColor: level > 0 ? color : '#424242',
+            marginBottom: !hasChildren && nextInSameGroup ? '-8px' : '1px',
+            borderLeftWidth: '5px',
+            borderLeftStyle: 'solid',
+            borderTopLeftRadius: '3px',
+            borderBottomLeftRadius: '3px',
+          }}
         >
           {content}
         </div>
 
         {hasChildren && !isCollapsed && (
-          <ol className="nestable-list">
+          <ol
+            className="nestable-list"
+            style={{
+              background:
+                (!dragItem || (dragItem && item.id !== dragItem.id)) && dragItem && level > 0 ? color : 'transparent',
+              marginTop: '-1px',
+              paddingTop: '3px',
+            }}
+          >
             {item[childrenProp].map((child, i) => {
               const showAppendGroup =
                 (i < item[childrenProp].length - 1 && child.group !== item[childrenProp][i + 1].group) ||
@@ -128,18 +134,26 @@ class NestableItem extends Component {
                   isCopy={isCopy}
                   showAppendGroup={showAppendGroup}
                   level={level + 1}
+                  nextInSameGroup={i < item[childrenProp].length - 1 && child.group === item[childrenProp][i + 1].group}
                 />
               );
             })}
           </ol>
         )}
         {(!dragItem || (dragItem && item.id !== dragItem.id)) && showAppendGroup && dragItem && (
-          <div style={{ background: color, paddingBottom: '20px', fontSize: '14px' }} {...divProps}></div>
+          <div
+            style={{
+              background: color,
+              paddingBottom: '10px',
+              borderBottomLeftRadius: '5px',
+              borderBottomRightRadius: '5px',
+              marginTop: '-3px',
+            }}
+            {...divProps}
+          ></div>
         )}
         {showAppendGroup && dragItem && (
-          <div style={{ background: 'darkgreen', paddingBottom: '25px', fontSize: '14px' }} {...newGroupDivProps}>
-            Make new group
-          </div>
+          <div style={{ paddingBottom: '15px', fontSize: '14px' }} {...newGroupDivProps}></div>
         )}
       </li>
     );
