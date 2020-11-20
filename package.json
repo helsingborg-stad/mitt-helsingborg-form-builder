@@ -30,6 +30,7 @@
     "react-scripts": "3.4.1",
     "source-map-explorer": "^2.5.0",
     "styled-components": "^5.2.0",
+    "use-debounce": "^5.1.0",
     "uuid": "^8.3.1",
     "yup": "^0.29.1"
   },
