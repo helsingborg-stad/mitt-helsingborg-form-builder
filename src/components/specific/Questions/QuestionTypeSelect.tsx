@@ -4,6 +4,7 @@ import { Select, MenuItem, FormGroup, Switch } from '@material-ui/core';
 import { InputType } from '../../../types/FieldDescriptor';
 import ValidationFieldRules, { isRequiredRule } from './ValidationRules';
 import ValidationObject from '../../../types/ValidationRules';
+import { useFormikContext } from 'formik';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -16,20 +17,13 @@ interface Props {
   label: string;
   value: Record<string, any>;
   choices: { displayName: string; selectValue: string; inputType: InputType; validationType?: ValidationType }[];
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
   showRequiredToggle?: boolean;
 }
 
-const QuestionTypeSelect: React.FC<Props> = ({
-  name,
-  label,
-  value,
-  choices,
-  setFieldValue,
-  showRequiredToggle = true,
-}) => {
+const QuestionTypeSelect: React.FC<Props> = ({ name, label, value, choices, showRequiredToggle = true }) => {
   const [currentChoice, setCurrentChoice] = useState(choices.find((ch) => ch.selectValue === value.inputSelectValue));
   const [required, setRequired] = useState(false);
+  const { setFieldValue } = useFormikContext();
   useEffect(() => {
     if (currentChoice?.validationType) {
       setRequired((value.validation as ValidationObject).isRequired);

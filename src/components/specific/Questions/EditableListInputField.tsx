@@ -37,13 +37,7 @@ const EditableListInputField: React.FC<InputFieldPropType> = (props: InputFieldP
   const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type as InputType];
   return (
     <>
-      <QuestionTypeSelect
-        name={props.name}
-        value={props.value}
-        label="Input field type"
-        choices={typeChoices}
-        setFieldValue={props.setFieldValue}
-      />
+      <QuestionTypeSelect name={props.name} value={props.value} label="Input field type" choices={typeChoices} />
       <MultipleInputField fields={editableListFields} {...props} />
       {extraInput && <MultipleInputField fields={extraInput} {...props} />}
     </>

@@ -83,20 +83,13 @@ const SummaryListItemField: React.FC<InputFieldPropType> = (props: InputFieldPro
   return (
     <>
       <MultipleInputField fields={fields} {...props} />
-      <CategorySelect
-        name={`${name}.category`}
-        label="Category"
-        choices={categoryChoices}
-        value={value.category}
-        setFieldValue={props.setFieldValue}
-      />
+      <CategorySelect name={`${name}.category`} label="Category" choices={categoryChoices} value={value.category} />
       {categoryChoices.length > 0 && (
         <QuestionTypeSelect
           name={props.name}
           value={props.value}
           label="Input field type"
           choices={typeChoices}
-          setFieldValue={props.setFieldValue}
           showRequiredToggle={false}
         />
       )}

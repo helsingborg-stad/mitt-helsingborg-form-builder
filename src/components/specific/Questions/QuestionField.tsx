@@ -104,18 +104,13 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
 };
 
 const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
-  const { value, name, setFieldValue } = props;
+  const { value, name } = props;
+  console.log('value,', value);
   const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type as InputType];
   return (
     <>
       <MultipleInputField fields={questionFields} {...props} />
-      <QuestionTypeSelect
-        name={name}
-        value={value}
-        label="Input Type"
-        choices={typeChoices}
-        setFieldValue={setFieldValue}
-      />
+      <QuestionTypeSelect name={name} value={value} label="Input Type" choices={typeChoices} />
       {extraInput && <MultipleInputField fields={extraInput} {...props} />}
     </>
   );

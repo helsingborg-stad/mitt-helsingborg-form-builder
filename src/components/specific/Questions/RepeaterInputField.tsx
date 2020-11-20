@@ -31,13 +31,7 @@ const RepeaterInputField: React.FC<InputFieldPropType> = (props: InputFieldPropT
   return (
     <>
       <MultipleInputField fields={fields} {...props} />
-      <QuestionTypeSelect
-        name={props.name}
-        value={props.value}
-        label="Input field type"
-        choices={typeChoices}
-        setFieldValue={props.setFieldValue}
-      />
+      <QuestionTypeSelect name={props.name} value={props.value} label="Input field type" choices={typeChoices} />
     </>
   );
 };
