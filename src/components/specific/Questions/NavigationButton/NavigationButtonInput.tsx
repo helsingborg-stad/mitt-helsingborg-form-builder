@@ -3,7 +3,7 @@ import CSS from 'csstype';
 import { Select, MenuItem, FormGroup } from '@material-ui/core';
 import { useFormikContext } from 'formik';
 import { getPropertyFromDottedString } from '../../../../helpers/object';
-import { Form, Step, StepperActions, ListItem } from '../../../../types/FormTypes';
+import { Form, Step, ListItem } from '../../../../types/FormTypes';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -16,34 +16,33 @@ interface Props {
   value: Record<string, any>;
 }
 
-const findCurrentStepItem = (root: ListItem[], id: string): ListItem | undefined => {
+const findCurrentStepItem = (root: ListItem[], id: string, level = 0): [ListItem | undefined, ListItem[], number] => {
   const step = root.find((i) => i.id === id);
-  if (step) return step;
+  if (step) return [step, root, level];
   for (const step of root) {
     if (step.children) {
-      const c = findCurrentStepItem(step.children, id);
-      if (c) return c;
+      const [c] = findCurrentStepItem(step.children, id, level + 1);
+      if (c) return [c, step.children, level + 1];
     }
   }
-  return undefined;
+  return [undefined, [], -1];
 };
+const emptyStepData: [ListItem | undefined, ListItem[], number] = [undefined, [], -1];
 
 /** get the indices in form.steps of all the child steps of the current step */
-function getNestedSteps(stepStructure: ListItem[], steps: Step[], currentStepId: string): number[] {
-  const step = findCurrentStepItem(stepStructure, currentStepId);
+function getNestedSteps(step: ListItem, steps: Step[]): number[] {
   if (step && step.children) {
     return step.children.map((s) => steps.findIndex((st) => st.id === s.id));
   }
   return [];
 }
-const getConnectionIndex = (matrix: StepperActions[][], currentIndex: number, conn: StepperActions) =>
-  matrix[currentIndex].findIndex((val) => val === conn);
 
 const NavigationButtonInput: React.FC<Props> = ({ name }: Props) => {
   const { setFieldValue, values } = useFormikContext<Form>();
 
   const [navType, setNavType] = useState('navigateNext');
   const [targetStepId, setTargetStepId] = useState('');
+  const [currentStepData, setCurrentStepData] = useState(emptyStepData);
 
   useEffect(() => {
     const navT = getPropertyFromDottedString(values as Record<string, any>, `${name}.type`);
@@ -52,6 +51,12 @@ const NavigationButtonInput: React.FC<Props> = ({ name }: Props) => {
       setTargetStepId(getPropertyFromDottedString(values as Record<string, any>, `${name}.stepId`));
     }
   }, [name, values]);
+
+  useEffect(() => {
+    const currentStepIndex = parseInt(name.split('.')[1]);
+    const currentStep = (values?.steps || [])[currentStepIndex];
+    setCurrentStepData(findCurrentStepItem(values.stepStructure, currentStep.id));
+  }, [values.stepStructure, values?.steps, name]);
 
   const onSelect = (
     event: React.ChangeEvent<{
@@ -74,10 +79,8 @@ const NavigationButtonInput: React.FC<Props> = ({ name }: Props) => {
     setFieldValue(name, { type: navType, stepId: val });
     setTargetStepId(val);
   };
-  const currentStepIndex = parseInt(name.split('.')[1]);
-  const currentStep = ((values as Form)?.steps || [])[currentStepIndex];
 
-  const childSteps = getNestedSteps((values as Form).stepStructure, (values as Form).steps || [], currentStep.id);
+  const childSteps: number[] = currentStepData[0] ? getNestedSteps(currentStepData[0], values.steps || []) : [];
 
   const childChoices = childSteps.map((i) => {
     const form = values as Form;
@@ -87,17 +90,14 @@ const NavigationButtonInput: React.FC<Props> = ({ name }: Props) => {
     }
     return { text: 'Unnamed', value: 'Not an ID!' };
   });
-  const choices: { text: string; value: string }[] = [];
-  if (getConnectionIndex((values as Form).connectivityMatrix, currentStepIndex, 'next') >= 0) {
-    choices.push({ text: 'Next', value: 'navigateNext' });
-  }
-  if (getConnectionIndex((values as Form).connectivityMatrix, currentStepIndex, 'back') >= 0) {
-    choices.push({ text: 'Back', value: 'navigateBack' });
-  }
+  const choices: { text: string; value: string }[] = [
+    { text: 'Next', value: 'navigateNext' },
+    { text: 'Back', value: 'navigateBack' },
+  ];
   if (childChoices.length > 0) {
     choices.push({ text: 'Down', value: 'navigateDown' });
   }
-  if (getConnectionIndex((values as Form).connectivityMatrix, currentStepIndex, 'up') >= 0) {
+  if (currentStepData[2] > 0) {
     choices.push({ text: 'Up', value: 'navigateUp' });
   }
 
