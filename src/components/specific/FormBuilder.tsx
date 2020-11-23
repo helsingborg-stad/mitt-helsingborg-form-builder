@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Formik, Form } from 'formik';
 import { Button, Paper, FormControlLabel, FormGroup, Switch, Typography } from '@material-ui/core';
