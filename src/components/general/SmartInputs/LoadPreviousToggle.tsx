@@ -2,6 +2,8 @@ import React from 'react';
 import CSS from 'csstype';
 import { Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import { User } from '../../../types/UserType';
+import { useFormikContext } from 'formik';
+import { Form } from '../../../types/FormTypes';
 
 const emptyUser: User = {
   firstName: '',
@@ -34,10 +36,11 @@ interface Props {
   name: string;
   label: string;
   value: Record<string, any>;
-  setFieldValue?: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }
 
-const LoadPreviousToggle: React.FC<Props> = ({ name, label, value, setFieldValue }: Props) => {
+const LoadPreviousToggle: React.FC<Props> = ({ name, label, value }: Props) => {
+  const { setFieldValue } = useFormikContext<Form>();
+
   const usingPreviousForm = (() => {
     if (!value.loadPrevious) return false;
     if (value.loadPrevious.length === 0) return false;
@@ -101,9 +104,8 @@ const LoadPreviousToggle: React.FC<Props> = ({ name, label, value, setFieldValue
           control={
             <Checkbox
               checked={usingPreviousForm}
-              onChange={(e) => {
+              onChange={() => {
                 onToggle();
-                // onChange(e);
               }}
               name={name}
             />

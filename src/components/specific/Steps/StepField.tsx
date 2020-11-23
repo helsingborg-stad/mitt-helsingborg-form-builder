@@ -8,13 +8,12 @@ import BannerField from './BannerField';
 import { InputFieldPropType } from '../../../types/PropTypes';
 
 const StepField: React.FC<InputFieldPropType> = ({ name, value, ...other }: InputFieldPropType) => {
-  console.log('value from step', value);
   return (
     <div>
       <h2>{value.title && value.title !== '' ? value.title : 'Unnamed step'}</h2>
-      {/* <FastField name={name} type="input" as={StepDataField} {...other} /> */}
+      <StepDataField name={name} value={value} />
       <h3>Banner</h3>
-      {/* <FastField name={`${name}.banner`} type="input" as={BannerField} {...other} /> */}
+      <BannerField name={`${name}.banner`} value={value} />
 
       <FieldArrayWrapper
         key="questions"
