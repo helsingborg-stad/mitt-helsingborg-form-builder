@@ -23,6 +23,7 @@ const typeChoices: {
   { selectValue: 'text', displayName: 'Text', inputType: 'text', validationType: 'text' },
   { selectValue: 'number', displayName: 'Number', inputType: 'number', validationType: 'number' },
   { selectValue: 'date', displayName: 'Date', inputType: 'date' },
+  { selectValue: 'checkbox', displayName: 'Checkbox', inputType: 'checkbox' },
   // Array types for repeater fields
   { selectValue: 'arrayText', displayName: 'Repeater Text', inputType: 'arrayText', validationType: 'text' },
   { selectValue: 'arrayNumber', displayName: 'Repeater Number', inputType: 'arrayNumber', validationType: 'number' },
