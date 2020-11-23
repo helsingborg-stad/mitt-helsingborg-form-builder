@@ -15,7 +15,6 @@ interface Props {
   emptyObject: Record<string, string | Record<string, string | number> | Array<Record<string, string | number>>>;
   inputField: React.FC<InputFieldPropType>;
   color?: string;
-  setFieldValue?: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }
 
 function isValueArray(value: boolean | string | ValueArray | undefined): value is ValueArray {
@@ -30,7 +29,6 @@ const FieldArrayWrapper: React.FC<Props> = ({
   inputField,
   emptyObject,
   color = 'red',
-  setFieldValue,
 }: Props) => {
   const myName = parentName ? `${parentName}.${name}` : name;
   return (
@@ -52,7 +50,6 @@ const FieldArrayWrapper: React.FC<Props> = ({
                   inputField={inputField}
                   arrayHelpers={arrayHelpers}
                   color={color}
-                  setFieldValue={setFieldValue}
                 />
               );
             });

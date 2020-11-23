@@ -5,6 +5,7 @@ import { InputType } from '../../../types/FieldDescriptor';
 import ValidationFieldRules, { isRequiredRule } from './ValidationRules';
 import ValidationObject from '../../../types/ValidationRules';
 import { useFormikContext } from 'formik';
+import { Form } from '../../../types/FormTypes';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -23,7 +24,7 @@ interface Props {
 const QuestionTypeSelect: React.FC<Props> = ({ name, label, value, choices, showRequiredToggle = true }) => {
   const [currentChoice, setCurrentChoice] = useState(choices.find((ch) => ch.selectValue === value.inputSelectValue));
   const [required, setRequired] = useState(false);
-  const { setFieldValue } = useFormikContext();
+  const { setFieldValue } = useFormikContext<Form>();
   useEffect(() => {
     if (currentChoice?.validationType) {
       setRequired((value.validation as ValidationObject).isRequired);

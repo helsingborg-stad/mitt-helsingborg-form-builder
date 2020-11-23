@@ -1,14 +1,15 @@
 import React from 'react';
-import { TextField } from '@material-ui/core';
+import TextFieldWrapper from '../TextFieldWrapper';
+import { useFormikContext } from 'formik';
 
 interface Props {
   name: string;
   label: string;
   value: Record<string, any>;
-  setFieldValue?: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }
 
-const TagsInput: React.FC<Props> = ({ name, label, value, setFieldValue }: Props) => {
+const TagsInput: React.FC<Props> = ({ name, label, value }: Props) => {
+  const { setFieldValue } = useFormikContext();
   const onChange = (
     event: React.ChangeEvent<{
       name?: string | undefined;
@@ -21,7 +22,9 @@ const TagsInput: React.FC<Props> = ({ name, label, value, setFieldValue }: Props
       setFieldValue(name, tags);
     }
   };
-  return <TextField fullWidth multiline rowsMax={3} name={name} onChange={onChange} value={value} label={label} />;
+  return (
+    <TextFieldWrapper fullWidth multiline rowsMax={3} name={name} onChange={onChange} value={value} label={label} />
+  );
 };
 
 export default TagsInput;

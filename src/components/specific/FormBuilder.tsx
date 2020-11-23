@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Formik, FastField, Form } from 'formik';
-import { v4 as uuidv4 } from 'uuid';
-import ReactJson from 'react-json-view';
+import { Formik, Form } from 'formik';
 import { Button, Paper, FormControlLabel, FormGroup, Switch, Typography } from '@material-ui/core';
+import ReactJson from 'react-json-view';
+import { v4 as uuidv4 } from 'uuid';
 import { Form as FormType, Step, StepperActions } from '../../types/FormTypes';
 import StepField from './Steps/StepField';
 import FormDataField from './FormDataField';
@@ -145,16 +145,13 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
     return newStep;
   };
 
-  const renderFormOrStep = (
-    values: { name: string; steps?: Step[] },
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void,
-  ) => {
+  const renderFormOrStep = (values: { name: string; steps?: Step[] }) => {
     if (values.steps) {
       const index = values.steps.findIndex((step) => step?.id === selectedStepId);
       if (index >= 0) {
         return (
           <Paper elevation={3} className={classes.subcontainer}>
-            <StepField name={`steps.${index}`} value={values.steps[index]} onChange={() => {}} />
+            <StepField name={`steps.${index}`} value={values.steps[index]} />
           </Paper>
         );
       }
@@ -165,8 +162,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
           <Typography variant="h3">{values.name !== '' ? values.name : 'Unnamed form'}</Typography>
           {id ? <pre>Form id: {id}</pre> : null}
           <h3>Form data</h3>
-          {/* <FastField type="input" as={FormDataField} /> */}
-          {/* <FormDataField name="" value={values} /> */}
+          <FormDataField name="" value={values} />
         </Paper>
       );
     }
@@ -216,7 +212,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
                   setStepStructure={setStepStruct(setFieldValue, values?.steps || [])}
                 />
               </div>
-              <div className={classes.column}>{renderFormOrStep(values, setFieldValue)}</div>
+              <div className={classes.column}>{renderFormOrStep(values)}</div>
               <div className={classes.column}>
                 <FormGroup>
                   <Button style={{ margin: '5px' }} variant="contained" color="primary" type="submit">

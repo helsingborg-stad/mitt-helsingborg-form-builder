@@ -40,7 +40,6 @@ interface Props {
   inputField: React.FC<InputFieldPropType>;
   arrayHelpers: ArrayHelpers;
   itemValues?: Record<string, string | boolean | number>;
-  setFieldValue?: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }
 
 const SubContainer: React.FC<Props> = ({
@@ -51,7 +50,6 @@ const SubContainer: React.FC<Props> = ({
   arrayHelpers,
   color,
   value,
-  ...other
 }: Props) => {
   const [collapsed, setCollapsed] = useState(true);
   const classes = useStyles();
@@ -65,15 +63,15 @@ const SubContainer: React.FC<Props> = ({
 
     arrayHelpers.insert(index + 1, copy);
   };
-
-  const vals = inputField === StepField ? { value: itemValues } : {};
   if (!collapsed) {
-    const value = vals.value as Record<string, any>;
-    const input = React.createElement(inputField, { value, name, onChange: () => {}, ...other });
+    const splitName = name.split('.');
+    const repeaterName = splitName[splitName.length - 2];
+    const localValue = (value as Record<string, ValueArray>)[repeaterName][currentIndex];
+    const inputComponent = React.createElement(inputField, { value: localValue, name });
     return (
       <Paper elevation={3} style={{ borderColor: color ? color : 'red' }} className={classes.subcontainer} key={name}>
         {/* <FastField name={name} type="input" as={inputField} {...vals} {...other} /> */}
-        {input}
+        {inputComponent}
         <div style={{ display: 'block', textAlign: 'right' }}>
           {currentIndex > 0 ? (
             <Button

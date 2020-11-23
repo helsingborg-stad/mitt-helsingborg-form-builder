@@ -105,7 +105,6 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
 
 const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   const { value, name } = props;
-  console.log('value,', value);
   const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type as InputType];
   return (
     <>

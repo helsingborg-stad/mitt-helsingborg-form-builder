@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { FastField } from 'formik';
 import CSS from 'csstype';
-import { TextField, Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
+import { Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import ColorPicker from 'material-ui-color-picker';
 import FieldDescriptor from '../../types/FieldDescriptor';
 import FieldArrayWrapper from './FieldArrayWrapper';
@@ -12,6 +12,7 @@ import InputFieldSelect from './SmartInputs/InputFieldSelect';
 import TagsInput from './SmartInputs/TagsInput';
 import TextFieldWrapper from './TextFieldWrapper';
 import { useFormikContext } from 'formik';
+import { Form } from '../../types/FormTypes';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -19,14 +20,12 @@ const inputFieldStyle: CSS.Properties = {
 };
 
 const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
-  onChange,
   name,
   value,
   fields,
   validation,
-  ...other
 }: MultipleInputFieldPropType) => {
-  const { setFieldValue } = useFormikContext();
+  const { setFieldValue } = useFormikContext<Form>();
   useEffect(() => {
     if (validation) {
       const computedName = !name || name === '' ? 'validation' : name + '.validation';
@@ -38,15 +37,17 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
     switch (field.type) {
       case 'text':
         return (
-          <FastField name={computedName}>
-            <TextFieldWrapper fullWidth multiline rowsMax={3} onChange={onChange} label={field.label} {...other} />
-          </FastField>
+          <FastField
+            name={computedName}
+            as={TextFieldWrapper}
+            {...{ fullWidth: true, multiline: true, rowsMax: 3, label: field.label }}
+          />
         );
       case 'select':
         return (
           <FormGroup style={inputFieldStyle} row>
             <div style={{ paddingTop: '5px', marginRight: '10px' }}>{field.label} </div>
-            <Select name={computedName} onChange={onChange} value={value[field.name] || field.initialValue} {...other}>
+            <FastField as={Select} name={computedName}>
               {field.choices
                 ? field.choices.map((choice) => (
                     <MenuItem key={choice.name} value={choice.value}>
@@ -54,33 +55,17 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
                     </MenuItem>
                   ))
                 : null}
-            </Select>
+            </FastField>
           </FormGroup>
         );
       case 'loadPreviousToggle':
-        return (
-          <LoadPreviousToggle
-            name={computedName}
-            label={field.label}
-            value={value || field.initialValue}
-            setFieldValue={setFieldValue}
-          />
-        );
+        return <LoadPreviousToggle name={computedName} label={field.label} value={value || field.initialValue} />;
       case 'navigationButton':
         return <NavigationButtonInput name={computedName} label={field.label} value={value || field.initialValue} />;
       case 'checkbox':
         return (
           <FormGroup style={inputFieldStyle} row>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={field.name && value[field.name] ? value[field.name] : false}
-                  onChange={onChange}
-                  name={computedName}
-                />
-              }
-              label={field.label}
-            />
+            <FormControlLabel control={<FastField as={Checkbox} name={computedName} />} label={field.label} />
           </FormGroup>
         );
       case 'array':
@@ -94,7 +79,6 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
               inputField={field.inputField}
               emptyObject={{}}
               color="green"
-              setFieldValue={setFieldValue}
             />
           );
         }
@@ -125,23 +109,9 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
           </FormGroup>
         );
       case 'questionIdPicker':
-        return (
-          <InputFieldSelect
-            name={computedName}
-            label={field.label}
-            value={value || field.initialValue}
-            setFieldValue={setFieldValue}
-          />
-        );
+        return <InputFieldSelect name={computedName} label={field.label} />;
       case 'tags':
-        return (
-          <TagsInput
-            name={computedName}
-            label={field.label}
-            value={value[field.name] || field.initialValue}
-            setFieldValue={setFieldValue}
-          />
-        );
+        return <TagsInput name={computedName} label={field.label} value={value[field.name] || field.initialValue} />;
       default:
         throw new Error(`Missing type ${field.type}`);
     }
