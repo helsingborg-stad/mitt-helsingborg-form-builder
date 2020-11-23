@@ -1,15 +1,15 @@
 on: 
   push:
     branches:
-    - master
+    - develop
 
 jobs:
   build_and_s3_deploy:
     runs-on: ubuntu-latest
-    name: Build and deploy master branch to S3 bucket
+    name: Build and deploy develop branch to S3 bucket
     steps:
     - name: Checkout step
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
     - name: Build step
       run: |
         echo "REACT_APP_MITTHELSINGBORG_IO=https://dev.api.helsingborg.io/forms" >> .env
