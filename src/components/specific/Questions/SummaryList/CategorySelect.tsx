@@ -25,7 +25,7 @@ const CategorySelect: React.FC<Props> = ({ name, label, value, choices, setField
     const val = event.target.value as string;
     const choice = choices.find((ch) => ch.value === val);
     if (choice) {
-      setFieldValue(`${name}.category`, choice.value);
+      setFieldValue(`${name}`, choice.value);
     }
   };
 
