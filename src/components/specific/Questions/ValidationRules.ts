@@ -94,7 +94,7 @@ const ValidationFieldRules: Record<ValidationFieldTypes, ValidationObject> = {
           },
         },
         validWhen: true,
-        message: 'Du har angett en siffra som är mindre än 1',
+        message: 'Bara siffror i ett postnummer',
       },
       {
         method: 'isPostalCode',
@@ -102,7 +102,7 @@ const ValidationFieldRules: Record<ValidationFieldTypes, ValidationObject> = {
           locale: 'SE',
         },
         validWhen: true,
-        message: 'Postnummret du angav är inte giltligt',
+        message: 'Postnummret du angav är inte giltigt',
       },
     ],
   },
