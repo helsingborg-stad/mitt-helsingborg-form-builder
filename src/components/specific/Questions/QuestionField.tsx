@@ -57,8 +57,8 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   ],
   date: [{ name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' }],
   editableList: [
-    { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
     { name: 'title', type: 'text', initialValue: '', label: 'Title' },
+    { name: 'startEditable', type: 'checkbox', initialValue: 'false', label: 'Start in editable mode' },
     { name: 'inputs', type: 'array', initialValue: '', label: 'Inputs', inputField: EditableListInputField },
   ],
   checkbox: [
