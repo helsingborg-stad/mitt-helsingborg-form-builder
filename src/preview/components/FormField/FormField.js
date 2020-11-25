@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Text from '../Text/Text';
 import Label from '../Label/Label';
 import theme from '../../styles/theme';
+// import {TextField as Input} from '@material-ui/core';
+import Input from '../Input/Input';
 
 const inputTypes = {
   text: {
@@ -18,38 +20,19 @@ const inputTypes = {
   },
 };
 
-const FormField = ({ label, labelLine, inputType, color, id, conditionalOn, labelHelp, ...other }) => {
+const FormField = ({ label, labelLine, inputType, color, id, ...other }) => {
   const input = inputTypes[inputType];
   if (!input) {
-    return <Text>{`${label}, input: ${inputType}`}</Text>;
+    return <Label>{`${label}, ${inputType}`}</Label>;
   }
 
   const inputProps = input && input.props ? input.props : {};
   const inputCompProps = {
     color,
-    value: initialValue,
+    value: "",
     help: other.inputHelp && other.text ? { text: other.inputHelp, heading: other.text } : undefined,
     ...inputProps,
-    error: validationErrors[id],
     ...other,
-  };
-  if (input?.props?.answers) inputCompProps.answers = answers;
-  if (input?.props?.validation) inputCompProps.validationErrors = validationErrors;
-  if (input && input.changeEvent) inputCompProps[input.changeEvent] = saveInput;
-
-  /** Checks if the field is conditional on another input, and if so,
-   * evaluates whether this field should be active or not */
-  const checkCondition = (questionId) => {
-    if (!questionId) return true;
-
-    if (typeof questionId === 'string') {
-      if (questionId[0] === '!') {
-        const qId = questionId.slice(1);
-        return !answers[qId];
-      }
-      return answers[questionId];
-    }
-    return true;
   };
 
   const inputComponent =
@@ -59,20 +42,16 @@ const FormField = ({ label, labelLine, inputType, color, id, conditionalOn, labe
       <Text>{`Invalid field type: ${inputType}`}</Text>
     );
 
-  if (checkCondition(conditionalOn)) {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     return (
-      <View>
+      <div>
         {label ? (
-          <Label color={color} underline={labelLine} help={labelHelp ? { heading: label, text: labelHelp } : {}}>
+          <Label color={color} underline={labelLine} >
             {label}
           </Label>
         ) : null}
         {inputComponent}
-      </View>
+      </div>
     );
-  }
-  return null;
 };
 
 FormField.propTypes = {
@@ -92,30 +71,6 @@ FormField.propTypes = {
    * String that determines the input type of the field.
    */
   inputType: PropTypes.oneOf(Object.keys(inputTypes)),
-  /**
-   * What happens when the input is changed.
-   * Should be used to store inputs to state.
-   * Should handle objects on the form { id : value }, where value is the new value and id is the uuid for the input-field.
-   */
-  onChange: PropTypes.func,
-  /**
-   * sets the value, since the input field component should be managed.
-   */
-  value: PropTypes.any,
-  /**
-   * All the form state answers. Needed because of conditional checks.
-   */
-  answers: PropTypes.object,
-  validationErrors: PropTypes.object,
-  formNavigation: PropTypes.shape({
-    next: PropTypes.func,
-    back: PropTypes.func,
-    up: PropTypes.func,
-    down: PropTypes.func,
-    close: PropTypes.func,
-    start: PropTypes.func,
-    isLastStep: PropTypes.func,
-  }),
   /**
    * sets the color theme.
    */
