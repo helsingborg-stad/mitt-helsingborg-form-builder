@@ -1,4 +1,6 @@
-import { Button, Typography } from '@material-ui/core';
+// import { Button, Typography } from '@material-ui/core';
+import Button from '../Button/Button';
+import Text from '../Text/Text';
 import React from 'react';
 import styled from 'styled-components';
 import { Action } from '../../../types/FormTypes';
@@ -6,7 +8,7 @@ import { Action } from '../../../types/FormTypes';
 const ActionContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  background-color: #00213f;
+  background-color: ${(props) => props.theme.colors.neutrals[5]};
   position: absolute;
   bottom: 0;
   right: 0;
@@ -17,8 +19,9 @@ const Flex = styled.div`
   padding-right: 10px;
 `;
 const ButtonWrapper = styled.div`
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 32px;
+  margin-bottom: 49px;
+  margin-right: 32px;
 `;
 
 interface Props {
@@ -28,8 +31,8 @@ interface Props {
 const Footer: React.FC<Props> = ({ actions }) => {
   const buttons = actions.map((action, index) => (
     <Flex key={`${index}-${action.label}`}>
-      <Button style={{ backgroundColor: action.color || 'green' }}>
-        <Typography>{action.label}</Typography>
+      <Button colorSchema={action.color || 'blue'}>
+        <Text>{action.label}</Text>
       </Button>
     </Flex>
   ));
