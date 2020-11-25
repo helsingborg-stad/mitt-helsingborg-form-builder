@@ -1,5 +1,4 @@
 import React from 'react';
-import { FastField } from 'formik';
 import QuestionField from '../Questions/QuestionField';
 import FieldArrayWrapper from '../../general/FieldArrayWrapper';
 import ActionField from './ActionField';
