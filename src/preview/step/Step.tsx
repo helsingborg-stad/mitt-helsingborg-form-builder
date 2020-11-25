@@ -7,6 +7,7 @@ import Banner from '../components/Banner/Banner';
 import Footer from '../components/Footer/Footer';
 import theme from '../styles/theme';
 import Text from '../components/Text/Text';
+import FormField from '../components/FormField/FormField';
 
 const StepContainer = styled.div`
   background: ${(props) => props.theme.colors.neutrals[7]};
@@ -18,8 +19,6 @@ const StepContainer = styled.div`
 
 const QuestionWrapper = styled.div`
   margin-left: 25px;
-  margin-top: 76px;
-  margin-bottom: 48px;
 `;
 
 interface Props {
@@ -35,14 +34,9 @@ const Step: React.FC<Props> = ({ stepData }) => {
           <StepDescription heading={title} text={description} tagline={group} />
 
           <QuestionWrapper>
-            <Text type="h2">Questions</Text>
-            <ul>
               {questions?.map((q) => (
-                <li key={q.id}>
-                  {q.label || q.description}, {q.type}
-                </li>
+                  <FormField key={q.id} label={q.label} labelLine={true} inputType={q.type} color={"blue"} id={q.id}  />
               ))}
-            </ul>
           </QuestionWrapper>
         </div>
         <Footer actions={actions || []} />

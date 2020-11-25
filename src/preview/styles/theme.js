@@ -1,4 +1,5 @@
 // theming for styled components goes in this file.
+import { Palette } from '@material-ui/icons';
 import { colorPalette, deprecatedPalette } from './palette';
 
 const calculateSizeScale = (size, scale) => scale * size;
@@ -504,15 +505,15 @@ const theme = {
     },
     colors: {
       purple: {
-        text: deprecatedPalette.mono.white,
+        text: colorPalette.neutrals[1],
         underline: deprecatedPalette.purple[2],
       },
       purpleLight: {
-        text: deprecatedPalette.mono.white,
+        text: colorPalette.neutrals[1],
         underline: deprecatedPalette.purple[1],
       },
       blue: {
-        text: deprecatedPalette.mono.white,
+        text: colorPalette.neutrals[1],
         underline: deprecatedPalette.blue[6],
       },
       white: {
@@ -540,7 +541,7 @@ const theme = {
         underline: 'rgba(255, 255, 255, 0.0)',
       },
       red: {
-        text: deprecatedPalette.red[5],
+        text: colorPalette.neutrals[1],
         underline: deprecatedPalette.red[2],
       },
       green: {
