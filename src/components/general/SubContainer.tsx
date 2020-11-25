@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { ArrayHelpers, FastField } from 'formik';
+import { ArrayHelpers } from 'formik';
 import { Button, Paper } from '@material-ui/core';
-import StepField from '../specific/Steps/StepField';
 import { InputFieldPropType } from '../../types/PropTypes';
 import { ValueArray } from './FieldArrayWrapper';
 import { getPropertyFromDottedString } from '../../helpers/object';
