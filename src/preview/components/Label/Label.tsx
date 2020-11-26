@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import Text from '../Text/Text';
 import theme from '../../styles/theme';
 
-const LabelText = styled(Text)<{size?:'small' | 'medium' | 'large'; colorSchema?: 'blue' | 'green' | 'red' | 'purple'}>`
+const LabelText = styled(Text)<{
+  size?: 'small' | 'medium' | 'large';
+  colorSchema?: 'blue' | 'green' | 'red' | 'purple';
+}>`
   font-size: ${(props) => props.theme.label[props.size || 'medium'].font};
   color: ${(props) => props.theme.label.colors[props.colorSchema || 'blue'].text};
   text-transform: uppercase;
@@ -12,7 +15,7 @@ const LabelText = styled(Text)<{size?:'small' | 'medium' | 'large'; colorSchema?
   padding-bottom: 7px;
   padding-top: 5px;
 `;
-const LabelBorder = styled.div<{
+const LabelBorder = styled.span<{
   size: 'small' | 'medium' | 'large';
   colorSchema: 'blue' | 'red' | 'green' | 'purple';
   underline?: boolean;
@@ -25,6 +28,8 @@ const LabelBorder = styled.div<{
     }
     return theme.label[props.size].lineWidth;
   }};
+  border-bottom-style: solid;
+  display: inline-block;
   margin-bottom: ${(props) => {
     if (props.underline === false) {
       return '0px';
@@ -53,7 +58,13 @@ interface Props {
   size?: 'small' | 'medium' | 'large';
   color?: 'blue' | 'red' | 'green' | 'purple';
   underline?: boolean;
-  help?: { text?: string | null; size?: number|null; heading?: string | null; tagline?: string | null; url?: string | null };
+  help?: {
+    text?: string | null;
+    size?: number | null;
+    heading?: string | null;
+    tagline?: string | null;
+    url?: string | null;
+  };
 }
 
 /**

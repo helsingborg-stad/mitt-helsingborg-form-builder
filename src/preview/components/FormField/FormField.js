@@ -9,27 +9,33 @@ import Input from '../Input/Input';
 const inputTypes = {
   text: {
     component: Input,
-    changeEvent: 'onChangeText',
+    props: { InputProps: { disableUnderline: true } },
   },
   number: {
     component: Input,
-    changeEvent: 'onChangeText',
-    props: {
-      keyboardType: 'numeric',
-    },
+    props: { InputProps: { disableUnderline: true } },
+  },
+  date: {
+    component: Input,
+    props: { InputProps: { disableUnderline: true } },
   },
 };
 
 const FormField = ({ label, labelLine, inputType, color, id, ...other }) => {
   const input = inputTypes[inputType];
   if (!input) {
-    return <Label>{`${label}, ${inputType}`}</Label>;
+    return (
+      <>
+        <Label>{`${label}`}</Label>
+        <Text>{`${inputType}, no preview implemented...`}</Text>
+      </>
+    );
   }
 
   const inputProps = input && input.props ? input.props : {};
   const inputCompProps = {
     color,
-    value: "",
+    value: '',
     help: other.inputHelp && other.text ? { text: other.inputHelp, heading: other.text } : undefined,
     ...inputProps,
     ...other,
@@ -42,16 +48,16 @@ const FormField = ({ label, labelLine, inputType, color, id, ...other }) => {
       <Text>{`Invalid field type: ${inputType}`}</Text>
     );
 
-    return (
-      <div>
-        {label ? (
-          <Label color={color} underline={labelLine} >
-            {label}
-          </Label>
-        ) : null}
-        {inputComponent}
-      </div>
-    );
+  return (
+    <div>
+      {label ? (
+        <Label color={color} underline={labelLine}>
+          {label}
+        </Label>
+      ) : null}
+      {inputComponent}
+    </div>
+  );
 };
 
 FormField.propTypes = {
