@@ -19,23 +19,24 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'white',
       color: 'black',
     },
-    floatRight: {
-      float: 'right',
-    },
-    iconButtons: {
-      width: '100px',
+    table: {
+      display: 'table',
+      tableLayout: "fixed",
+      width: "100%",
     },
     row: {
-      display: 'table',
+      display: 'table-row',
     },
     col: {
       display: 'table-cell',
+      minWidth: '32px',
     },
     colCenter: {
       display: 'table-cell',
-      width: '100%',
-      paddingTop: 'auto',
-      paddingBottom: 'auto',
+      whiteSpace: 'nowrap',
+      width: '75%',
+      overflow: 'hidden',
+      textOverflow:'ellipsis',
     },
   }),
 );
@@ -129,23 +130,25 @@ const StepList: React.FC<Props> = ({
     return (
       <div>
         <Paper
-          style={{ height: '34px', paddingLeft: '12px', borderBottomLeftRadius: '0px', borderTopLeftRadius: '0px' }}
+          style={{ height: '34px', paddingLeft: '8px', paddingRight: '8px', borderBottomLeftRadius: '0px', borderTopLeftRadius: '0px' }}
           className={selectedStepId === item.id ? classes.selected : ''}
         >
-          <div className="row">
-            <span className={classes.col}>{collapseIcon}</span>
-            <span onClick={toggleSelection(item)} className={classes.colCenter}>
-              <Typography style={{ fontSize: '12px' }}>{item.text}</Typography>
-            </span>
-            <div className={`${classes.col}`} style={{ width: 30 }}>
-              <IconButton color="primary" onClick={copyStep(item)}>
-                <FileCopy fontSize="small" />
-              </IconButton>
-            </div>
-            <div className={`${classes.col}`} style={{ width: 30 }}>
-              <IconButton color="secondary" onClick={delStep(item)}>
-                <Clear fontSize="small" />
-              </IconButton>
+          <div className={classes.table}>
+            <div className={classes.row}>
+              <span className={classes.col}>{collapseIcon}</span>
+              <span onClick={toggleSelection(item)} className={classes.colCenter}>
+                <Typography style={{ fontSize: '12px', whiteSpace:'nowrap' }}>{item.text}</Typography>
+              </span>
+              <div className={`${classes.col}`} style={{ width: 30 }}>
+                <IconButton color="primary" onClick={copyStep(item)}>
+                  <FileCopy fontSize="small" />
+                </IconButton>
+              </div>
+              <div className={`${classes.col}`} style={{ width: 30 }}>
+                <IconButton color="secondary" onClick={delStep(item)}>
+                  <Clear fontSize="small" />
+                </IconButton>
+              </div>
             </div>
           </div>
         </Paper>
@@ -173,6 +176,7 @@ const StepList: React.FC<Props> = ({
         onChange={(items: ListItem[]) => {
           setStepStructure(steps || [], items);
         }}
+        collapsed
       />
       <Button className={classes.button} variant="contained" color="primary" onClick={addStep}>
         Add step
