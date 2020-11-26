@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TextField } from '@material-ui/core'
 
-const StyledInput = styled(TextField)`
+const Input = styled(TextField)`
   width: 100%;
   font-weight: ${({ theme }) => theme.fontWeights[1]}
   background-color: ${({ theme, colorSchema }) => theme.colors.complementary[colorSchema][2]};
@@ -19,16 +19,6 @@ const StyledInput = styled(TextField)`
   color: ${({ theme }) => theme.colors.neutrals[0]};
   ${props => (props.center ? 'text-align: center;' : null)}
 `;
-
-const Input = props => {
-  const { error } = props;
-
-  return (
-    <>
-      <StyledInput {...props} />
-    </>
-  );
-};
 
 Input.propTypes = {
   /**
