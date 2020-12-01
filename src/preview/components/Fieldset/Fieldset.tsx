@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Text from '../Text/Text';
-import Icon from '../Icon/Icon';
 import Button from '../Button/Button';
 
 interface FieldsetContainerProps {
@@ -22,7 +21,7 @@ const FieldsetContainer = styled.div<FieldsetContainerProps>`
   padding-top: 16px;
   padding-left: 16px;
   padding-right: 16px;
-  background: ${props =>
+  background: ${(props) =>
     props?.empty
       ? props.theme.fieldset[props.colorSchema].backgroundEmpty
       : props.theme.fieldset[props.colorSchema].background};
@@ -46,7 +45,7 @@ interface FieldsetHeaderSectionProps {
 
 const FieldsetHeaderSection = styled.div<FieldsetHeaderSectionProps>`
   flex-direction: row;
-  justify-content: ${props => props.justifyContent};
+  justify-content: ${(props) => props.justifyContent};
   align-items: center;
 `;
 
@@ -57,7 +56,7 @@ interface FieldsetLegendProps {
 }
 
 const FieldsetLegend = styled(Text)<FieldsetLegendProps>`
-  color: ${props => props.theme.fieldset[props.colorSchema].legend}
+  color: ${(props) => props.theme.fieldset[props.colorSchema].legend}
   font-size: 12px;
   padding-bottom: 12px;
   font-weight: bold;
@@ -69,7 +68,7 @@ interface FieldsetLegendBorderProps {
 }
 
 const FieldsetLegendBorder = styled.div<FieldsetLegendBorderProps>`
-  border-bottom-color: ${props => props.theme.fieldset[props.colorSchema].legendBorder}
+  border-bottom-color: ${(props) => props.theme.fieldset[props.colorSchema].legendBorder}
   border-bottom-width: 2px;
   align-self: flex-start;
 `;
@@ -84,16 +83,7 @@ interface FieldsetProps {
   renderHeaderActions?: () => void;
 }
 
-function Fieldset({
-  children,
-  legend,
-  iconName,
-  iconSize,
-  colorSchema,
-  renderHeaderActions,
-  empty,
-}: FieldsetProps) {
-  const showIcon = iconName && iconName !== '';
+const Fieldset: React.FC<FieldsetProps> = ({ children, legend, colorSchema, renderHeaderActions, empty }) => {
   return (
     <FieldsetContainer colorSchema={colorSchema} empty={empty}>
       <FieldsetHeader>
@@ -111,7 +101,7 @@ function Fieldset({
       <FieldsetBody>{children}</FieldsetBody>
     </FieldsetContainer>
   );
-}
+};
 
 Fieldset.defaultProps = {
   colorSchema: 'blue',

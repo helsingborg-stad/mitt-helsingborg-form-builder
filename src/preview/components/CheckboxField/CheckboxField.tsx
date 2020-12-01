@@ -1,19 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { ThemeContext } from 'styled-components';
 import Text from '../Text/Text';
-import {Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
-import theme, { getValidColorSchema } from '../../styles/theme';
-
+import { Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 
 interface Props {
-    text?: string;
-    color?: 'blue' | 'green' | 'purple' | 'red';
-    size?: 'small' | 'medium' | 'large';
+  text?: string;
+  color?: 'blue' | 'green' | 'purple' | 'red';
+  size?: 'small' | 'medium' | 'large';
 }
 /** A component with a checkbox next to a descriptive text, and possibly a help button */
-const CheckboxField: React.FC<Props> = ({ text, color, size }) => {
-
+const CheckboxField: React.FC<Props> = ({ text }) => {
   return (
     <FormGroup row>
       <FormControlLabel control={<Checkbox />} label={<Text>{text}</Text>} />
@@ -29,11 +25,11 @@ CheckboxField.propTypes = {
   /**
    * sets the color theme.
    */
-  color: PropTypes.oneOf(['blue','green','red','purple']),
+  color: PropTypes.oneOf(['blue', 'green', 'red', 'purple']),
   /**
    * One of small, medium, large
    */
-  size: PropTypes.oneOf(['small','medium','large']),
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
 };
 
 CheckboxField.defaultProps = {
