@@ -14,9 +14,9 @@ const ListBody = styled.div`
 const ListBodyFieldLabel = styled(Heading)<{ colorSchema: string }>`
   margin-top: 5px;
   margin-left: 3px;
-  font-weight: ${props => props.theme.fontWeights[1]};
-  font-size: ${props => props.theme.fontSizes[3]};
-  color: ${props => props.theme.colors.primary[props.colorSchema][1]};
+  font-weight: ${(props) => props.theme.fontWeights[1]};
+  font-size: ${(props) => props.theme.fontSizes[3]};
+  color: ${(props) => props.theme.colors.primary[props.colorSchema][1]};
 `;
 
 interface Props {
@@ -32,14 +32,7 @@ interface Props {
  * A grouped list, grouping items according to categories.
  * Can show an edit-button, which toggles an editable prop in the children.
  */
-const GroupedList: React.FC<Props> = ({
-  heading,
-  items,
-  categories,
-  color,
-  showEditButton,
-  startEditable,
-}) => {
+const GroupedList: React.FC<Props> = ({ heading, items, categories, color, showEditButton, startEditable }) => {
   const [editable, setEditable] = useState(startEditable);
 
   const groupedItems: Record<string, { category: string; component: JSX.Element }[]> = {};
@@ -47,8 +40,8 @@ const GroupedList: React.FC<Props> = ({
     setEditable(!editable);
   };
 
-  categories.forEach(cat => {
-    const catItems = items.filter(item => item.category === cat.category);
+  categories.forEach((cat) => {
+    const catItems = items.filter((item) => item.category === cat.category);
     if (catItems.length > 0) {
       groupedItems[cat.category] = catItems;
     }
@@ -72,9 +65,9 @@ const GroupedList: React.FC<Props> = ({
         {Object.keys(groupedItems).map((key, index) => (
           <div key={`${index}-${key}`}>
             <ListBodyFieldLabel colorSchema={colorSchema}>
-              {categories.find(c => c.category === key)?.description}
+              {categories.find((c) => c.category === key)?.description}
             </ListBodyFieldLabel>
-            {groupedItems[key].map(item => ({
+            {groupedItems[key].map((item) => ({
               ...item.component,
               props: { ...item.component.props, editable },
             }))}

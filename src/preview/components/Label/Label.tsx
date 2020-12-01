@@ -47,12 +47,6 @@ const LabelContainer = styled.div`
 const LabelWrapper = styled.div`
   flex: auto;
 `;
-const HelpWrapper = styled.div`
-  flex: auto;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 22px;
-`;
 
 interface Props {
   size?: 'small' | 'medium' | 'large';

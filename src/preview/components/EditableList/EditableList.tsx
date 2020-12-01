@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Text from '../Text/Text';
 import Button from '../Button/Button';
 import Fieldset from '../Fieldset/Fieldset';
 import Select from '../Select/Select';
-import {TextField, Button as ButtonMUI} from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
 const EditableListBody = styled.div`
   padding-top: 33px;
@@ -13,8 +12,8 @@ const EditableListBody = styled.div`
   width: 100%;
 `;
 
-const EditableListItem = styled.div<{colorSchema: string; editable?: boolean}>`
-  font-size: ${props => props.theme.fontSizes[4]}px;
+const EditableListItem = styled.div<{ colorSchema: string; editable?: boolean }>`
+  font-size: ${(props) => props.theme.fontSizes[4]}px;
   flex-direction: row;
   display: inline-flex;
   height: auto;
@@ -23,7 +22,7 @@ const EditableListItem = styled.div<{colorSchema: string; editable?: boolean}>`
   background-color: transparent;
   border-radius: 4.5px;
   margin-bottom: 10px;
-  ${props =>
+  ${(props) =>
     props.editable
       ? `
       background-color: ${props.theme.colors.complementary[props.colorSchema][2]};
@@ -32,15 +31,15 @@ const EditableListItem = styled.div<{colorSchema: string; editable?: boolean}>`
       : 'color: blue;'};
 `;
 
-const EditableListItemLabelWrapper = styled.div<{alignAtStart: boolean}>`
+const EditableListItemLabelWrapper = styled.div<{ alignAtStart: boolean }>`
   flex: 4;
-  justify-content: ${props => (props.alignAtStart ? 'flex-start' : 'center')};
+  justify-content: ${(props) => (props.alignAtStart ? 'flex-start' : 'center')};
 `;
 
 const EditableListItemLabel = styled(Text)`
   padding: 4px;
-  font-weight: ${props => props.theme.fontWeights[1]};
-  color: ${props => props.theme.colors.neutrals[1]};
+  font-weight: ${(props) => props.theme.fontWeights[1]};
+  color: ${(props) => props.theme.colors.neutrals[1]};
 `;
 
 const EditableListItemInputWrapper = styled.div`
@@ -50,7 +49,7 @@ const EditableListItemInputWrapper = styled.div`
 const EditableListItemInput = styled(TextField)`
   width: 100%;
   font-weight: 500;
-  color: ${props => props.theme.colors.neutrals[1]};
+  color: ${(props) => props.theme.colors.neutrals[1]};
 `;
 
 const FieldsetButton = styled(Button)`
@@ -58,23 +57,17 @@ const FieldsetButton = styled(Button)`
 `;
 
 interface Props {
-    colorSchema?: string;
-    title?: string;
-    inputs?: {type: string; label: string; key: string; items?: {value: string; label:string}[]}[];
-    inputIsEditable?: boolean;
-    startEditable?: boolean;
+  colorSchema?: string;
+  title?: string;
+  inputs?: { type: string; label: string; key: string; items?: { value: string; label: string }[] }[];
+  inputIsEditable?: boolean;
+  startEditable?: boolean;
 }
 /**
  * EditableList
  * A Molecule Component to use for rendering a list with the possibility of editing the list values.
  */
-const EditableList: React.FC<Props> = ({
-  colorSchema,
-  title,
-  inputs,
-  inputIsEditable,
-  startEditable,
-}) => {
+const EditableList: React.FC<Props> = ({ colorSchema, title, inputs, inputIsEditable, startEditable }) => {
   const [editable, setEditable] = useState(startEditable);
 
   const changeEditable = () => {
@@ -82,62 +75,53 @@ const EditableList: React.FC<Props> = ({
   };
 
   /** Switch between different input types */
-  const getInputComponent = (input: {type: string; label: string; key: string; items?: {value: string; label: string}[]}) => {
+  const getInputComponent = (input: {
+    type: string;
+    label: string;
+    key: string;
+    items?: { value: string; label: string }[];
+  }) => {
     switch (input.type) {
       case 'number':
-        return (
-          <EditableListItemInput InputProps={{disableUnderline: true, style: {textAlign: 'right',}}} />
-        );
+        return <EditableListItemInput InputProps={{ disableUnderline: true, style: { textAlign: 'right' } }} />;
       case 'date':
-        return (
-          <EditableListItemInput InputProps={{disableUnderline: true, style: {textAlign: 'right',}}} />
-        );
+        return <EditableListItemInput InputProps={{ disableUnderline: true, style: { textAlign: 'right' } }} />;
       case 'select':
-        return (
-          <Select items={input.items ? input.items: []} />
-        );
+        return <Select items={input.items ? input.items : []} />;
       default:
-        return (
-          <EditableListItemInput InputProps={{disableUnderline: true, style: {textAlign: 'center'}}} />
-        );
+        return <EditableListItemInput InputProps={{ disableUnderline: true, style: { textAlign: 'center' } }} />;
     }
   };
 
   return (
     <Fieldset
-      colorSchema={colorSchema}
+      colorSchema={colorSchema || 'blue'}
       legend={title || ''}
       iconName="help-outline"
       renderHeaderActions={() =>
         inputIsEditable && (
-            <>
-          <FieldsetButton colorSchema={colorSchema} z={0} size="small" onClick={changeEditable}>
-            <Text>{editable ? 'Färdig' : 'Ändra'}</Text>
-          </FieldsetButton>
-          {/* <ButtonMUI onClick={changeEditable} variant="contained" color="secondary" >
-              {editable ? 'Färdig' : 'Ändra'}
-            </ButtonMUI> */}
+          <>
+            <FieldsetButton colorSchema={colorSchema || 'blue'} z={0} size="small" onClick={changeEditable}>
+              <Text>{editable ? 'Färdig' : 'Ändra'}</Text>
+            </FieldsetButton>
           </>
         )
       }
     >
       <EditableListBody>
-        {inputs && inputs.map(input => (
-          <EditableListItem
-            colorSchema={colorSchema || 'blue'}
-            editable={editable}
-            key={input.key}
-          >
-            <EditableListItemLabelWrapper alignAtStart={input.type === 'select'}>
-              <EditableListItemLabel>{input.label}</EditableListItemLabel>
-            </EditableListItemLabelWrapper>
-            <EditableListItemInputWrapper>{getInputComponent(input)}</EditableListItemInputWrapper>
-          </EditableListItem>
-        ))}
+        {inputs &&
+          inputs.map((input) => (
+            <EditableListItem colorSchema={colorSchema || 'blue'} editable={editable} key={input.key}>
+              <EditableListItemLabelWrapper alignAtStart={input.type === 'select'}>
+                <EditableListItemLabel>{input.label}</EditableListItemLabel>
+              </EditableListItemLabelWrapper>
+              <EditableListItemInputWrapper>{getInputComponent(input)}</EditableListItemInputWrapper>
+            </EditableListItem>
+          ))}
       </EditableListBody>
     </Fieldset>
   );
-}
+};
 
 EditableList.defaultProps = {
   inputIsEditable: true,

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import GroupedList from '../GroupedList/GroupedList';
 import Text from '../Text/Text';
@@ -10,9 +9,9 @@ import { getValidColorSchema } from '../../styles/theme';
 const SumLabel = styled(Heading)<{ colorSchema: string }>`
   margin-top: 5px;
   margin-left: 3px;
-  font-weight: ${props => props.theme.fontWeights[1]};
-  font-size: ${props => props.theme.fontSizes[3]};
-  color: ${props => props.theme.colors.primary[props.colorSchema][1]};
+  font-weight: ${(props) => props.theme.fontWeights[1]};
+  font-size: ${(props) => props.theme.fontSizes[3]};
+  color: ${(props) => props.theme.colors.primary[props.colorSchema][1]};
 `;
 const SumText = styled(Text)`
   margin-left: 4px;
@@ -31,7 +30,7 @@ const SumContainer = styled.div<{ colorSchema: string }>`
   padding-top: 16px;
   padding-left: 16px;
   padding-right: 16px;
-  background: ${props => props.theme.colors.complementary[props.colorSchema][3]};
+  background: ${(props) => props.theme.colors.complementary[props.colorSchema][3]};
 `;
 export interface SummaryListItem {
   title: string;
@@ -59,58 +58,40 @@ interface Props {
  * The things to summarize is specified in the items prop.
  * The things are grouped into categories, as specified by the categories props.
  */
-const SummaryList: React.FC<Props> = ({
-  heading,
-  items,
-  categories,
-  color,
-  showSum,
-  startEditable,
-}) => 
-{
-  const generateListItem = (
-    item: SummaryListItem,
-    index?: number
-  ) => ({
+const SummaryList: React.FC<Props> = ({ heading, items, categories, color, showSum, startEditable }) => {
+  const generateListItem = (item: SummaryListItem, index?: number) => ({
     category: item.category || '',
-    component: (
-      <SummaryListItemComponent
-        item={item}
-        index={index ? index + 1 : undefined}
-        color={color || 'blue'}
-      />
-    ),
+    component: <SummaryListItemComponent item={item} index={index ? index + 1 : undefined} color={color || 'blue'} />,
   });
 
   // Just display a zero in the sum, if we show one.
   const sum = 0;
 
   const listItems: { category: string; component: JSX.Element }[] = [];
-  items.forEach(item => {
-        listItems.push(generateListItem(item));
-    });
+  items.forEach((item) => {
+    listItems.push(generateListItem(item));
+  });
 
   const validColorSchema = getValidColorSchema(color || 'blue');
   return (
     <>
-        <GroupedList
-            heading={heading}
-            items={listItems}
-            categories={categories || []}
-            color={validColorSchema}
-            showEditButton
-            startEditable={startEditable}
-        />
-        {showSum && (
-            <SumContainer colorSchema={validColorSchema}>
-            <SumLabel colorSchema={validColorSchema}>Summa</SumLabel>
-            <SumText type="h1">{sum} kr</SumText>
-            </SumContainer>
-        )}
+      <GroupedList
+        heading={heading}
+        items={listItems}
+        categories={categories || []}
+        color={validColorSchema}
+        showEditButton
+        startEditable={startEditable}
+      />
+      {showSum && (
+        <SumContainer colorSchema={validColorSchema}>
+          <SumLabel colorSchema={validColorSchema}>Summa</SumLabel>
+          <SumText type="h1">{sum} kr</SumText>
+        </SumContainer>
+      )}
     </>
   );
 };
-
 
 SummaryList.defaultProps = {
   heading: '',

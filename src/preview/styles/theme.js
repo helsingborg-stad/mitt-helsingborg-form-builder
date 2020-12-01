@@ -1,5 +1,4 @@
 // theming for styled components goes in this file.
-import { Palette } from '@material-ui/icons';
 import { colorPalette, deprecatedPalette } from './palette';
 
 const calculateSizeScale = (size, scale) => scale * size;
@@ -7,12 +6,12 @@ const calculateSizeScale = (size, scale) => scale * size;
 const setTypography = () => {
   const defaultSize = 12;
 
-  const fontSizes = [0.75, 0.87, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3].map(scale =>
-    calculateSizeScale(defaultSize, scale)
+  const fontSizes = [0.75, 0.87, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3].map((scale) =>
+    calculateSizeScale(defaultSize, scale),
   );
 
-  const lineHeights = [1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3].map(scale =>
-    calculateSizeScale(defaultSize, scale)
+  const lineHeights = [1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3].map((scale) =>
+    calculateSizeScale(defaultSize, scale),
   );
 
   const fontWeights = [400, 700];

@@ -25,7 +25,7 @@ interface Props {
   stepData: StepType;
 }
 const Step: React.FC<Props> = ({ stepData }) => {
-  const { questions, actions, title, description, group, banner } = stepData;
+  const { questions, actions, title, description, group } = stepData;
 
   const localMaterialTheme = React.useMemo(
     () =>
