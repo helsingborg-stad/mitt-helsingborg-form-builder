@@ -186,6 +186,7 @@ const Button = (props) => {
           elevation={elevation}
           disabled={disabled}
           variant={variant}
+          onClick={onClick}
         >
           {children || (value ? <ButtonText>{value}</ButtonText> : null)}
         </ButtonBase>

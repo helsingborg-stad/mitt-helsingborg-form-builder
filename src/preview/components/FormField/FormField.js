@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import Text from '../Text/Text';
 import Label from '../Label/Label';
 import theme from '../../styles/theme';
+import CheckboxField from '../CheckboxField/CheckboxField';
+import Select from '../Select/Select';
 // import {TextField as Input} from '@material-ui/core';
 import Input from '../Input/Input';
+import EditableList from '../EditableList/EditableList';
+import SummaryList from '../SummaryList/SummaryList';
 
 const inputTypes = {
   text: {
@@ -19,6 +23,18 @@ const inputTypes = {
     component: Input,
     props: { InputProps: { disableUnderline: true } },
   },
+  checkbox: {
+    component: CheckboxField,
+  },
+  select: {
+    component: Select,
+  },
+  editableList: {
+    component: EditableList,
+  },
+  summaryList: {
+    component: SummaryList,
+  }
 };
 
 const FormField = ({ label, labelLine, inputType, color, id, ...other }) => {
