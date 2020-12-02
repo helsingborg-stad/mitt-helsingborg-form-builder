@@ -8,6 +8,7 @@ import Select from '../Select/Select';
 import Input from '../Input/Input';
 import EditableList from '../EditableList/EditableList';
 import SummaryList from '../SummaryList/SummaryList';
+import NavigationButtonGroup from '../NavigationButtonGroup/NavigationButtonGroup';
 
 const inputTypes = {
   text: {
@@ -33,6 +34,9 @@ const inputTypes = {
   },
   summaryList: {
     component: SummaryList,
+  },
+  navigationButtonGroup: {
+    component: NavigationButtonGroup,
   },
 };
 
