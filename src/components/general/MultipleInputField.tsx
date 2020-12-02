@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FastField } from 'formik';
+import { FastField, Field } from 'formik';
 import CSS from 'csstype';
 import { Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import ColorPicker from 'material-ui-color-picker';
@@ -65,7 +65,11 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
       case 'checkbox':
         return (
           <FormGroup style={inputFieldStyle} row>
-            <FormControlLabel control={<FastField as={Checkbox} name={computedName} />} label={field.label} />
+            {/* <Field as={Checkbox} name={computedName} checked={value?.showHelp} /> */}
+            <FormControlLabel
+              control={<FastField as={Checkbox} name={computedName} checked={value?.[field.name]} />}
+              label={field.label}
+            />
           </FormGroup>
         );
       case 'array':
