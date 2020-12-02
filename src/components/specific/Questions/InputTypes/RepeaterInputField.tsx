@@ -1,9 +1,9 @@
 import React from 'react';
-import FieldDescriptor, { InputType } from '../../../types/FieldDescriptor';
-import MultipleInputField from '../../general/MultipleInputField';
-import { InputFieldPropType } from '../../../types/PropTypes';
-import QuestionTypeSelect from './QuestionTypeSelect';
-import { ValidationFieldTypes } from './ValidationRules';
+import FieldDescriptor, { InputType } from '../../../../types/FieldDescriptor';
+import MultipleInputField from '../../../general/MultipleInputField';
+import { InputFieldPropType } from '../../../../types/PropTypes';
+import QuestionTypeSelect from '../QuestionTypeSelect';
+import { ValidationFieldTypes } from '../ValidationRules';
 
 const fields: FieldDescriptor[] = [
   { name: 'title', type: 'text', initialValue: '', label: 'Title' },

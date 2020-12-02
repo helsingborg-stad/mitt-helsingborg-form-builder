@@ -2,7 +2,7 @@ import React from 'react';
 import CSS from 'csstype';
 import { Select, MenuItem, FormGroup } from '@material-ui/core';
 import { useFormikContext } from 'formik';
-import { Form } from '../../../../types/FormTypes';
+import { Form } from '../../../../../types/FormTypes';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',

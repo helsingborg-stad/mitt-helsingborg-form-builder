@@ -1,7 +1,7 @@
 import React from 'react';
-import FieldDescriptor from '../../../../types/FieldDescriptor';
-import MultipleInputField from '../../../general/MultipleInputField';
-import { InputFieldPropType } from '../../../../types/PropTypes';
+import FieldDescriptor from '../../../../../types/FieldDescriptor';
+import MultipleInputField from '../../../../general/MultipleInputField';
+import { InputFieldPropType } from '../../../../../types/PropTypes';
 
 const fields: FieldDescriptor[] = [
   { name: 'text', type: 'text', initialValue: '', label: 'Button text' },

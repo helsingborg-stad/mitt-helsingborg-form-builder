@@ -7,7 +7,7 @@ import FieldDescriptor from '../../types/FieldDescriptor';
 import FieldArrayWrapper from './FieldArrayWrapper';
 import { MultipleInputFieldPropType } from '../../types/PropTypes';
 import LoadPreviousToggle from './SmartInputs/LoadPreviousToggle';
-import NavigationButtonInput from '../specific/Questions/NavigationButton/NavigationButtonInput';
+import NavigationButtonInput from '../specific/Questions/InputTypes/NavigationButton/NavigationButtonInput';
 import InputFieldSelect from './SmartInputs/InputFieldSelect';
 import TagsInput from './SmartInputs/TagsInput';
 import TextFieldWrapper from './TextFieldWrapper';
