@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import CSS from 'csstype';
 import { Select, MenuItem, FormGroup } from '@material-ui/core';
 import { useFormikContext } from 'formik';
-import { getPropertyFromDottedString } from '../../../../helpers/object';
-import { Form, Step, ListItem } from '../../../../types/FormTypes';
+import { getPropertyFromDottedString } from '../../../../../helpers/object';
+import { Form, Step, ListItem } from '../../../../../types/FormTypes';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',

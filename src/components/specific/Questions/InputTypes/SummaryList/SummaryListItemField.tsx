@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import FieldDescriptor, { InputType } from '../../../../types/FieldDescriptor';
-import MultipleInputField from '../../../general/MultipleInputField';
-import { InputFieldPropType } from '../../../../types/PropTypes';
-import QuestionTypeSelect from '../QuestionTypeSelect';
-import { ValidationFieldTypes } from '../ValidationRules';
+import FieldDescriptor, { InputType } from '../../../../../types/FieldDescriptor';
+import MultipleInputField from '../../../../general/MultipleInputField';
+import { InputFieldPropType } from '../../../../../types/PropTypes';
+import QuestionTypeSelect from '../../QuestionTypeSelect';
+import { ValidationFieldTypes } from '../../ValidationRules';
 import { useFormikContext } from 'formik';
-import { Form } from '../../../../types/FormTypes';
-import { getPropertyFromDottedString } from '../../../../helpers/object';
+import { Form } from '../../../../../types/FormTypes';
+import { getPropertyFromDottedString } from '../../../../../helpers/object';
 import CategorySelect from './CategorySelect';
 
 const fields: FieldDescriptor[] = [

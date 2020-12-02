@@ -1,10 +1,10 @@
 import React from 'react';
-import FieldDescriptor, { InputType } from '../../../types/FieldDescriptor';
-import MultipleInputField from '../../general/MultipleInputField';
-import { InputFieldPropType } from '../../../types/PropTypes';
-import QuestionTypeSelect from './QuestionTypeSelect';
+import FieldDescriptor, { InputType } from '../../../../types/FieldDescriptor';
+import MultipleInputField from '../../../general/MultipleInputField';
+import { InputFieldPropType } from '../../../../types/PropTypes';
+import QuestionTypeSelect from '../QuestionTypeSelect';
 import SelectChoice from './SelectChoice';
-import { ValidationFieldTypes } from './ValidationRules';
+import { ValidationFieldTypes } from '../ValidationRules';
 
 const editableListFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },

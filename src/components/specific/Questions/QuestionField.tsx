@@ -1,16 +1,17 @@
 import React from 'react';
 import FieldDescriptor, { InputType } from '../../../types/FieldDescriptor';
 import MultipleInputField from '../../general/MultipleInputField';
-import EditableListInputField from './EditableListInputField';
+import EditableListInputField from './InputTypes/EditableListInputField';
 import { InputFieldPropType } from '../../../types/PropTypes';
-import NavigationButtonField from './NavigationButton/NavigationButtonField';
-import SummaryListItemField from './SummaryList/SummaryListItemField';
-import RepeaterInputField from './RepeaterInputField';
-import CategoryField from './SummaryList/CategoryField';
+import NavigationButtonField from './InputTypes/NavigationButton/NavigationButtonField';
+import SummaryListItemField from './InputTypes/SummaryList/SummaryListItemField';
+import RepeaterInputField from './InputTypes/RepeaterInputField';
+import CategoryField from './InputTypes/SummaryList/CategoryField';
 import QuestionTypeSelect from './QuestionTypeSelect';
 import { ValidationFieldTypes } from './ValidationRules';
-import RadioButtonChoice from './RadioButtonChoice';
-import SelectChoice from './SelectChoice';
+import RadioButtonChoice from './InputTypes/RadioButtonChoice';
+import SelectChoice from './InputTypes/SelectChoice';
+import HelpField from './HelpField';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
@@ -18,6 +19,7 @@ const questionFields: FieldDescriptor[] = [
   { name: 'description', type: 'text', initialValue: '', label: 'Description' },
   { name: 'id', type: 'text', initialValue: '', label: 'Id' },
   { name: 'conditionalOn', type: 'text', initialValue: '', label: 'Conditional on (field id)' },
+  { name: 'showHelp', type: 'checkbox', initialValue: '', label: 'Add help to the question?' },
 ];
 
 const typeChoices: {
@@ -64,7 +66,6 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   checkbox: [
     { name: 'text', type: 'text', initialValue: '', label: 'Text' },
     { name: 'color', type: 'text', initialValue: 'light', label: 'Color' },
-    { name: 'inputHelp', type: 'text', initialValue: '', label: 'Value helper' },
     { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
@@ -105,10 +106,19 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
 
 const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   const { value, name } = props;
+  const showHelp: boolean = value?.showHelp && value.showHelp === true;
   const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type as InputType];
   return (
     <>
+      <h3>General</h3>
       <MultipleInputField fields={questionFields} {...props} />
+      {showHelp && (
+        <>
+          <h3>Help</h3>
+          <HelpField name={`${name}.help`} value={value} />
+        </>
+      )}
+      <h3>Specifics</h3>
       <QuestionTypeSelect name={name} value={value} label="Input Type" choices={typeChoices} />
       {extraInput && <MultipleInputField fields={extraInput} {...props} />}
     </>
