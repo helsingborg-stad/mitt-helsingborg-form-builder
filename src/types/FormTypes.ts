@@ -9,6 +9,8 @@ export interface Question {
   loadPrevious?: string[];
   items?: SubstepItem[];
   inputs?: ListInput[];
+  showHelp?: boolean;
+  help?: Help;
 }
 
 export interface ListItem {
@@ -24,7 +26,12 @@ export interface SubstepItem {
   formId: string;
   loadPrevious?: string[];
 }
-
+export interface Help {
+  text?: string;
+  heading?: string;
+  tagline?: string;
+  url?: string;
+}
 export interface ListInput {
   type: 'text' | 'number';
   key: string;
