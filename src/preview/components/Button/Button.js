@@ -123,6 +123,7 @@ const RightButtonIcon = styled(ButtonIcon)`
 /** Button utils */
 const ButtonWrapper = styled.div`
   flex-direction: row;
+  margin: 4px;
 `;
 
 const ButtonTouchable = styled.div`
