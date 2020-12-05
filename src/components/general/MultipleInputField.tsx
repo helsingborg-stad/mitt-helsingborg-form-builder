@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FastField } from 'formik';
+import { FastField, useFormikContext } from 'formik';
 import CSS from 'csstype';
 import { Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import ColorPicker from 'material-ui-color-picker';
@@ -11,7 +11,6 @@ import NavigationButtonInput from '../specific/Questions/InputTypes/NavigationBu
 import InputFieldSelect from './SmartInputs/InputFieldSelect';
 import TagsInput from './SmartInputs/TagsInput';
 import TextFieldWrapper from './TextFieldWrapper';
-import { useFormikContext } from 'formik';
 import { Form } from '../../types/FormTypes';
 import HelpPopper from './SmartInputs/HelpPopper';
 
