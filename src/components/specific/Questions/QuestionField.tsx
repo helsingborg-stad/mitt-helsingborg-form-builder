@@ -12,6 +12,7 @@ import { ValidationFieldTypes } from './ValidationRules';
 import RadioButtonChoice from './InputTypes/RadioButtonChoice';
 import SelectChoice from './InputTypes/SelectChoice';
 import HelpField from './HelpField';
+import CardComponentField from './InputTypes/CardComponentField';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
@@ -44,6 +45,7 @@ const typeChoices: {
   { selectValue: 'repeaterField', displayName: 'Repeater Field', inputType: 'repeaterField' },
   { selectValue: 'radioGroup', displayName: 'Radio buttons', inputType: 'radioGroup' },
   { selectValue: 'select', displayName: 'Select (dropdown menu)', inputType: 'select' },
+  { selectValue: 'card', displayName: 'Card (info text with action button)', inputType: 'card' },
 ];
 
 const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
@@ -102,6 +104,37 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   ],
   radioGroup: [{ name: 'choices', type: 'array', initialValue: '', label: 'Choices', inputField: RadioButtonChoice }],
   select: [{ name: 'items', type: 'array', initialValue: '', label: 'Choices', inputField: SelectChoice }],
+  card: [
+    {
+      name: 'colorSchema',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme for components',
+      choices: [
+        { value: 'blue', name: 'Blue' },
+        { value: 'green', name: 'Green' },
+        { value: 'red', name: 'Red' },
+        { value: 'purple', name: 'Purple' },
+        { value: 'neutral', name: 'Neutral' },
+      ],
+    },
+    {
+      name: 'backgroundColor',
+      type: 'select',
+      initialValue: '',
+      label: 'Card background color',
+      choices: [
+        { value: 'blue', name: 'Blue' },
+        { value: 'green', name: 'Green' },
+        { value: 'red', name: 'Red' },
+        { value: 'purple', name: 'Purple' },
+        { value: 'neutral', name: 'Neutral' },
+      ],
+    },
+    { name: 'shadow', type: 'checkbox', initialValue: '', label: 'Display a shadow, for a raised look' },
+    { name: 'outlined', type: 'checkbox', initialValue: '', label: 'Display a solid outline' },
+    { name: 'components', type: 'array', initialValue: '', label: 'Card components', inputField: CardComponentField },
+  ],
 };
 
 const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {

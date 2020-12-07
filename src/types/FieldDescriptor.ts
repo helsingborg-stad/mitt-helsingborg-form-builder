@@ -21,7 +21,8 @@ export type InputType =
   | 'colorPicker'
   | 'arrayText'
   | 'arrayNumber'
-  | 'arrayDate';
+  | 'arrayDate'
+  | 'card';
 
 export default interface FieldDescriptor {
   name: string;
