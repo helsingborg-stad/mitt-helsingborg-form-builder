@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FastField, Field } from 'formik';
+import { FastField } from 'formik';
 import CSS from 'csstype';
 import { Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import ColorPicker from 'material-ui-color-picker';
