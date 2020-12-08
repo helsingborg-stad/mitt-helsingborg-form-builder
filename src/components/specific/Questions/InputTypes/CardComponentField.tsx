@@ -20,8 +20,8 @@ const fields: FieldDescriptor[] = [
 //   select: [{ name: 'items', type: 'array', initialValue: '', label: 'Choices', inputField: SelectChoice }],
 // };
 const extraInputs: Record<string, FieldDescriptor[]> = {
-  title: [{ name: 'title', type: 'text', initialValue: '', label: 'Title' }],
-  subtitle: [{ name: 'subtitle', type: 'text', initialValue: '', label: 'Subtitle' }],
+  title: [{ name: 'text', type: 'text', initialValue: '', label: 'Title' }],
+  subtitle: [{ name: 'text', type: 'text', initialValue: '', label: 'Subtitle' }],
   text: [
     { name: 'text', type: 'text', initialValue: '', label: 'Text' },
     { name: 'italic', type: 'checkbox', initialValue: '', label: 'Italic' },
