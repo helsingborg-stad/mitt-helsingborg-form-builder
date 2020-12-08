@@ -15,20 +15,20 @@ Styles.buttonbase = css`
   align-items: center;
   max-width: 100%;
   border-radius: 4.5px;
-  background-color: ${(props) => props.theme.colors.primary[props.colorSchema][0]};
+  background-color: ${(props) => props.theme.colors.primary[props.colorSchema]?.[0] || 'blue'};
 `;
 
 /* Styles for different button variants outlined, contained etc */
 Styles.outlined = css`
-  border: 2px solid ${(props) => props.theme.colors.primary[props.colorSchema][1]};
-  background-color: ${(props) => props.theme.colors.complementary[props.colorSchema][1]};
+  border: 2px solid ${(props) => props.theme.colors.primary[props.colorSchema]?.[1] || 'blue'};
+  background-color: ${(props) => props.theme.colors.complementary[props.colorSchema]?.[1] || 'blue'};
   ${Styles.elevation[0]}
 `;
 
 Styles.link = css`
   padding: 6px 10px;
   justify-content: space-between;
-  background-color: ${(props) => props.theme.colors.complementary[props.colorSchema][1]};
+  background-color: ${(props) => props.theme.colors.complementary[props.colorSchema]?.[1] || 'blue'};
 `;
 
 Styles.contained = css``;
