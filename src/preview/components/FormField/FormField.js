@@ -9,6 +9,7 @@ import Input from '../Input/Input';
 import EditableList from '../EditableList/EditableList';
 import SummaryList from '../SummaryList/SummaryList';
 import NavigationButtonGroup from '../NavigationButtonGroup/NavigationButtonGroup';
+import DynamicCardRenderer from '../Card/DynamicCardRenderer';
 
 const inputTypes = {
   text: {
@@ -37,6 +38,9 @@ const inputTypes = {
   },
   navigationButtonGroup: {
     component: NavigationButtonGroup,
+  },
+  card: {
+    component: DynamicCardRenderer,
   },
 };
 
