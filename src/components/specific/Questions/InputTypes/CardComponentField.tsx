@@ -3,22 +3,22 @@ import FieldDescriptor, { InputType } from '../../../../types/FieldDescriptor';
 import MultipleInputField from '../../../general/MultipleInputField';
 import { InputFieldPropType } from '../../../../types/PropTypes';
 
-const typeChoices: {
-  name: string;
-  value: string;
-}[] = [
-  { value: 'title', name: 'Title' },
-  { value: 'subtitle', name: 'Subtitle' },
-  { value: 'text', name: 'Text' },
-  { value: 'image', name: 'Image' },
-  { value: 'button', name: 'Button' },
-];
 const fields: FieldDescriptor[] = [
-  { name: 'type', type: 'select', initialValue: '', label: 'Component type', choices: typeChoices },
+  {
+    name: 'type',
+    type: 'select',
+    initialValue: '',
+    label: 'Component type',
+    choices: [
+      { value: 'title', name: 'Title' },
+      { value: 'subtitle', name: 'Subtitle' },
+      { value: 'text', name: 'Text' },
+      { value: 'image', name: 'Image' },
+      { value: 'button', name: 'Button' },
+    ],
+  },
 ];
-// const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
-//   select: [{ name: 'items', type: 'array', initialValue: '', label: 'Choices', inputField: SelectChoice }],
-// };
+
 const extraInputs: Record<string, FieldDescriptor[]> = {
   title: [{ name: 'text', type: 'text', initialValue: '', label: 'Title' }],
   subtitle: [{ name: 'text', type: 'text', initialValue: '', label: 'Subtitle' }],
