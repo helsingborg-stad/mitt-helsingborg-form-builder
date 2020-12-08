@@ -203,6 +203,13 @@ const theme = {
       iconRight: deprecatedPalette.mono.light,
       shadow: 'rgba(255, 255, 255, 0.0)',
     },
+    neutral: {
+      background: deprecatedPalette.mono.lightest,
+      text: deprecatedPalette.mono.darker,
+      icon: deprecatedPalette.purple[1],
+      iconRight: deprecatedPalette.mono.light,
+      shadow: 'rgba(255, 255, 255, 0.0)',
+    },
     gray: {
       background: deprecatedPalette.mono.lighter,
       text: deprecatedPalette.mono.darker,
