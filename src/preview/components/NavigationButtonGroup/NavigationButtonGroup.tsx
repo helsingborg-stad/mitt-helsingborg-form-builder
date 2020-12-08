@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '../Button/Button';
 import Text from '../Text/Text';
+import { getValidColorSchema } from '../../styles/themeHelpers';
 
 const ScrollView = styled.div<{ horizontal?: boolean }>`
   display: inline-flex;
@@ -18,7 +19,7 @@ interface Props {
 const NavigationButtonGroup: React.FC<Props> = ({ buttons, horizontal }) => (
   <ScrollView horizontal={horizontal}>
     {buttons.map((button, index) => (
-      <Button key={`nav-button-${index}`} colorSchema={button.color || 'blue'} variant="outlined">
+      <Button key={`nav-button-${index}`} colorSchema={getValidColorSchema(button.color || '')} variant="outlined">
         <Text>{button.text}</Text>
       </Button>
     ))}
