@@ -9,7 +9,7 @@ import { getPropertyFromDottedString } from '../../helpers/object';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     subcontainer: {
-      flexGrow: 1,
+      // flexGrow: 1,
       maxWidth: 752,
       margin: theme.spacing(4, 0, 2),
       backgroundColor: 'rgba(255, 255, 255, 0.10)',

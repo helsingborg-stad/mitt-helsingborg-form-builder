@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     table: {
       display: 'table',
-      tableLayout: "fixed",
-      width: "100%",
+      tableLayout: 'fixed',
+      width: '100%',
     },
     row: {
       display: 'table-row',
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
       whiteSpace: 'nowrap',
       width: '75%',
       overflow: 'hidden',
-      textOverflow:'ellipsis',
+      textOverflow: 'ellipsis',
     },
   }),
 );
@@ -130,14 +130,20 @@ const StepList: React.FC<Props> = ({
     return (
       <div>
         <Paper
-          style={{ height: '34px', paddingLeft: '8px', paddingRight: '8px', borderBottomLeftRadius: '0px', borderTopLeftRadius: '0px' }}
+          style={{
+            height: '34px',
+            paddingLeft: '8px',
+            paddingRight: '8px',
+            borderBottomLeftRadius: '0px',
+            borderTopLeftRadius: '0px',
+          }}
           className={selectedStepId === item.id ? classes.selected : ''}
         >
           <div className={classes.table}>
             <div className={classes.row}>
               <span className={classes.col}>{collapseIcon}</span>
               <span onClick={toggleSelection(item)} className={classes.colCenter}>
-                <Typography style={{ fontSize: '12px', whiteSpace:'nowrap' }}>{item.text}</Typography>
+                <Typography style={{ fontSize: '12px', whiteSpace: 'nowrap' }}>{item.text}</Typography>
               </span>
               <div className={`${classes.col}`} style={{ width: 30 }}>
                 <IconButton color="primary" onClick={copyStep(item)}>

@@ -2,6 +2,7 @@ import React from 'react';
 import FieldDescriptor, { InputType } from '../../../../types/FieldDescriptor';
 import MultipleInputField from '../../../general/MultipleInputField';
 import { InputFieldPropType } from '../../../../types/PropTypes';
+import icons from '../../../../preview/helpers/Icons';
 
 const fields: FieldDescriptor[] = [
   {
@@ -27,7 +28,13 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
     { name: 'italic', type: 'checkbox', initialValue: '', label: 'Italic' },
   ],
   image: [
-    { name: 'image', type: 'text', initialValue: '', label: 'Image filename' },
+    {
+      name: 'image',
+      type: 'text',
+      initialValue: '',
+      label: 'Image filename',
+      helpText: `Currently available images: ${Object.keys(icons).join(', ')}`,
+    },
     { name: 'circle', type: 'checkbox', initialValue: '', label: 'Round (otherwise square)' },
   ],
   button: [
