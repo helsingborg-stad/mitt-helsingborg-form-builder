@@ -111,7 +111,7 @@ interface Props {
   backgroundColor?: PrimaryColor;
   shadow?: boolean;
   outlined?: boolean;
-  components: CardComponent[];
+  components?: CardComponent[];
 }
 
 /** Dynamically renders a card with the sent in children as an array of json objects. */
@@ -119,7 +119,7 @@ const DynamicCardRenderer: React.FC<Props> = ({ colorSchema, backgroundColor, sh
   return (
     <Card colorSchema={colorSchema || 'neutral'}>
       <Card.Body color={backgroundColor || 'neutral'} shadow={shadow} outlined={outlined}>
-        {components.map((component) => renderCardComponent(component))}
+        {components && components?.length > 0 && components?.map((component) => renderCardComponent(component))}
       </Card.Body>
     </Card>
   );
