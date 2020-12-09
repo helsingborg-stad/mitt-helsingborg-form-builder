@@ -9,9 +9,6 @@ const ActionContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   background-color: ${(props) => props.theme.colors.neutrals[5]};
-  position: absolute;
-  bottom: 0;
-  right: 0;
   width: 100%;
 `;
 const Flex = styled.div`
