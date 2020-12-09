@@ -10,7 +10,6 @@ const actionFields: FieldDescriptor[] = [
     initialValue: '',
     label: 'Type',
     choices: [
-      { name: 'Start', value: 'start' },
       { name: 'Next', value: 'next' },
       { name: 'Submit', value: 'submit' },
       { name: 'Sign', value: 'sign' },
@@ -19,7 +18,19 @@ const actionFields: FieldDescriptor[] = [
     ],
   },
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
-  { name: 'color', type: 'text', initialValue: '', label: 'Button color' },
+  {
+    name: 'color',
+    type: 'select',
+    initialValue: '',
+    label: 'Button color',
+    choices: [
+      { value: 'blue', name: 'Blue' },
+      { value: 'green', name: 'Green' },
+      { value: 'red', name: ' Red' },
+      { value: 'purple', name: 'Purple' },
+      { value: 'neutral', name: 'Neutral (gray)' },
+    ],
+  },
 ];
 
 const ActionField: React.FC<InputFieldPropType> = (props) => {

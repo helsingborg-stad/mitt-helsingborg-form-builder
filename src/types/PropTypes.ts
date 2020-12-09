@@ -6,7 +6,7 @@ export interface InputFieldPropType {
   value: Record<string, any>;
 }
 
-export type MultipleInputFieldPropType = InputFieldPropType & {
+export interface MultipleInputFieldPropType extends InputFieldPropType {
   fields: FieldDescriptor[];
   validation?: ValidationRules;
-};
+}

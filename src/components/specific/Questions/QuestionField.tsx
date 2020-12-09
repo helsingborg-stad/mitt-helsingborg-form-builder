@@ -16,11 +16,36 @@ import CardComponentField from './InputTypes/CardComponentField';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
-  { name: 'labelHelp', type: 'text', initialValue: '', label: 'Helper' },
-  { name: 'description', type: 'text', initialValue: '', label: 'Description' },
-  { name: 'id', type: 'text', initialValue: '', label: 'Id' },
-  { name: 'conditionalOn', type: 'text', initialValue: '', label: 'Conditional on (field id)' },
-  { name: 'showHelp', type: 'checkbox', initialValue: '', label: 'Add help to the question?' },
+  {
+    name: 'description',
+    type: 'text',
+    initialValue: '',
+    label: 'Description',
+    helpText:
+      'Only to help editors of the form, not visible to the user. Add description if the function of the field is not clear.',
+  },
+  {
+    name: 'id',
+    type: 'text',
+    initialValue: '',
+    label: 'Id',
+    helpText: 'A unique id that identifies the input field. Careful when changing it!',
+  },
+  {
+    name: 'conditionalOn',
+    type: 'text',
+    initialValue: '',
+    label: 'Conditional on (field id)',
+    helpText: 'Show the question only if the conditional field is nonempty, or empty (put a ! infront of the id).',
+  },
+  {
+    name: 'showHelp',
+    type: 'checkbox',
+    initialValue: '',
+    label: 'Add help to the question?',
+    helpText:
+      'Adds a clickable help icon to the label or somewhere in the component, that opens a modal displaying the help text.',
+  },
 ];
 
 const typeChoices: {

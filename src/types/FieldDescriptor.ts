@@ -32,4 +32,5 @@ export default interface FieldDescriptor {
   label: string;
   choices?: Record<string, string>[];
   inputField?: React.FC<InputFieldPropType>;
+  helpText?: string;
 }

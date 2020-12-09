@@ -13,12 +13,18 @@ import TagsInput from './SmartInputs/TagsInput';
 import TextFieldWrapper from './TextFieldWrapper';
 import { useFormikContext } from 'formik';
 import { Form } from '../../types/FormTypes';
+import HelpPopper from './SmartInputs/HelpPopper';
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
   marginTop: '5px',
+  width: '100%',
 };
-
+const row: CSS.Properties = {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  width: '100%',
+};
 const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
   name,
   value,
@@ -37,11 +43,14 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
     switch (field.type) {
       case 'text':
         return (
-          <FastField
-            name={computedName}
-            as={TextFieldWrapper}
-            {...{ fullWidth: true, multiline: true, rowsMax: 3, label: field.label }}
-          />
+          <div style={row}>
+            <FastField
+              name={computedName}
+              as={TextFieldWrapper}
+              {...{ fullWidth: true, multiline: true, rowsMax: 3, label: field.label }}
+            />
+            {field.helpText && field.helpText !== '' && <HelpPopper style={{}} text={field.helpText} />}
+          </div>
         );
       case 'select':
         return (
@@ -56,6 +65,7 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
                   ))
                 : null}
             </FastField>
+            {field.helpText && field.helpText !== '' && <HelpPopper style={{}} text={field.helpText} />}
           </FormGroup>
         );
       case 'loadPreviousToggle':
@@ -65,11 +75,11 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
       case 'checkbox':
         return (
           <FormGroup style={inputFieldStyle} row>
-            {/* <Field as={Checkbox} name={computedName} checked={value?.showHelp} /> */}
             <FormControlLabel
               control={<FastField as={Checkbox} name={computedName} checked={value?.[field.name]} />}
               label={field.label}
             />
+            {field.helpText && field.helpText !== '' && <HelpPopper style={{}} text={field.helpText} />}
           </FormGroup>
         );
       case 'array':
@@ -113,9 +123,19 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
           </FormGroup>
         );
       case 'questionIdPicker':
-        return <InputFieldSelect name={computedName} label={field.label} />;
+        return (
+          <div style={row}>
+            <InputFieldSelect name={computedName} label={field.label} />
+            {field.helpText && field.helpText !== '' && <HelpPopper style={{}} text={field.helpText} />}
+          </div>
+        );
       case 'tags':
-        return <TagsInput name={computedName} label={field.label} value={value[field.name] || field.initialValue} />;
+        return (
+          <div style={row}>
+            <TagsInput name={computedName} label={field.label} value={value[field.name] || field.initialValue} />
+            {field.helpText && field.helpText !== '' && <HelpPopper style={{}} text={field.helpText} />}
+          </div>
+        );
       default:
         throw new Error(`Missing type ${field.type}`);
     }

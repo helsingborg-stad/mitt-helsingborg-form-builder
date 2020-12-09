@@ -11,7 +11,14 @@ import CategorySelect from './CategorySelect';
 
 const fields: FieldDescriptor[] = [
   { name: 'title', type: 'text', initialValue: '', label: 'Title' },
-  { name: 'id', type: 'questionIdPicker', initialValue: '', label: 'Field id' },
+  {
+    name: 'id',
+    type: 'questionIdPicker',
+    initialValue: '',
+    label: 'Field id',
+    helpText:
+      'The field to show the value of. Can be a basic input field, or a editable list/repeater, in which case you also need to put in the input key.',
+  },
 ];
 
 const typeChoices: {
