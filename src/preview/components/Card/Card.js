@@ -7,10 +7,10 @@ import { colorPalette } from '../../styles/palette';
 
 const Container = styled.div`
   margin-top: 12px;
+  margin-bottom: 12px;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  margin-bottom: 16px;
   padding-left: 1px;
   padding-right: 1px;
   width: 90%;

@@ -10,15 +10,18 @@ import FormField from '../components/FormField/FormField';
 
 const StepContainer = styled.div`
   background: ${(props) => props.theme.colors.neutrals[7]};
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
   flex: 1;
   width: 400px;
-  min-height: 800px;
+  padding-bottom: 0px;
   position: relative;
 `;
 
 const QuestionWrapper = styled.div`
   margin-left: 25px;
-  padding-bottom: 150px;
+  margin-bottom: 60px;
 `;
 
 interface Props {
