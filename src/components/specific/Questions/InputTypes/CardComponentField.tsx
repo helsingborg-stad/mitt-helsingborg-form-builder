@@ -39,7 +39,13 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
   ],
   button: [
     { name: 'text', type: 'text', initialValue: '', label: 'Button text' },
-    { name: 'icon', type: 'text', initialValue: '', label: 'Icon name (from Material Icons), optional' },
+    {
+      name: 'icon',
+      type: 'text',
+      initialValue: '',
+      label: 'Icon name (from Material Icons), optional',
+      helpText: 'some common icon names that we use are: help-outline, arrow-forward, phone, email.',
+    },
     {
       name: 'iconPosition',
       type: 'select',
