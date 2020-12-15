@@ -131,12 +131,13 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
     steps: Step[],
     setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void,
   ) => () => {
-    const newStep = {
+    const newStep: Step = {
       title: '',
       description: '',
       group: '',
       id: uuidv4(),
       banner: { iconSrc: '', imageSrc: '', backgroundColor: '' },
+      colorSchema: 'blue',
     };
     const newSteps = [...steps, newStep];
     setFieldValue('steps', newSteps);
