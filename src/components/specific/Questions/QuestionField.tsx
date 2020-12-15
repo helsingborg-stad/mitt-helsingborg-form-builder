@@ -14,6 +14,15 @@ import SelectChoice from './InputTypes/SelectChoice';
 import HelpField from './HelpField';
 import CardComponentField from './InputTypes/CardComponentField';
 
+const colorChoices = [
+  { value: '', name: 'Inherit' },
+  { value: 'blue', name: 'Blue' },
+  { value: 'green', name: 'Green' },
+  { value: 'red', name: 'Red' },
+  { value: 'purple', name: 'Purple' },
+  { value: 'neutral', name: 'Neutral' },
+];
+
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
   {
@@ -87,19 +96,38 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   date: [{ name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' }],
   editableList: [
     { name: 'title', type: 'text', initialValue: '', label: 'Title' },
+    {
+      name: 'color',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
     { name: 'startEditable', type: 'checkbox', initialValue: 'false', label: 'Start in editable mode' },
     { name: 'inputs', type: 'array', initialValue: '', label: 'Inputs', inputField: EditableListInputField },
   ],
   checkbox: [
     { name: 'text', type: 'text', initialValue: '', label: 'Text' },
-    { name: 'color', type: 'text', initialValue: 'light', label: 'Color' },
+    {
+      name: 'color',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
     { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
   avatarList: [{ name: 'heading', type: 'text', initialValue: '', label: 'Title' }],
   navigationButton: [
     { name: 'text', type: 'text', initialValue: '', label: 'Button text' },
-    { name: 'color', type: 'text', initialValue: 'light', label: 'Color' },
+    {
+      name: 'color',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
     { name: 'iconName', type: 'text', initialValue: '', label: 'Icon name' },
     {
       name: 'navigationType',
@@ -114,7 +142,13 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   ],
   summaryList: [
     { name: 'heading', type: 'text', initialValue: '', label: 'List heading' },
-    { name: 'color', type: 'text', initialValue: 'light', label: 'Color theme' },
+    {
+      name: 'color',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
     { name: 'showSum', type: 'checkbox', initialValue: 'true', label: 'Show sum' },
     { name: 'startEditable', type: 'checkbox', initialValue: 'false', label: 'Start in editable mode' },
     { name: 'categories', type: 'array', initialValue: '', label: 'Categories', inputField: CategoryField },
@@ -123,7 +157,13 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   repeaterField: [
     { name: 'heading', type: 'text', initialValue: '', label: 'List heading' },
     { name: 'addButtonText', type: 'text', initialValue: '', label: 'Button Text (to add an item)' },
-    { name: 'color', type: 'text', initialValue: 'light', label: 'Color theme' },
+    {
+      name: 'color',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
     { name: 'inputs', type: 'array', initialValue: '', label: 'Inputs (rows)', inputField: RepeaterInputField },
   ],
@@ -135,26 +175,14 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
       type: 'select',
       initialValue: '',
       label: 'Color theme for components',
-      choices: [
-        { value: 'blue', name: 'Blue' },
-        { value: 'green', name: 'Green' },
-        { value: 'red', name: 'Red' },
-        { value: 'purple', name: 'Purple' },
-        { value: 'neutral', name: 'Neutral' },
-      ],
+      choices: colorChoices,
     },
     {
       name: 'backgroundColor',
       type: 'select',
       initialValue: '',
       label: 'Card background color',
-      choices: [
-        { value: 'blue', name: 'Blue' },
-        { value: 'green', name: 'Green' },
-        { value: 'red', name: 'Red' },
-        { value: 'purple', name: 'Purple' },
-        { value: 'neutral', name: 'Neutral' },
-      ],
+      choices: colorChoices,
     },
     { name: 'shadow', type: 'checkbox', initialValue: '', label: 'Display a shadow, for a raised look' },
     { name: 'outlined', type: 'checkbox', initialValue: '', label: 'Display a solid outline' },

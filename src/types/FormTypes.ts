@@ -1,3 +1,5 @@
+import { PrimaryColor } from '../preview/styles/themeHelpers';
+
 export interface Question {
   label: string;
   type: string;
@@ -58,6 +60,7 @@ export interface Step {
   questions?: Question[];
   actions?: Action[];
   banner?: Banner;
+  colorSchema: PrimaryColor | '';
 }
 
 export type StepperActions = 'next' | 'back' | 'up' | 'down' | 'none';
