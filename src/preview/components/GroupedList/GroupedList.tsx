@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Text from '../Text/Text';
 import Fieldset, { FieldsetButton } from '../Fieldset/Fieldset';
-import { colorPalette } from '../../styles/palette';
 import Heading from '../Heading/Heading';
+import { PrimaryColor } from '../../styles/themeHelpers';
 
 const ListBody = styled.div`
   padding-top: 12px;
@@ -23,7 +23,7 @@ interface Props {
   heading?: string;
   items: { category: string; component: JSX.Element }[];
   categories: { category: string; description: string }[];
-  color: string;
+  colorSchema: PrimaryColor;
   showEditButton?: boolean;
   startEditable?: boolean;
 }
@@ -32,7 +32,7 @@ interface Props {
  * A grouped list, grouping items according to categories.
  * Can show an edit-button, which toggles an editable prop in the children.
  */
-const GroupedList: React.FC<Props> = ({ heading, items, categories, color, showEditButton, startEditable }) => {
+const GroupedList: React.FC<Props> = ({ heading, items, categories, colorSchema, showEditButton, startEditable }) => {
   const [editable, setEditable] = useState(startEditable);
 
   const groupedItems: Record<string, { category: string; component: JSX.Element }[]> = {};
@@ -46,7 +46,6 @@ const GroupedList: React.FC<Props> = ({ heading, items, categories, color, showE
       groupedItems[cat.category] = catItems;
     }
   });
-  const colorSchema = Object.keys(colorPalette.primary).includes(color) ? color : 'blue';
 
   return (
     <Fieldset
@@ -81,6 +80,6 @@ const GroupedList: React.FC<Props> = ({ heading, items, categories, color, showE
 GroupedList.defaultProps = {
   items: [],
   categories: [],
-  color: 'blue',
+  colorSchema: 'blue',
 };
 export default GroupedList;

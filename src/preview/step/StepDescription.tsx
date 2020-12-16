@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Text from '../components/Text/Text';
 import Heading from '../components/Heading/Heading';
+import { PrimaryColor } from '../styles/themeHelpers';
 
 const StepDescriptionWrapper = styled.div`
   margin-left: 25px;
@@ -13,7 +14,7 @@ const StepDescriptionHeading = styled(Heading)`
   line-height: 40px;
 `;
 
-const StepDescriptionTagline = styled(Text)<{ type: string; colorSchema: string }>`
+const StepDescriptionTagline = styled(Text)<{ type: string; colorSchema: PrimaryColor }>`
   font-size: ${(props) => props.theme.typography[props.type].fontSize}px;
   font-weight: bold;
   margin-bottom: 10px;
@@ -27,18 +28,17 @@ const StepDescriptionText = styled(Text)<{ type: string }>`
   margin-top: 16px;
 `;
 interface Props {
-  style?: React.CSSProperties;
-  theme?: Record<string, any>;
   tagline?: string;
   heading?: string;
   text?: string;
+  colorSchema: PrimaryColor;
 }
 
-const StepDescription: React.FC<Props> = ({ style, theme, tagline, heading, text }) => {
+const StepDescription: React.FC<Props> = ({ colorSchema, tagline, heading, text }) => {
   return (
     <StepDescriptionWrapper>
       {tagline && tagline?.length > 0 && (
-        <StepDescriptionTagline type="text" colorSchema="blue">
+        <StepDescriptionTagline type="text" colorSchema={colorSchema}>
           {tagline}
         </StepDescriptionTagline>
       )}

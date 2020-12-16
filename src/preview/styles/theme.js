@@ -511,23 +511,23 @@ const theme = {
     },
     colors: {
       purple: {
-        text: colorPalette.neutrals[1],
-        underline: deprecatedPalette.purple[2],
+        text: colorPalette.neutrals[2],
+        underline: colorPalette.complementary.purple[1],
       },
       purpleLight: {
-        text: colorPalette.neutrals[1],
+        text: deprecatedPalette.mono.white,
         underline: deprecatedPalette.purple[1],
       },
       blue: {
-        text: colorPalette.neutrals[1],
-        underline: deprecatedPalette.blue[6],
+        text: colorPalette.neutrals[2],
+        underline: colorPalette.complementary.blue[1],
       },
       white: {
-        text: deprecatedPalette.mono.darker,
+        text: colorPalette.neutrals[2],
         underline: 'rgba(255, 255, 255, 0.0)',
       },
-      light: {
-        text: deprecatedPalette.mono.darker,
+      neutral: {
+        text: colorPalette.neutrals[2],
         underline: deprecatedPalette.mono.light,
       },
       gray: {
@@ -547,12 +547,12 @@ const theme = {
         underline: 'rgba(255, 255, 255, 0.0)',
       },
       red: {
-        text: colorPalette.neutrals[1],
-        underline: deprecatedPalette.red[2],
+        text: colorPalette.neutrals[2],
+        underline: colorPalette.complementary.red[1],
       },
       green: {
-        text: deprecatedPalette.mono.darker,
-        underline: deprecatedPalette.green[6],
+        text: colorPalette.neutrals[2],
+        underline: colorPalette.complementary.green[1],
       },
       orange: {
         text: deprecatedPalette.mono.blue,
@@ -669,6 +669,12 @@ const theme = {
       legendBorder: 'rgba(0, 33, 63, 0.24)',
       background: 'rgba(0, 33, 63, 0.72)',
       backgroundEmpty: 'rgba(0, 33, 63, 0.24)',
+    },
+    neutral: {
+      legend: colorPalette.neutrals[0],
+      legendBorder: colorPalette.neutrals[1],
+      background: colorPalette.neutrals[6],
+      backgroundEmpty: colorPalette.neutrals[6],
     },
   },
   repeater: {

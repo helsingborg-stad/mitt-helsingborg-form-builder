@@ -4,7 +4,7 @@ import GroupedList from '../GroupedList/GroupedList';
 import Text from '../Text/Text';
 import Heading from '../Heading/Heading';
 import SummaryListItemComponent from './SummaryListItem';
-import { getValidColorSchema } from '../../styles/theme';
+import { PrimaryColor, getValidColorSchema } from '../../styles/themeHelpers';
 
 const SumLabel = styled(Heading)<{ colorSchema: string }>`
   margin-top: 5px;
@@ -49,7 +49,7 @@ interface Props {
   heading: string;
   items: SummaryListItem[];
   categories?: SummaryListCategory[];
-  color?: string;
+  colorSchema?: PrimaryColor;
   showSum?: boolean;
   startEditable?: boolean;
 }
@@ -58,10 +58,11 @@ interface Props {
  * The things to summarize is specified in the items prop.
  * The things are grouped into categories, as specified by the categories props.
  */
-const SummaryList: React.FC<Props> = ({ heading, items, categories, color, showSum, startEditable }) => {
+const SummaryList: React.FC<Props> = ({ heading, items, categories, colorSchema, showSum, startEditable }) => {
+  const validColorSchema = getValidColorSchema(colorSchema);
   const generateListItem = (item: SummaryListItem, index?: number) => ({
     category: item.category || '',
-    component: <SummaryListItemComponent item={item} index={index ? index + 1 : undefined} color={color || 'blue'} />,
+    component: <SummaryListItemComponent item={item} index={index ? index + 1 : undefined} color={validColorSchema} />,
   });
 
   // Just display a zero in the sum, if we show one.
@@ -72,14 +73,13 @@ const SummaryList: React.FC<Props> = ({ heading, items, categories, color, showS
     listItems.push(generateListItem(item));
   });
 
-  const validColorSchema = getValidColorSchema(color || 'blue');
   return (
     <>
       <GroupedList
         heading={heading}
         items={listItems}
         categories={categories || []}
-        color={validColorSchema}
+        colorSchema={validColorSchema}
         showEditButton
         startEditable={startEditable}
       />
@@ -96,7 +96,7 @@ const SummaryList: React.FC<Props> = ({ heading, items, categories, color, showS
 SummaryList.defaultProps = {
   heading: '',
   items: [],
-  color: 'blue',
+  colorSchema: 'blue',
   showSum: true,
 };
 export default SummaryList;
