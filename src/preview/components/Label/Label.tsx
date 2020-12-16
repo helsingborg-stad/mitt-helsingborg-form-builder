@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Text from '../Text/Text';
 import theme from '../../styles/theme';
+import { PrimaryColor } from '../../styles/themeHelpers';
 
 const LabelText = styled(Text)<{
   size?: 'small' | 'medium' | 'large';
-  colorSchema?: 'blue' | 'green' | 'red' | 'purple';
+  colorSchema?: PrimaryColor;
 }>`
   font-size: ${(props) => props.theme.label[props.size || 'medium'].font};
   color: ${(props) => props.theme.label.colors[props.colorSchema || 'blue'].text};
@@ -17,7 +18,7 @@ const LabelText = styled(Text)<{
 `;
 const LabelBorder = styled.span<{
   size: 'small' | 'medium' | 'large';
-  colorSchema: 'blue' | 'red' | 'green' | 'purple';
+  colorSchema: PrimaryColor;
   underline?: boolean;
 }>`
   padding-bottom: ${(props) => theme.label[props.size].paddingBottom};
@@ -50,7 +51,7 @@ const LabelWrapper = styled.div`
 
 interface Props {
   size?: 'small' | 'medium' | 'large';
-  color?: 'blue' | 'red' | 'green' | 'purple';
+  colorSchema?: PrimaryColor;
   underline?: boolean;
   help?: {
     text?: string | null;
@@ -65,11 +66,11 @@ interface Props {
  * Simple label for field inputs, that styles the text to all-caps, bold and optionally puts a line under.
  * Use like a Text component.
  */
-const Label: React.FC<Props> = ({ size, color, underline, help, ...other }) => (
+const Label: React.FC<Props> = ({ size, colorSchema, underline, help, ...other }) => (
   <LabelContainer>
     <LabelWrapper>
-      <LabelBorder size={size || 'medium'} colorSchema={color || 'blue'} underline={underline}>
-        <LabelText size={size || 'medium'} colorSchema={color || 'blue'}>
+      <LabelBorder size={size || 'medium'} colorSchema={colorSchema || 'blue'} underline={underline}>
+        <LabelText size={size || 'medium'} colorSchema={colorSchema || 'blue'}>
           {other.children}
         </LabelText>
       </LabelBorder>
@@ -90,7 +91,7 @@ Label.propTypes = {
   /**
    * Set a color theme which changes the text color and line color accordingly. 'light' is default.
    */
-  color: PropTypes.oneOf(['blue', 'red', 'green', 'purple']),
+  colorSchema: PropTypes.oneOf(['blue', 'red', 'green', 'purple']),
   /**
    * Set a size, one of small, medium, large.
    */
@@ -109,7 +110,7 @@ Label.propTypes = {
 
 Label.defaultProps = {
   underline: true,
-  color: 'blue',
+  colorSchema: 'blue',
   size: 'medium',
 };
 

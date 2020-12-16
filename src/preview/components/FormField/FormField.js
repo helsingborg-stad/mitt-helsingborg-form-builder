@@ -48,7 +48,7 @@ const inputTypes = {
   },
 };
 
-const FormField = ({ label, labelLine, inputType, color, id, ...other }) => {
+const FormField = ({ label, labelLine, inputType, id, colorSchema, ...other }) => {
   const input = inputTypes[inputType];
   if (!input) {
     return (
@@ -61,7 +61,7 @@ const FormField = ({ label, labelLine, inputType, color, id, ...other }) => {
 
   const inputProps = input && input.props ? input.props : {};
   const inputCompProps = {
-    color,
+    colorSchema,
     value: '',
     help: other.inputHelp && other.text ? { text: other.inputHelp, heading: other.text } : undefined,
     ...inputProps,
@@ -78,7 +78,7 @@ const FormField = ({ label, labelLine, inputType, color, id, ...other }) => {
   return (
     <div>
       {label ? (
-        <Label color={color} underline={labelLine}>
+        <Label colorSchema={colorSchema} underline={labelLine}>
           {label}
         </Label>
       ) : null}
@@ -107,7 +107,7 @@ FormField.propTypes = {
   /**
    * sets the color theme.
    */
-  color: PropTypes.oneOf(Object.keys(theme.formField)),
+  colorSchema: PropTypes.oneOf(Object.keys(theme.formField)),
   /*
    * The function triggers when the button is clicked.
    */
@@ -125,7 +125,7 @@ FormField.propTypes = {
 };
 
 FormField.defaultProps = {
-  color: 'light',
+  colorSchema: 'blue',
   labelLine: true,
   inputType: 'text',
 };

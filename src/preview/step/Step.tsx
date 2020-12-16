@@ -7,6 +7,7 @@ import Banner from '../components/Banner/Banner';
 import Footer from '../components/Footer/Footer';
 import theme from '../styles/theme';
 import FormField from '../components/FormField/FormField';
+import { getValidColorSchema } from '../styles/themeHelpers';
 
 const StepContainer = styled.div`
   background: ${(props) => props.theme.colors.neutrals[7]};
@@ -40,17 +41,18 @@ const Step: React.FC<Props> = ({ stepData }) => {
     [],
   );
 
+  const validColorSchema = getValidColorSchema(stepData.colorSchema);
   return (
     <MaterialThemeProvider theme={localMaterialTheme}>
       <ThemeProvider theme={theme}>
         <StepContainer>
-          <Banner colorSchema="blue" />
+          <Banner colorSchema={validColorSchema} />
           <div>
-            <StepDescription heading={title} text={description} tagline={group} />
+            <StepDescription colorSchema={validColorSchema} heading={title} text={description} tagline={group} />
 
             <QuestionWrapper>
               {questions?.map((q) => (
-                <FormField key={q.id} labelLine={true} inputType={q.type} color={'blue'} {...q} />
+                <FormField key={q.id} labelLine={true} inputType={q.type} colorSchema={validColorSchema} {...q} />
               ))}
             </QuestionWrapper>
           </div>
