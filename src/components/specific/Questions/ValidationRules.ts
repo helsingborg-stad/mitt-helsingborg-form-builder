@@ -13,10 +13,15 @@ export type ValidationFieldTypes =
   | 'number'
   | 'personalNumber'
   | 'phoneNumber'
-  | 'postalCode';
+  | 'postalCode'
+  | 'checkbox';
 
 const ValidationFieldRules: Record<ValidationFieldTypes, ValidationObject> = {
   text: {
+    isRequired: false,
+    rules: [],
+  },
+  checkbox: {
     isRequired: false,
     rules: [],
   },
