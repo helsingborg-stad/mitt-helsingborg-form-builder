@@ -15,6 +15,7 @@ const actionFields: FieldDescriptor[] = [
       { name: 'Sign', value: 'sign' },
       { name: 'Close', value: 'close' },
       { name: 'Back to Main Form', value: 'backToMain' },
+      { name: 'Back to Main Form and Next', value: 'backToMainAndNext' },
     ],
   },
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
