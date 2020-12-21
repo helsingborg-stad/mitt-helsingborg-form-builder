@@ -71,7 +71,7 @@ const typeChoices: {
   { selectValue: 'number', displayName: 'Number', inputType: 'number', validationType: 'number' },
   { selectValue: 'date', displayName: 'Date', inputType: 'date' },
   { selectValue: 'editableList', displayName: 'Editable List', inputType: 'editableList' },
-  { selectValue: 'checkbox', displayName: 'Checkbox', inputType: 'checkbox' },
+  { selectValue: 'checkbox', displayName: 'Checkbox', inputType: 'checkbox', validationType: 'checkbox' },
   { selectValue: 'avatarList', displayName: 'Avatar List (family members)', inputType: 'avatarList' },
   { selectValue: 'navigationButton', displayName: 'Navigation button', inputType: 'navigationButton' },
   { selectValue: 'navigationButtonGroup', displayName: 'Navigation button group', inputType: 'navigationButtonGroup' },
