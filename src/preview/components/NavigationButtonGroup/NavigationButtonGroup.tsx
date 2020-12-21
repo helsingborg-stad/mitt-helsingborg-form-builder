@@ -12,17 +12,19 @@ const ScrollView = styled.div<{ horizontal?: boolean }>`
 `;
 
 interface Props {
-  buttons: { text: string; iconName?: string; color?: string }[];
+  buttons?: { text: string; iconName?: string; color?: string }[];
   horizontal?: boolean;
 }
 
 const NavigationButtonGroup: React.FC<Props> = ({ buttons, horizontal }) => (
   <ScrollView horizontal={horizontal}>
-    {buttons.map((button, index) => (
-      <Button key={`nav-button-${index}`} colorSchema={getValidColorSchema(button.color || '')} variant="outlined">
-        <Text>{button.text}</Text>
-      </Button>
-    ))}
+    {buttons &&
+      Array.isArray(buttons) &&
+      buttons.map((button, index) => (
+        <Button key={`nav-button-${index}`} colorSchema={getValidColorSchema(button.color || '')} variant="outlined">
+          <Text>{button.text}</Text>
+        </Button>
+      ))}
   </ScrollView>
 );
 
