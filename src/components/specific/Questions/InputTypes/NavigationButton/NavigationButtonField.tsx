@@ -7,7 +7,7 @@ import { colorChoices } from '../../../../../helpers/colors';
 const fields: FieldDescriptor[] = [
   { name: 'text', type: 'text', initialValue: '', label: 'Button text' },
   {
-    name: 'color',
+    name: 'colorSchema',
     type: 'select',
     initialValue: '',
     label: 'Color theme',
