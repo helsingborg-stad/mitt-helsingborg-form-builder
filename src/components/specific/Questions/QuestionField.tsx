@@ -13,15 +13,7 @@ import RadioButtonChoice from './InputTypes/RadioButtonChoice';
 import SelectChoice from './InputTypes/SelectChoice';
 import HelpField from './HelpField';
 import CardComponentField from './InputTypes/CardComponentField';
-
-const colorChoices = [
-  { value: '', name: 'Inherit' },
-  { value: 'blue', name: 'Blue' },
-  { value: 'green', name: 'Green' },
-  { value: 'red', name: 'Red' },
-  { value: 'purple', name: 'Purple' },
-  { value: 'neutral', name: 'Neutral' },
-];
+import { colorChoices } from '../../../helpers/colors';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
