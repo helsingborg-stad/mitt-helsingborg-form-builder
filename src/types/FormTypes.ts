@@ -40,10 +40,14 @@ export interface ListInput {
   label: string;
   loadPrevious?: string[];
 }
+
+export type ActionType = 'start' | 'next' | 'submit' | 'sign' | 'close' | 'backToMain';
 export interface Action {
-  type: string;
+  type: ActionType;
   label: string;
   color?: string;
+  hasCondition?: boolean;
+  conditionalOn?: string;
 }
 
 export interface Banner {
