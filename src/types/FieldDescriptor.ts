@@ -22,6 +22,9 @@ export type InputType =
   | 'arrayText'
   | 'arrayNumber'
   | 'arrayDate'
+  | 'editableListText'
+  | 'editableListNumber'
+  | 'editableListDate'
   | 'card';
 
 export default interface FieldDescriptor {

@@ -35,6 +35,20 @@ const typeChoices: {
   { selectValue: 'arrayText', displayName: 'Repeater Text', inputType: 'arrayText', validationType: 'text' },
   { selectValue: 'arrayNumber', displayName: 'Repeater Number', inputType: 'arrayNumber', validationType: 'number' },
   { selectValue: 'arrayDate', displayName: 'Repeater Date', inputType: 'arrayDate' },
+  // Types for editable list fields
+  {
+    selectValue: 'editableListText',
+    displayName: 'Editable List Text',
+    inputType: 'editableListText',
+    validationType: 'text',
+  },
+  {
+    selectValue: 'editableListNumber',
+    displayName: 'Editable List Number',
+    inputType: 'editableListNumber',
+    validationType: 'number',
+  },
+  { selectValue: 'editableListDate', displayName: 'Editable List Date', inputType: 'editableListDate' },
 ];
 
 const extraInputs: Record<string, FieldDescriptor[]> = {
@@ -60,6 +74,30 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
       type: 'text',
       initialValue: '',
       label: 'Input id (should match the id of repeater input field id)',
+    },
+  ],
+  editableListText: [
+    {
+      name: 'inputId',
+      type: 'text',
+      initialValue: '',
+      label: 'Input key (should match the key of the input in the editable list)',
+    },
+  ],
+  editableListNumber: [
+    {
+      name: 'inputId',
+      type: 'text',
+      initialValue: '',
+      label: 'Input key (should match the key of the input in the editable list)',
+    },
+  ],
+  editableListDate: [
+    {
+      name: 'inputId',
+      type: 'text',
+      initialValue: '',
+      label: 'Input key (should match the key of the input in the editable list)',
     },
   ],
 };
