@@ -5,6 +5,7 @@ export interface Question {
   type: string;
   id: string;
   description?: string;
+  hasCondition?: boolean;
   conditionalOn?: string;
   placeholder?: string;
   explainer?: string;
