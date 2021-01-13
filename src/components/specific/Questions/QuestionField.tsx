@@ -14,6 +14,7 @@ import SelectChoice from './InputTypes/SelectChoice';
 import HelpField from './HelpField';
 import CardComponentField from './InputTypes/CardComponentField';
 import { colorChoices } from '../../../helpers/colors';
+import ConditionInput from '../../general/SmartInputs/ConditionInput';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
@@ -33,11 +34,11 @@ const questionFields: FieldDescriptor[] = [
     helpText: 'A unique id that identifies the input field. Careful when changing it!',
   },
   {
-    name: 'conditionalOn',
-    type: 'text',
+    name: 'hasCondition',
+    type: 'checkbox',
     initialValue: '',
-    label: 'Conditional on (field id)',
-    helpText: 'Show the question only if the conditional field is nonempty, or empty (put a ! infront of the id).',
+    label: 'Has Condition',
+    helpText: 'Show the question only if some condition is fulfilled.',
   },
   {
     name: 'showHelp',
@@ -182,20 +183,37 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   ],
 };
 
+const conditionalHelpText = `Make the question show depending on values of other fields. Most basic usage is to put a fieldId here, then the question is shown only if that field is filled. Multiple fieldIds can also be entered, combining them with boolean logic operators ! (not), &&(and), || (or). For example 'field1 || field2' means that either field1 or field2 needs to be filled, while 'field1 && field2' means that both fields needs to have values, and so on. The order of operations is first !, then &&, finally ||. 
+    
+For lists and repeaters, empty means "no values", while filled means "at least one non-empty value". `;
+
 const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
   const { value, name } = props;
   const showHelp: boolean = value?.showHelp && value.showHelp === true;
+  const hasCondition: boolean = value?.hasCondition && value.hasCondition === true;
   const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type as InputType];
   return (
     <>
       <h3>General</h3>
       <MultipleInputField fields={questionFields} {...props} />
+      {hasCondition && (
+        <>
+          <h3>Condition</h3>
+          <ConditionInput
+            name={`${name}.conditionalOn`}
+            label={'Conditional on'}
+            value={value}
+            helpText={conditionalHelpText}
+          />
+        </>
+      )}
       {showHelp && (
         <>
           <h3>Help</h3>
           <HelpField name={`${name}.help`} value={value} />
         </>
       )}
+
       <h3>Specifics</h3>
       <QuestionTypeSelect name={name} value={value} label="Input Type" choices={typeChoices} />
       {extraInput && <MultipleInputField fields={extraInput} {...props} />}

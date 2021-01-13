@@ -3,6 +3,8 @@ import FieldDescriptor from '../../../types/FieldDescriptor';
 import MultipleInputField from '../../general/MultipleInputField';
 import { InputFieldPropType } from '../../../types/PropTypes';
 
+import ConditionInput from '../../general/SmartInputs/ConditionInput';
+
 const actionFields: FieldDescriptor[] = [
   {
     name: 'type',
@@ -41,17 +43,9 @@ const actionFields: FieldDescriptor[] = [
   },
 ];
 
-const conditionInput: FieldDescriptor[] = [
-  {
-    name: 'conditionalOn',
-    type: 'text',
-    initialValue: '',
-    label: 'Conditional on',
-    helpText: `Make the action depend on values of another field. Most basic usage is to put a fieldId here, then the action is only allowed if that field is filled. Multiple fieldIds can also be entered, combining them with boolean logic operators ! (not), &&(and), || (or). For example 'field1 || field2' means that either field1 or field2 needs to be filled, while 'field1 && field2' means that both fields needs to have values, and so on. The order of operations is first !, then &&, finally ||. 
+const conditionalHelpText = `Make the action depend on values of another field. Most basic usage is to put a fieldId here, then the action is only allowed if that field is filled. Multiple fieldIds can also be entered, combining them with boolean logic operators ! (not), &&(and), || (or). For example 'field1 || field2' means that either field1 or field2 needs to be filled, while 'field1 && field2' means that both fields needs to have values, and so on. The order of operations is first !, then &&, finally ||. 
     
-    For lists and repeaters, empty means "no values", while filled means "at least one non-empty value". `,
-  },
-];
+For lists and repeaters, empty means "no values", while filled means "at least one non-empty value". `;
 
 const ActionField: React.FC<InputFieldPropType> = (props) => {
   const { value, name } = props;
@@ -59,7 +53,14 @@ const ActionField: React.FC<InputFieldPropType> = (props) => {
   return (
     <>
       <MultipleInputField fields={actionFields} {...props} />
-      {hasCondition && <MultipleInputField fields={conditionInput} {...props} />}
+      {hasCondition && (
+        <ConditionInput
+          name={`${name}.conditionalOn`}
+          label={'Conditional on'}
+          value={value}
+          helpText={conditionalHelpText}
+        />
+      )}
     </>
   );
 };
