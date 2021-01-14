@@ -27,7 +27,7 @@ const QuestionTypeSelect: React.FC<Props> = ({ name, label, value, choices, show
   const { setFieldValue } = useFormikContext<Form>();
   useEffect(() => {
     if (currentChoice?.validationType) {
-      setRequired((value.validation as ValidationObject).isRequired);
+      setRequired(((value?.validation || { isRequired: false }) as ValidationObject).isRequired);
     }
   }, [setRequired, currentChoice, value.validation]);
 
@@ -38,7 +38,9 @@ const QuestionTypeSelect: React.FC<Props> = ({ name, label, value, choices, show
     }>,
   ) => {
     const val = event.target.value as string;
+    console.log(val);
     const choice = choices.find((ch) => ch.selectValue === val);
+    console.log('validation choice', name, choice);
     if (choice) {
       setCurrentChoice(choice);
       setFieldValue(`${name}.type`, choice.inputType);
@@ -52,18 +54,18 @@ const QuestionTypeSelect: React.FC<Props> = ({ name, label, value, choices, show
     }
   };
 
-  const onToggleRequire = () => {
-    const validationOptions = value.validation as ValidationObject | undefined;
-    if (validationOptions) {
-      validationOptions.isRequired = !required;
-      if (!required) validationOptions.rules.push(isRequiredRule);
-      else {
-        const newValidationRules = validationOptions.rules.filter((rule) => rule.method !== 'isEmpty');
-        validationOptions.rules = newValidationRules;
-      }
+  const onToggleRequire = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    const validationOptions = (value?.validation as ValidationObject) || { isRequired: false, rules: [] };
+    validationOptions.isRequired = checked;
+    const newValidationRules = validationOptions.rules.filter((rule) => rule.method !== 'isEmpty');
+
+    if (checked) {
+      newValidationRules.push(isRequiredRule);
     }
+    validationOptions.rules = newValidationRules;
+
     setFieldValue(`${name}.validation`, validationOptions);
-    setRequired(!required);
+    setRequired(checked);
   };
 
   return (

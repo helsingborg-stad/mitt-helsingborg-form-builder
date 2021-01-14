@@ -25,7 +25,8 @@ export type InputType =
   | 'editableListText'
   | 'editableListNumber'
   | 'editableListDate'
-  | 'card';
+  | 'card'
+  | 'imageUploader';
 
 export default interface FieldDescriptor {
   name: string;

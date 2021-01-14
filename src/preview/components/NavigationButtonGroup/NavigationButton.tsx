@@ -11,7 +11,6 @@ interface Props {
 }
 
 const NavigationButton: React.FC<Props> = ({ text, iconName, colorSchema }) => {
-  console.log('icon:', iconName);
   return (
     <Button colorSchema={getValidColorSchema(colorSchema || colorSchema)} variant="outlined">
       <div
