@@ -7,7 +7,7 @@ interface Props {
 
 const Select: React.FC<Props> = ({ items }) => (
   <FormGroup row>
-    <SelectMUI>
+    <SelectMUI value="">
       {items
         ? items.map((choice) => (
             <MenuItem key={choice.label} value={choice.value}>

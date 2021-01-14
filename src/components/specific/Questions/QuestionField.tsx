@@ -62,7 +62,7 @@ const typeChoices: {
   { selectValue: 'personalNumber', displayName: 'Personnummer', inputType: 'number', validationType: 'personalNumber' },
   { selectValue: 'phone', displayName: 'Telefonnummer', inputType: 'number', validationType: 'phoneNumber' },
   { selectValue: 'number', displayName: 'Number', inputType: 'number', validationType: 'number' },
-  { selectValue: 'date', displayName: 'Date', inputType: 'date' },
+  { selectValue: 'date', displayName: 'Date', inputType: 'date', validationType: 'date' },
   { selectValue: 'editableList', displayName: 'Editable List', inputType: 'editableList' },
   { selectValue: 'checkbox', displayName: 'Checkbox', inputType: 'checkbox', validationType: 'checkbox' },
   { selectValue: 'avatarList', displayName: 'Avatar List (family members)', inputType: 'avatarList' },
@@ -73,6 +73,7 @@ const typeChoices: {
   { selectValue: 'radioGroup', displayName: 'Radio buttons', inputType: 'radioGroup' },
   { selectValue: 'select', displayName: 'Select (dropdown menu)', inputType: 'select' },
   { selectValue: 'card', displayName: 'Card (info text with action button)', inputType: 'card' },
+  { selectValue: 'imageUploader', displayName: 'Image Uploader', inputType: 'imageUploader' },
 ];
 
 const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
@@ -180,6 +181,17 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     { name: 'shadow', type: 'checkbox', initialValue: '', label: 'Display a shadow, for a raised look' },
     { name: 'outlined', type: 'checkbox', initialValue: '', label: 'Display a solid outline' },
     { name: 'components', type: 'array', initialValue: '', label: 'Card components', inputField: CardComponentField },
+  ],
+  imageUploader: [
+    {
+      name: 'colorSchema',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
+    { name: 'buttonText', type: 'text', initialValue: '', label: 'Button text' },
+    { name: 'maxImages', type: 'text', initialValue: '', label: 'Max Number of Images (leave blank for no limit)' },
   ],
 };
 

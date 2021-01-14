@@ -12,6 +12,7 @@ import NavigationButtonGroup from '../NavigationButtonGroup/NavigationButtonGrou
 import NavigationButton from '../NavigationButtonGroup/NavigationButton';
 import DynamicCardRenderer from '../Card/DynamicCardRenderer';
 import RadioGroup from '../RadioButton/RadioButton';
+import ImageUploader from '../ImageUploader/ImageUploader';
 
 const inputTypes = {
   text: {
@@ -49,6 +50,9 @@ const inputTypes = {
   },
   radioGroup: {
     component: RadioGroup,
+  },
+  imageUploader: {
+    component: ImageUploader,
   },
 };
 
