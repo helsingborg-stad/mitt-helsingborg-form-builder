@@ -48,16 +48,27 @@ type CardComponent = Image | Text | Title | Subtitle | Button;
 /***** end of types */
 
 /** Maps an object to a Card child component */
-const renderCardComponent = (component: CardComponent) => {
+const renderCardComponent = (component: CardComponent, index: number) => {
   switch (component.type) {
     case 'text':
-      return <Card.Text italic={component.italic}>{component.text}</Card.Text>;
+      return (
+        <Card.Text italic={component.italic} key={`card.text.${index}`}>
+          {component.text}
+        </Card.Text>
+      );
     case 'title':
-      return <Card.Title>{component.text}</Card.Title>;
+      return <Card.Title key={`card.title.${index}`}>{component.text}</Card.Title>;
     case 'subtitle':
-      return <Card.SubTitle>{component.text}</Card.SubTitle>;
+      return <Card.SubTitle key={`card.subtitle.${index}`}>{component.text}</Card.SubTitle>;
     case 'image':
-      return <Card.Image src={icons[component.image]} style={component.style} circle={component.circle} />;
+      return (
+        <Card.Image
+          src={icons[component.image]}
+          style={component.style}
+          circle={component.circle}
+          key={`card.image.${index}`}
+        />
+      );
   }
 
   // Treat buttons separately, because they have some more complicated behavior
@@ -87,7 +98,7 @@ const renderCardComponent = (component: CardComponent) => {
         break;
     }
     return (
-      <Card.Button onClick={onClick}>
+      <Card.Button onClick={onClick} key={`card.button.${index}`}>
         <div
           style={{
             display: 'inline-flex',
@@ -119,7 +130,9 @@ const DynamicCardRenderer: React.FC<Props> = ({ colorSchema, backgroundColor, sh
   return (
     <Card colorSchema={colorSchema || 'neutral'}>
       <Card.Body color={backgroundColor || 'neutral'} shadow={shadow} outlined={outlined}>
-        {components && components?.length > 0 && components?.map((component) => renderCardComponent(component))}
+        {components &&
+          components?.length > 0 &&
+          components?.map((component, index) => renderCardComponent(component, index))}
       </Card.Body>
     </Card>
   );

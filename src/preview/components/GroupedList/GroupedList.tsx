@@ -66,9 +66,9 @@ const GroupedList: React.FC<Props> = ({ heading, items, categories, colorSchema,
             <ListBodyFieldLabel colorSchema={colorSchema}>
               {categories.find((c) => c.category === key)?.description}
             </ListBodyFieldLabel>
-            {groupedItems[key].map((item) => ({
+            {groupedItems[key].map((item, i) => ({
               ...item.component,
-              props: { ...item.component.props, editable },
+              props: { ...item.component.props, editable, key: `groupedItem-${i}` },
             }))}
           </div>
         ))}

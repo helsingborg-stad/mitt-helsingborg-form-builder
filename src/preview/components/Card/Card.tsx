@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Button from '../Button/Button';
 import Text from '../Text/Text';
 import Heading from '../Heading/Heading';
-import { colorPalette } from '../../styles/palette';
 import { PrimaryColor } from '../../styles/themeHelpers';
 
 const Container = styled.div`
@@ -146,13 +145,6 @@ const Card = Object.assign(
     }>) => {
       // Remove falsy child components
       const filteredChildren = React.Children.toArray(children).filter(Boolean);
-
-      // let underlayColor =
-      //   colorSchema === 'neutral' ? colorPalette.neutrals[5] : colorPalette.complementary[colorSchema || 'blue'][2];
-      // if (color) {
-      //   underlayColor = color === 'neutral' ? colorPalette.neutrals[5] : colorPalette.complementary[color][2];
-      // }
-
       const imageWithProps: any[] = [];
       const childrenWithProps: any[] = [];
       React.Children.map(filteredChildren, (child, index) => {
