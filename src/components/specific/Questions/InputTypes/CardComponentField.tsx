@@ -44,7 +44,8 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
       type: 'text',
       initialValue: '',
       label: 'Icon name (from Material Icons), optional',
-      helpText: 'some common icon names that we use are: help-outline, arrow-forward, phone, email.',
+      helpText:
+        'some common icon names that we use are: help-outline, arrow-forward, phone, email. See https://material-ui.com/components/material-icons/ for a full list, but remember to convert the name to lowercase with a dash (-) as separator between words',
     },
     {
       name: 'iconPosition',
@@ -66,6 +67,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
         { value: 'phone', name: 'Phone' },
         { value: 'url', name: 'Link to website (url)' },
         { value: 'navigate', name: 'In app navigation' },
+        { value: 'infoModal', name: 'Info text modal' },
       ],
     },
   ],
@@ -76,6 +78,23 @@ const buttonInputs: Record<string, FieldDescriptor[]> = {
   phone: [{ name: 'phonenumber', type: 'text', initialValue: '', label: 'Phone number' }],
   url: [{ name: 'url', type: 'text', initialValue: '', label: 'Url to link to' }],
   navigate: [{ name: 'screen', type: 'text', initialValue: '', label: 'Screen to navigate to' }],
+  infoModal: [
+    { name: 'heading', type: 'text', initialValue: '', label: 'Heading' },
+    {
+      name: 'markdownText',
+      type: 'text',
+      initialValue: '',
+      label: 'Content (in markdown format)',
+      helpText: `Formatting guide:
+      To make bold text, surround the text with **, like **this**.
+      To make a bullet list, start each line with a +. 
+      To insert a clickable link, place the text in [], and follow by the link in (), like this: [Google](https://google.com).
+
+      
+      Tip: it's easier to write the text somewhere else, and then paste it in here.`,
+    },
+    { name: 'closeButtonText', type: 'text', initialValue: '', label: 'Close Modal button text' },
+  ],
 };
 
 const CardComponentField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
