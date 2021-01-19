@@ -129,9 +129,6 @@ const ConditionInput: React.FC<Props> = ({ name, label, value, helpText }) => {
       <div>
         <Autocomplete
           value={expression}
-          onInputChange={(event, newInputValue) => {
-            setExpression((old) => [...old, newInputValue]);
-          }}
           multiple
           getOptionSelected={() => false}
           id="autocomplete"
