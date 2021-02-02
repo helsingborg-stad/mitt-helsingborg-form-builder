@@ -14,7 +14,8 @@ export type ValidationFieldTypes =
   | 'personalNumber'
   | 'phoneNumber'
   | 'postalCode'
-  | 'checkbox';
+  | 'checkbox'
+  | 'select';
 
 const ValidationFieldRules: Record<ValidationFieldTypes, ValidationObject> = {
   text: {
@@ -22,6 +23,10 @@ const ValidationFieldRules: Record<ValidationFieldTypes, ValidationObject> = {
     rules: [],
   },
   checkbox: {
+    isRequired: false,
+    rules: [],
+  },
+  select: {
     isRequired: false,
     rules: [],
   },
