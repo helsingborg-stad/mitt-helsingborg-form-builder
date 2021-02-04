@@ -26,7 +26,7 @@ const typeChoices: {
   { selectValue: 'phone', displayName: 'Telefonnummer', inputType: 'number', validationType: 'phoneNumber' },
   { selectValue: 'number', displayName: 'Number', inputType: 'number', validationType: 'number' },
   { selectValue: 'date', displayName: 'Date', inputType: 'date', validationType: 'date' },
-  { selectValue: 'select', displayName: 'Select (dropdown)', inputType: 'select' },
+  { selectValue: 'select', displayName: 'Select (dropdown)', inputType: 'select', validationType: 'select' },
 ];
 const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   select: [{ name: 'items', type: 'array', initialValue: '', label: 'Choices', inputField: SelectChoice }],
