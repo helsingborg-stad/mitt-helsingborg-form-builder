@@ -81,7 +81,7 @@ const ValidationFieldRules: Record<ValidationFieldTypes, ValidationObject> = {
     ],
   },
   phoneNumber: {
-    isRequired: true,
+    isRequired: false,
     rules: [
       {
         method: 'isMobilePhone',

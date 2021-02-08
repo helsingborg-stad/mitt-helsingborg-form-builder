@@ -23,8 +23,8 @@ const typeChoices: {
   { selectValue: 'personalNumber', displayName: 'Personnummer', inputType: 'number', validationType: 'personalNumber' },
   { selectValue: 'phone', displayName: 'Telefonnummer', inputType: 'number', validationType: 'phoneNumber' },
   { selectValue: 'number', displayName: 'Number', inputType: 'number', validationType: 'number' },
-  { selectValue: 'date', displayName: 'Date', inputType: 'date' },
-  { selectValue: 'checkbox', displayName: 'Checkbox', inputType: 'checkbox' },
+  { selectValue: 'date', displayName: 'Date', inputType: 'date', validationType: 'date' },
+  { selectValue: 'checkbox', displayName: 'Checkbox', inputType: 'checkbox', validationType: 'checkbox' },
 ];
 
 const RepeaterInputField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
