@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Text from '../Text/Text';
 import Button from '../Button/Button';
 import Label from '../Label/Label';
-import Input from '../Input/Input';
 import { InputRow } from './RepeaterField';
 import { getValidColorSchema, PrimaryColor } from '../../styles/themeHelpers';
 import { TextField } from '@material-ui/core';
@@ -87,7 +86,7 @@ interface InputComponentProps {
   value: string | number | boolean;
 }
 
-const InputComponent = ({ input, colorSchema, value }: InputComponentProps) => {
+const InputComponent = ({ input }: InputComponentProps) => {
   switch (input.type) {
     case 'text':
     case 'number':
