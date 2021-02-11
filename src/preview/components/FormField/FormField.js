@@ -13,6 +13,7 @@ import NavigationButton from '../NavigationButtonGroup/NavigationButton';
 import DynamicCardRenderer from '../Card/DynamicCardRenderer';
 import RadioGroup from '../RadioButton/RadioButton';
 import ImageUploader from '../ImageUploader/ImageUploader';
+import ImageViewer from '../ImageViewer/ImageViewer';
 
 const inputTypes = {
   text: {
@@ -53,6 +54,9 @@ const inputTypes = {
   },
   imageUploader: {
     component: ImageUploader,
+  },
+  imageViewer: {
+    component: ImageViewer,
   },
 };
 

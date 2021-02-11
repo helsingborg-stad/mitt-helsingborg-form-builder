@@ -74,6 +74,7 @@ const typeChoices: {
   { selectValue: 'select', displayName: 'Select (dropdown menu)', inputType: 'select', validationType: 'select' },
   { selectValue: 'card', displayName: 'Card (info text with action button)', inputType: 'card' },
   { selectValue: 'imageUploader', displayName: 'Image Uploader', inputType: 'imageUploader' },
+  { selectValue: 'imageViewer', displayName: 'Image Viewer', inputType: 'imageViewer' },
 ];
 
 const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
@@ -192,6 +193,22 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     },
     { name: 'buttonText', type: 'text', initialValue: '', label: 'Button text' },
     { name: 'maxImages', type: 'text', initialValue: '', label: 'Max Number of Images (leave blank for no limit)' },
+  ],
+  imageViewer: [
+    {
+      name: 'colorSchema',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
+    {
+      name: 'questionIds',
+      type: 'tags',
+      initialValue: '',
+      label: 'QuestionIds to display images from (enter as comma-separated list of words)',
+      helpText: 'The ids of image upload components, from which the image viewer will display uploaded pictures.',
+    },
   ],
 };
 

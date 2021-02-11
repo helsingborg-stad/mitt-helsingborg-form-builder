@@ -1,25 +1,27 @@
-/* eslint-disable no-nested-ternary */
 import React from 'react';
 import styled from 'styled-components';
 import Icon from '../Icon/Icon';
 
-const DefaultItem = styled.div`
-  background-color: white;
-  margin-bottom: 20px;
-`;
 const Flex = styled.div`
   display: inline-flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   padding: 0;
   margin: 0;
+  margin-bottom: 20px;
 `;
-const Row = styled.div`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin: 0;
+const DeleteBackground = styled.div`
+  position: absolute;
+  top: -5px;
+  right: -2px;
+  padding: 4px;
+  height: 17px;
+  width: 17px;
+  elevation: 4;
+  background: #eeeeee;
+  z-index: 1;
+  border-radius: 50%;
 `;
 const IconContainer = styled.div`
   border-top-left-radius: 12.5px;
@@ -43,16 +45,14 @@ interface Props {
 }
 
 const ImageItem: React.FC<Props> = ({ filename }) => (
-  <DefaultItem>
-    <Flex>
-      <IconContainer>
-        <ImageIcon src={filename} />
-      </IconContainer>
-      <Row>
-        <Icon name="delete" color="blue" />
-      </Row>
-    </Flex>
-  </DefaultItem>
+  <Flex>
+    <DeleteBackground>
+      <Icon name="clear" color="blue" />
+    </DeleteBackground>
+    <IconContainer>
+      <ImageIcon src={filename} />
+    </IconContainer>
+  </Flex>
 );
 
 export default ImageItem;
