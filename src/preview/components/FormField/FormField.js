@@ -14,6 +14,7 @@ import DynamicCardRenderer from '../Card/DynamicCardRenderer';
 import RadioGroup from '../RadioButton/RadioButton';
 import ImageUploader from '../ImageUploader/ImageUploader';
 import ImageViewer from '../ImageViewer/ImageViewer';
+import RepeaterField from '../RepeaterField/RepeaterField';
 
 const inputTypes = {
   text: {
@@ -57,6 +58,9 @@ const inputTypes = {
   },
   imageViewer: {
     component: ImageViewer,
+  },
+  repeaterField: {
+    component: RepeaterField,
   },
 };
 

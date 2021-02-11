@@ -6,7 +6,7 @@ const calculateSizeScale = (size, scale) => scale * size;
 const setTypography = () => {
   const defaultSize = 12;
 
-  const fontSizes = [0.75, 0.87, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3].map((scale) =>
+  const fontSizes = [0.75, 0.87, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4].map((scale) =>
     calculateSizeScale(defaultSize, scale),
   );
 
@@ -14,7 +14,7 @@ const setTypography = () => {
     calculateSizeScale(defaultSize, scale),
   );
 
-  const fontWeights = [400, 700];
+  const fontWeights = [500, 700];
   return {
     fontFamily: '"Roboto", "Arial", sans-serif"',
     fontSizes,
@@ -275,77 +275,32 @@ const theme = {
     },
   },
   checkbox: {
-    white: {
-      background: deprecatedPalette.mono.white,
-      icon: deprecatedPalette.mono.black,
-      border: deprecatedPalette.mono.black,
-      touch: deprecatedPalette.mono.gray,
-      disabled: deprecatedPalette.mono.gray,
-      shadow: 'rgba(255, 255, 255, 0.0)',
-      checkedBackground: deprecatedPalette.mono.lighter,
+    small: {
+      width: 18,
+      height: 18,
+      padding: 0.5,
+      margin: 4,
+      borderWidth: 2,
+      borderRadius: 3,
+      icon: 18,
     },
-    green: {
-      background: deprecatedPalette.mono.white,
-      icon: deprecatedPalette.green[2],
-      border: deprecatedPalette.mono.black,
-      touch: deprecatedPalette.green[4],
-      disabled: deprecatedPalette.mono.gray,
-      shadow: 'rgba(255, 255, 255, 0.0)',
-      checkedBackground: deprecatedPalette.mono.lighter,
+    medium: {
+      width: 35,
+      height: 35,
+      padding: 0.5,
+      margin: 4,
+      borderWidth: 2,
+      borderRadius: 7,
+      icon: 36,
     },
-    light: {
-      background: deprecatedPalette.mono.lighter,
-      icon: deprecatedPalette.purple[1],
-      border: deprecatedPalette.mono.black,
-      touch: deprecatedPalette.mono.gray,
-      disabled: deprecatedPalette.mono.gray,
-      shadow: 'rgba(255, 255, 255, 0.0)',
-      checkedBackground: deprecatedPalette.mono.lighter,
-    },
-    gray: {
-      background: deprecatedPalette.mono.gray,
-      icon: deprecatedPalette.red[3],
-      border: deprecatedPalette.mono.black,
-      touch: deprecatedPalette.mono.lighter,
-      disabled: deprecatedPalette.mono.lighter,
-      shadow: 'rgba(255, 255, 255, 0.0)',
-      checkedBackground: deprecatedPalette.mono.lighter,
-    },
-    dark: {
-      background: deprecatedPalette.mono.darkest,
-      icon: deprecatedPalette.mono.white,
-      border: deprecatedPalette.mono.lighter,
-      touch: deprecatedPalette.mono.gray,
-      disabled: deprecatedPalette.mono.gray,
-      shadow: 'rgba(255, 255, 255, 0.0)',
-      checkedBackground: deprecatedPalette.mono.white,
-    },
-    blue: {
-      background: deprecatedPalette.blue[4],
-      icon: deprecatedPalette.mono.white,
-      border: deprecatedPalette.mono.lighter,
-      touch: deprecatedPalette.mono.gray,
-      disabled: deprecatedPalette.mono.gray,
-      shadow: 'rgba(255, 255, 255, 0.0)',
-      checkedBackground: deprecatedPalette.blue[6],
-    },
-    lightGreen: {
-      background: deprecatedPalette.green[6],
-      icon: deprecatedPalette.blue[6],
-      border: deprecatedPalette.mono.lighter,
-      touch: deprecatedPalette.mono.gray,
-      disabled: deprecatedPalette.mono.gray,
-      shadow: 'rgba(255, 255, 255, 0.0)',
-      checkedBackground: deprecatedPalette.green[6],
-    },
-    red: {
-      background: deprecatedPalette.red[6],
-      icon: deprecatedPalette.blue[6],
-      border: deprecatedPalette.mono.lighter,
-      touch: deprecatedPalette.mono.gray,
-      disabled: deprecatedPalette.mono.gray,
-      shadow: 'rgba(255, 255, 255, 0.0)',
-      checkedBackground: deprecatedPalette.red[6],
+    large: {
+      width: 52,
+      height: 52,
+      padding: 0,
+      margin: 4,
+      borderWidth: 3.2,
+      borderRadius: 10,
+      icon: 50,
     },
   },
   radiobutton: {
@@ -492,22 +447,22 @@ const theme = {
   },
   label: {
     small: {
-      font: '12px',
-      paddingBottom: '3px',
-      lineWidth: '2px',
-      marginBottom: '6px',
+      font: 12,
+      paddingBottom: 3,
+      lineWidth: 2,
+      marginBottom: 6,
     },
     medium: {
-      font: '14px',
-      paddingBottom: '7px',
-      lineWidth: '3px',
-      marginBottom: '12px',
+      font: 14,
+      paddingBottom: 7,
+      lineWidth: 3,
+      marginBottom: 12,
     },
     large: {
-      font: '18px',
-      paddingBottom: '10px',
-      lineWidth: '4px',
-      marginBottom: '18px',
+      font: 18,
+      paddingBottom: 10,
+      lineWidth: 4,
+      marginBottom: 18,
     },
     colors: {
       purple: {
@@ -664,38 +619,48 @@ const theme = {
       background: colorPalette.complementary.purple[3],
       backgroundEmpty: colorPalette.complementary.purple[3],
     },
+    neutral: {
+      legend: colorPalette.primary.neutral[0],
+      legendBorder: colorPalette.complementary.neutral[1],
+      background: colorPalette.complementary.neutral[3],
+      backgroundEmpty: colorPalette.complementary.neutral[3],
+    },
     darkBlue: {
       legend: colorPalette.neutrals[7],
       legendBorder: 'rgba(0, 33, 63, 0.24)',
       background: 'rgba(0, 33, 63, 0.72)',
       backgroundEmpty: 'rgba(0, 33, 63, 0.24)',
     },
-    neutral: {
-      legend: colorPalette.neutrals[0],
-      legendBorder: colorPalette.neutrals[1],
-      background: colorPalette.neutrals[6],
-      backgroundEmpty: colorPalette.neutrals[6],
-    },
   },
   repeater: {
     blue: {
       inputBackground: colorPalette.complementary.blue[2],
-      deleteButton: '#DD6161',
+      deleteButton: colorPalette.complementary.blue[1],
+      deleteButtonText: '#D73640',
       inputText: colorPalette.neutrals[1],
     },
     green: {
       inputBackground: colorPalette.complementary.green[2],
-      deleteButton: '#DD6161',
+      deleteButton: colorPalette.complementary.green[1],
+      deleteButtonText: '#D73640',
       inputText: colorPalette.neutrals[1],
     },
     red: {
       inputBackground: colorPalette.complementary.red[2],
-      deleteButton: '#DD6161',
+      deleteButton: colorPalette.complementary.red[1],
+      deleteButtonText: '#D73640',
       inputText: colorPalette.neutrals[1],
     },
     purple: {
       inputBackground: colorPalette.complementary.purple[2],
-      deleteButton: '#DD6161',
+      deleteButton: colorPalette.complementary.purple[1],
+      deleteButtonText: '#D73640',
+      inputText: colorPalette.neutrals[1],
+    },
+    neutral: {
+      inputBackground: colorPalette.complementary.neutral[2],
+      deleteButton: colorPalette.complementary.neutral[1],
+      deleteButtonText: '#D73640',
       inputText: colorPalette.neutrals[1],
     },
     darkBlue: {
@@ -703,6 +668,9 @@ const theme = {
       deleteButton: '#DD6161',
       inputText: '#FFFFFF',
     },
+  },
+  textInput: {
+    errorTextColor: '#DD6161',
   },
 };
 
