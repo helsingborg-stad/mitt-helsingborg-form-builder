@@ -16,6 +16,7 @@ const formFields: FieldDescriptor[] = [
       { name: 'None', value: '' },
       { name: 'EKB löpande', value: 'EKB-recurring' },
       { name: 'EKB grund', value: 'EKB-new' },
+      { name: 'EKB stickprov/komplettering', value: 'EKB-completion' },
     ],
   },
 ];
