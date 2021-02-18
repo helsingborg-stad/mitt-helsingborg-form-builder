@@ -210,6 +210,38 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
       helpText: 'The ids of image upload components, from which the image viewer will display uploaded pictures.',
     },
   ],
+  pdfUploader: [
+    {
+      name: 'colorSchema',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
+    { name: 'buttonText', type: 'text', initialValue: '', label: 'Button text' },
+    {
+      name: 'maxDocuments',
+      type: 'text',
+      initialValue: '',
+      label: 'Max Number of documents (leave blank for no limit)',
+    },
+  ],
+  pdfViewer: [
+    {
+      name: 'colorSchema',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
+    {
+      name: 'questionIds',
+      type: 'tags',
+      initialValue: '',
+      label: 'QuestionIds to display documents from (enter as comma-separated list of words)',
+      helpText: 'The ids of pdf upload components, from which the image viewer will display uploaded documents.',
+    },
+  ],
 };
 
 const conditionalHelpText = `Make the question show depending on values of other fields. Most basic usage is to put a fieldId here, then the question is shown only if that field is filled. Multiple fieldIds can also be entered, combining them with boolean logic operators ! (not), &&(and), || (or). For example 'field1 || field2' means that either field1 or field2 needs to be filled, while 'field1 && field2' means that both fields needs to have values, and so on. The order of operations is first !, then &&, finally ||. 
