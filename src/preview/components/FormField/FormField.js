@@ -15,6 +15,8 @@ import RadioGroup from '../RadioButton/RadioButton';
 import ImageUploader from '../ImageUploader/ImageUploader';
 import ImageViewer from '../ImageViewer/ImageViewer';
 import RepeaterField from '../RepeaterField/RepeaterField';
+import PdfUploader from '../PdfUploader/PdfUploader';
+import PdfViewer from '../PdfViewer/ImageViewer';
 
 const inputTypes = {
   text: {
@@ -61,6 +63,12 @@ const inputTypes = {
   },
   repeaterField: {
     component: RepeaterField,
+  },
+  pdfUploader: {
+    component: PdfUploader,
+  },
+  pdfViewer: {
+    component: PdfViewer,
   },
 };
 

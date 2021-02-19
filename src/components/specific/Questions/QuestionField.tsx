@@ -75,6 +75,8 @@ const typeChoices: {
   { selectValue: 'card', displayName: 'Card (info text with action button)', inputType: 'card' },
   { selectValue: 'imageUploader', displayName: 'Image Uploader', inputType: 'imageUploader' },
   { selectValue: 'imageViewer', displayName: 'Image Viewer', inputType: 'imageViewer' },
+  { selectValue: 'pdfUploader', displayName: 'PDF Uploader', inputType: 'pdfUploader' },
+  { selectValue: 'pdfViewer', displayName: 'PDF Viewer', inputType: 'pdfViewer' },
 ];
 
 const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
