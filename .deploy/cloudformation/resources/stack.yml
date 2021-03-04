@@ -1,0 +1,54 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: Creates PreReqs for Cloudformation Projects with Pipelines (KMS, Buckets, Repos...)
+
+Parameters:
+  BucketName:
+    Description: Name of the bucket and therefore name of the domain as SSM parameter value.
+    Type: String
+
+Resources:
+  Route53HostedZone:
+    Type: AWS::Route53::HostedZone
+    Properties: 
+      Name: !Ref BucketName
+
+  Route53RecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref Route53HostedZone
+      Name: !Ref BucketName
+      Type: A
+      AliasTarget: 
+        HostedZoneId: Z3BAZG2TWCNX0D # Hardcoded for eu-north-1 https://docs.aws.amazon.com/general/latest/gr/s3.html
+        DNSName: s3-website.eu-north-1.amazonaws.com
+
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  S3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:DeleteObject
+              - s3:PutObject
+              - s3:PutObjectAcl
+            Resource: !Sub ${S3Bucket.Arn}/*
+            Principal: 
+              AWS: 
+               - !Sub arn:aws:iam::${AWS::AccountId}:role/PipelineRole
+          - Effect: Allow
+            Action:
+              - s3:GetObject
+            Resource: !Sub ${S3Bucket.Arn}/*
+            Principal: "*"
+
