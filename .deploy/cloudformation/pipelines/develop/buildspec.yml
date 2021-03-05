@@ -8,6 +8,7 @@ phases:
     commands:
       - npm install -g yarn
       - yarn install
+      - echo "Yarn installed!"
 
   build:
     commands:
