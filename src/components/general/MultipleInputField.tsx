@@ -51,6 +51,17 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
             {field.helpText && field.helpText !== '' && <HelpPopper style={{}} text={field.helpText} />}
           </div>
         );
+      case 'number':
+        return (
+          <div style={row}>
+            <FastField
+              name={computedName}
+              as={TextFieldWrapper}
+              {...{ fullWidth: true, type: 'number', label: field.label }}
+            />
+            {field.helpText && field.helpText !== '' && <HelpPopper style={{}} text={field.helpText} />}
+          </div>
+        );
       case 'select':
         return (
           <FormGroup style={inputFieldStyle} row>
