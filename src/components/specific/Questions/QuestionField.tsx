@@ -161,6 +161,7 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
       label: 'Color theme',
       choices: colorChoices,
     },
+    { name: 'maxRows', type: 'number', initialValue: '', label: 'Set max number of rows' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
     { name: 'inputs', type: 'array', initialValue: '', label: 'Inputs (rows)', inputField: RepeaterInputField },
   ],
