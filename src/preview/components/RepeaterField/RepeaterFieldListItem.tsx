@@ -136,4 +136,8 @@ const RepeaterFieldListItem: React.FC<Props> = ({ heading, inputs, value, color 
   );
 };
 
+RepeaterFieldListItem.defaultProps = {
+  inputs: [],
+};
+
 export default RepeaterFieldListItem;

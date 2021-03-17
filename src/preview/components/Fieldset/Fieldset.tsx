@@ -104,6 +104,7 @@ const Fieldset: React.FC<FieldsetProps> = ({ children, legend, colorSchema, rend
 };
 
 Fieldset.defaultProps = {
+  legend: '',
   colorSchema: 'blue',
   iconName: undefined,
   renderHeaderActions: undefined,

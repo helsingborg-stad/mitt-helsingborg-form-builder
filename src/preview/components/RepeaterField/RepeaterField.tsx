@@ -40,9 +40,12 @@ interface Props {
 const RepeaterField: React.FC<Props> = ({ heading, addButtonText, inputs, colorSchema }) => {
   // construct a new answer object from the inputs, where each answer is an empty string to start
   const newAnswers: Record<string, string | number> = {};
+
+
   inputs.forEach((input) => {
     newAnswers[input.id] = '';
   });
+  
   const validColorSchema = getValidColorSchema(colorSchema);
 
   const listItems: JSX.Element[] = [];
@@ -66,6 +69,10 @@ const RepeaterField: React.FC<Props> = ({ heading, addButtonText, inputs, colorS
       </AddButton>
     </Fieldset>
   );
+};
+
+RepeaterField.defaultProps = {
+  inputs: [],
 };
 
 export default RepeaterField;
