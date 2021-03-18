@@ -196,6 +196,7 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     },
     { name: 'buttonText', type: 'text', initialValue: '', label: 'Button text' },
     { name: 'maxImages', type: 'text', initialValue: '', label: 'Max Number of Images (leave blank for no limit)' },
+    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
   ],
   imageViewer: [
     {
