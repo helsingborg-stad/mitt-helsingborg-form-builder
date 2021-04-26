@@ -57,6 +57,7 @@ const typeChoices: {
   validationType?: ValidationFieldTypes;
 }[] = [
   { selectValue: 'text', displayName: 'Text', inputType: 'text', validationType: 'text' },
+  { selectValue: 'hidden', displayName: 'Hidden', inputType: 'hidden', validationType: 'text' },
   { selectValue: 'email', displayName: 'Email', inputType: 'text', validationType: 'email' },
   { selectValue: 'postalCode', displayName: 'Postnummer', inputType: 'number', validationType: 'postalCode' },
   { selectValue: 'personalNumber', displayName: 'Personnummer', inputType: 'number', validationType: 'personalNumber' },
@@ -84,6 +85,10 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
     { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
+  ],
+  hidden: [
+    { name: 'value', type: 'text', initialValue: '', label: 'Value' },
+    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
   ],
   number: [
     { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },

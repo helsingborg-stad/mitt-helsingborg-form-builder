@@ -51,6 +51,17 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
             {field.helpText && field.helpText !== '' && <HelpPopper style={{}} text={field.helpText} />}
           </div>
         );
+      case 'hidden':
+        return (
+          <div style={row}>
+            <FastField
+              name={computedName}
+              as={TextFieldWrapper}
+              {...{ fullWidth: true, multiline: true, rowsMax: 3, label: field.label }}
+            />
+            {field.helpText && field.helpText !== '' && <HelpPopper style={{}} text={field.helpText} />}
+          </div>
+        );
       case 'number':
         return (
           <div style={row}>

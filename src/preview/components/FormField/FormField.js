@@ -23,6 +23,10 @@ const inputTypes = {
     component: Input,
     props: { InputProps: { disableUnderline: true } },
   },
+  hidden: {
+    component: Input,
+    props: { InputProps: { disableUnderline: true } },
+  },
   number: {
     component: Input,
     props: { InputProps: { disableUnderline: true } },

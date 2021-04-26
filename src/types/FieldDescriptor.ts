@@ -3,6 +3,7 @@ import { InputFieldPropType } from './PropTypes';
 
 export type InputType =
   | 'text'
+  | 'hidden'
   | 'number'
   | 'date'
   | 'checkbox'
