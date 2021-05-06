@@ -11,6 +11,10 @@ Parameters:
     Description: AWS AccountNumber for Stage
     Type: AWS::SSM::Parameter::Value<String>
     Default: mitt-hbg-aws-account-id-stage
+  TestAccount:
+    Description: AWS AccountNumber for Test
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: mitt-hbg-aws-account-id-test
   ProductionDomain:
     Description: AWS Domain for Production
     Type: AWS::SSM::Parameter::Value<String>
@@ -19,6 +23,10 @@ Parameters:
     Description: AWS Domain for Stage
     Type: AWS::SSM::Parameter::Value<String>
     Default: mitt-hbg-form-builder-domain-stage
+  TestDomain:
+    Description: AWS Domain for Test
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: mitt-hbg-form-builder-domain-test
   ProductionAPIDomain:
     Description: AWS Domain for API Production
     Type: AWS::SSM::Parameter::Value<String>
@@ -27,6 +35,10 @@ Parameters:
     Description: AWS Domain for API Stage
     Type: AWS::SSM::Parameter::Value<String>
     Default: mitt-hbg-api-domain-stage
+  TestAPIDomain:
+    Description: AWS Domain for API Test
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: mitt-hbg-api-domain-test
   GitHubOwner:
     Description: Owner of the repository.
     Type: String
@@ -77,7 +89,7 @@ Resources:
           Id: !GetAtt KMSKey.KeyId
           Type: KMS
       RoleArn: !GetAtt IAMRolePipeline.Arn
-      Name: !Sub ${AWS::StackName}-Pipeline
+      Name: !Sub ${AWS::StackName}
       Stages:
         - Name: GetSource
           Actions:
@@ -154,21 +166,13 @@ Resources:
         - Name: Production
           Actions:
             -
-              Name: Approval
-              ActionTypeId:
-                Category: Approval
-                Owner: AWS
-                Version: "1"
-                Provider: Manual
-              RunOrder: 1
-            -
               Name: DeployProductionResources
               ActionTypeId:
                 Category: Deploy
                 Owner: AWS
                 Provider: CloudFormation
                 Version: '1'
-              RunOrder: 2
+              RunOrder: 1
               Configuration:
                 ActionMode: CREATE_UPDATE
                 ChangeSetName: mitt-helsingborg-form-builder-production-changeset
@@ -213,8 +217,62 @@ Resources:
               InputArtifacts: 
                 - 
                   Name: SourceOutput
+              RunOrder: 2
+        - Name: Test
+          Actions:
+            -
+              Name: DeployTestResources
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFormation
+                Version: '1'
+              RunOrder: 2
+              Configuration:
+                ActionMode: CREATE_UPDATE
+                ChangeSetName: mitt-helsingborg-form-builder-test-changeset
+                StackName: mitt-helsingborg-form-builder-test
+                ParameterOverrides: !Sub | 
+                  {
+                    "BucketName" : "${TestDomain}"
+                  }
+                TemplatePath: 'SourceOutput::.deploy/cloudformation/resources/stack.yml'
+                RoleArn: !Sub arn:aws:iam::${TestAccount}:role/CloudformationDeployRole
+              InputArtifacts:
+                - Name: SourceOutput
+              RoleArn: !Sub arn:aws:iam::${TestAccount}:role/PipelineRole
+            -
+              Name: DeployTest
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Version: "1"
+                Provider: CodeBuild
+              Configuration:
+                ProjectName: !Sub ${AWS::StackName}-CodeBuildProject
+                EnvironmentVariables: !Sub |
+                  [
+                    {
+                      "name": "AWS_ACCOUNT_NBR",
+                      "value": "${TestAccount}"
+                    },
+                    {
+                      "name": "BUCKET_NAME",
+                      "value": "${TestDomain}"
+                    },
+                    {
+                      "name": "API_DOMAIN",
+                      "value": "${TestAPIDomain}"
+                    },
+                    {
+                      "name": "ENV",
+                      "value": "test"
+                    }
+                  ]
+              InputArtifacts: 
+                - 
+                  Name: SourceOutput
               RunOrder: 3
-
 
 
   ##
@@ -266,6 +324,7 @@ Resources:
             Action:
               - sts:AssumeRole
             Resource:
+              - !Sub arn:aws:iam::${TestAccount}:role/ServerlessDeployRole
               - !Sub arn:aws:iam::${StageAccount}:role/ServerlessDeployRole
               - !Sub arn:aws:iam::${ProductionAccount}:role/ServerlessDeployRole
           - Sid: codestarconnection
@@ -334,6 +393,7 @@ Resources:
             Action:
               - sts:AssumeRole
             Resource:
+              - !Sub arn:aws:iam::${TestAccount}:role/PipelineRole
               - !Sub arn:aws:iam::${StageAccount}:role/PipelineRole
               - !Sub arn:aws:iam::${ProductionAccount}:role/PipelineRole
           - Sid: codestarconnection
@@ -385,6 +445,7 @@ Resources:
               AWS:
                 - !Sub arn:aws:iam::${AWS::AccountId}:role/${AWS::StackName}-CodepipelineRole
                 - !Sub arn:aws:iam::${AWS::AccountId}:role/${AWS::StackName}-CodebuildRole
+                - !Sub arn:aws:iam::${TestAccount}:role/PipelineRole
                 - !Sub arn:aws:iam::${StageAccount}:role/PipelineRole
                 - !Sub arn:aws:iam::${ProductionAccount}:role/PipelineRole
             Action:
@@ -428,5 +489,6 @@ Resources:
               AWS:
                 - !Sub arn:aws:iam::${AWS::AccountId}:role/${AWS::StackName}-CodepipelineRole
                 - !Sub arn:aws:iam::${AWS::AccountId}:role/${AWS::StackName}-CodebuildRole
+                - !Sub arn:aws:iam::${TestAccount}:role/PipelineRole
                 - !Sub arn:aws:iam::${StageAccount}:role/PipelineRole
                 - !Sub arn:aws:iam::${ProductionAccount}:role/PipelineRole
