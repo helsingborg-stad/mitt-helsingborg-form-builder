@@ -34,7 +34,7 @@ const emptyCoApplicant: CoApplicant = {
   personalNumber: '',
 };
 
-const coApplicantOptions = Object.keys(emptyCoApplicant).map((attribute) => `coApplicant.${attribute}`);
+const coApplicantOptions = ['', ...Object.keys(emptyCoApplicant).map((attribute) => `coApplicant.${attribute}`)];
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -53,7 +53,8 @@ const LoadPreviousToggle: React.FC<Props> = ({ name, label, value }: Props) => {
   const usingPreviousForm = (() => {
     if (!value.loadPrevious) return false;
     if (value.loadPrevious.length === 0) return false;
-    if (value.loadPrevious[0].split('.')[0] === 'user') return false;
+    const stringArray = value.loadPrevious[0].split('.');
+    if (stringArray[0] === 'user' || stringArray[0] === 'coApplicant') return false;
     return true;
   })();
 
