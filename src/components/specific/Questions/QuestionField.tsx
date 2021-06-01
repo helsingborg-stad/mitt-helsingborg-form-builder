@@ -84,6 +84,7 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   text: [
     { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
     { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
+    { name: 'disabled', type: 'checkbox', initialValue: false, label: 'Disabled' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
   hidden: [
@@ -93,6 +94,7 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   number: [
     { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
     { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
+    { name: 'disabled', type: 'checkbox', initialValue: false, label: 'Disabled' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
   date: [{ name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' }],
