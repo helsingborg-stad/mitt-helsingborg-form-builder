@@ -12,3 +12,9 @@ export interface Address {
   postalCode: string;
   city: string;
 }
+
+export interface CoApplicant {
+  firstName: string;
+  lastName: string;
+  personalNumber: string;
+}

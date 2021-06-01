@@ -1,7 +1,7 @@
 import React from 'react';
 import CSS from 'csstype';
 import { Select, MenuItem, Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
-import { User } from '../../../types/UserType';
+import { User, CoApplicant } from '../../../types/UserType';
 import { useFormikContext } from 'formik';
 import { Form } from '../../../types/FormTypes';
 
@@ -17,6 +17,7 @@ const emptyUser: User = {
     city: '',
   },
 };
+
 const userOptions = Object.keys(emptyUser).reduce(
   (prev, key) => {
     if (key !== 'address') {
@@ -26,6 +27,14 @@ const userOptions = Object.keys(emptyUser).reduce(
   },
   [''],
 ); //add the empty string as an option, so that the user can choose to empty the select field in the form
+
+const emptyCoApplicant: CoApplicant = {
+  firstName: '',
+  lastName: '',
+  personalNumber: '',
+};
+
+const coApplicantOptions = Object.keys(emptyCoApplicant).map((attribute) => `coApplicant.${attribute}`);
 
 const inputFieldStyle: CSS.Properties = {
   marginLeft: '7px',
@@ -117,6 +126,16 @@ const LoadPreviousToggle: React.FC<Props> = ({ name, label, value }: Props) => {
         <div style={{ paddingTop: '5px', marginRight: '10px' }}>Load from user info</div>
         <Select name={name} onChange={onSelect} value={userInfo}>
           {userOptions.map((choice) => (
+            <MenuItem key={choice} value={choice}>
+              {choice}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormGroup>
+      <FormGroup style={inputFieldStyle} row>
+        <div style={{ paddingTop: '5px', marginRight: '10px' }}>Load from co-applicant info</div>
+        <Select name={name} onChange={onSelect} value={userInfo}>
+          {coApplicantOptions.map((choice) => (
             <MenuItem key={choice} value={choice}>
               {choice}
             </MenuItem>
