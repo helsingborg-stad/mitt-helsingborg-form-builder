@@ -90,6 +90,7 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   hidden: [
     { name: 'value', type: 'text', initialValue: '', label: 'Value' },
     { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
+    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
   number: [
     { name: 'placeholder', type: 'text', initialValue: '', label: 'Placeholder' },
