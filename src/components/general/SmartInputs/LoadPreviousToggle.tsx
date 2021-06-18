@@ -21,9 +21,9 @@ const emptyUser: User = {
 const userOptions = Object.keys(emptyUser).reduce(
   (prev, key) => {
     if (key !== 'address') {
-      return [`user.${key}`, ...prev];
+      return [`applicant.${key}`, ...prev];
     }
-    return [...Object.keys(emptyUser.address).map((k) => `user.address.${k}`), ...prev];
+    return [...Object.keys(emptyUser.address).map((k) => `applicant.address.${k}`), ...prev];
   },
   [''],
 ); //add the empty string as an option, so that the user can choose to empty the select field in the form
@@ -54,7 +54,7 @@ const LoadPreviousToggle: React.FC<Props> = ({ name, label, value }: Props) => {
     if (!value.loadPrevious) return false;
     if (value.loadPrevious.length === 0) return false;
     const stringArray = value.loadPrevious[0].split('.');
-    if (stringArray[0] === 'user' || stringArray[0] === 'coApplicant') return false;
+    if (stringArray[0] === 'applicant' || stringArray[0] === 'coApplicant') return false;
     return true;
   })();
 
@@ -124,7 +124,7 @@ const LoadPreviousToggle: React.FC<Props> = ({ name, label, value }: Props) => {
         />
       </FormGroup>
       <FormGroup style={inputFieldStyle} row>
-        <div style={{ paddingTop: '5px', marginRight: '10px' }}>Load from user info</div>
+        <div style={{ paddingTop: '5px', marginRight: '10px' }}>Load from applicant info</div>
         <Select name={name} onChange={onSelect} value={userInfo}>
           {userOptions.map((choice) => (
             <MenuItem key={choice} value={choice}>
