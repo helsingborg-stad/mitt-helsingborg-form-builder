@@ -121,6 +121,12 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
       choices: colorChoices,
     },
     { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
+    {
+      name: 'disableValueStorage',
+      type: 'checkbox',
+      initialValue: '',
+      label: 'Disable value storage',
+    },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
   avatarList: [{ name: 'heading', type: 'text', initialValue: '', label: 'Title' }],
