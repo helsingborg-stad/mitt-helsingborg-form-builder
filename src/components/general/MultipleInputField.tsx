@@ -97,13 +97,7 @@ const MultipleInputField: React.FC<MultipleInputFieldPropType> = ({
         return (
           <FormGroup style={inputFieldStyle} row>
             <FormControlLabel
-              control={
-                <FastField
-                  as={Checkbox}
-                  name={computedName}
-                  checked={typeof value?.[field.name] === 'boolean' ? value[field.name] : field.initialValue}
-                />
-              }
+              control={<FastField as={Checkbox} name={computedName} checked={value?.[field.name]} />}
               label={field.label}
             />
             {field.helpText && field.helpText !== '' && <HelpPopper style={{}} text={field.helpText} />}
