@@ -122,10 +122,10 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     },
     { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
     {
-      name: 'storeValue',
+      name: 'disableValueStorage',
       type: 'checkbox',
-      initialValue: true,
-      label: 'Store value to database',
+      initialValue: '',
+      label: 'Disable value storage',
     },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
