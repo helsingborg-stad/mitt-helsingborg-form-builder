@@ -1,5 +1,5 @@
 import React from 'react';
-import FieldDescriptor from '../../../types/FieldDescriptor';
+import FieldDescriptor, { InputType } from '../../../types/FieldDescriptor';
 import MultipleInputField from '../../general/MultipleInputField';
 import { InputFieldPropType } from '../../../types/PropTypes';
 
@@ -43,13 +43,19 @@ const actionFields: FieldDescriptor[] = [
   },
 ];
 
-const conditionalHelpText = `Make the action depend on values of another field. Most basic usage is to put a fieldId here, then the action is only allowed if that field is filled. Multiple fieldIds can also be entered, combining them with boolean logic operators ! (not), &&(and), || (or). For example 'field1 || field2' means that either field1 or field2 needs to be filled, while 'field1 && field2' means that both fields needs to have values, and so on. The order of operations is first !, then &&, finally ||. 
-    
+const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
+  sign: [{ name: 'signMessage', type: 'text', initialValue: '', label: 'Sign message' }],
+};
+
+const conditionalHelpText = `Make the action depend on values of another field. Most basic usage is to put a fieldId here, then the action is only allowed if that field is filled. Multiple fieldIds can also be entered, combining them with boolean logic operators ! (not), &&(and), || (or). For example 'field1 || field2' means that either field1 or field2 needs to be filled, while 'field1 && field2' means that both fields needs to have values, and so on. The order of operations is first !, then &&, finally ||.
+
 For lists and repeaters, empty means "no values", while filled means "at least one non-empty value". `;
 
 const ActionField: React.FC<InputFieldPropType> = (props) => {
   const { value, name } = props;
   const hasCondition: boolean = value?.hasCondition && value.hasCondition === true;
+  const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type as InputType];
+
   return (
     <>
       <MultipleInputField fields={actionFields} {...props} />
@@ -61,6 +67,7 @@ const ActionField: React.FC<InputFieldPropType> = (props) => {
           helpText={conditionalHelpText}
         />
       )}
+      {extraInput && <MultipleInputField fields={extraInput} {...props} />}
     </>
   );
 };
