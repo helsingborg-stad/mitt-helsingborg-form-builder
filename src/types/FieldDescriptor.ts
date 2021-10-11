@@ -31,6 +31,7 @@ export type InputType =
   | 'imageViewer'
   | 'pdfUploader'
   | 'pdfViewer'
+  | 'timeslot'
   | 'sign';
 
 export default interface FieldDescriptor {

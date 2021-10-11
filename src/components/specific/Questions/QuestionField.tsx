@@ -78,6 +78,7 @@ const typeChoices: {
   { selectValue: 'imageViewer', displayName: 'Image Viewer', inputType: 'imageViewer' },
   { selectValue: 'pdfUploader', displayName: 'PDF Uploader', inputType: 'pdfUploader' },
   { selectValue: 'pdfViewer', displayName: 'PDF Viewer', inputType: 'pdfViewer' },
+  { selectValue: 'timeslot', displayName: 'Time slot selector', inputType: 'timeslot' },
 ];
 
 const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
@@ -262,8 +263,8 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
   ],
 };
 
-const conditionalHelpText = `Make the question show depending on values of other fields. Most basic usage is to put a fieldId here, then the question is shown only if that field is filled. Multiple fieldIds can also be entered, combining them with boolean logic operators ! (not), &&(and), || (or). For example 'field1 || field2' means that either field1 or field2 needs to be filled, while 'field1 && field2' means that both fields needs to have values, and so on. The order of operations is first !, then &&, finally ||. 
-    
+const conditionalHelpText = `Make the question show depending on values of other fields. Most basic usage is to put a fieldId here, then the question is shown only if that field is filled. Multiple fieldIds can also be entered, combining them with boolean logic operators ! (not), &&(and), || (or). For example 'field1 || field2' means that either field1 or field2 needs to be filled, while 'field1 && field2' means that both fields needs to have values, and so on. The order of operations is first !, then &&, finally ||.
+
 For lists and repeaters, empty means "no values", while filled means "at least one non-empty value". `;
 
 const QuestionField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {

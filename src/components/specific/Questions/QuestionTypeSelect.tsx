@@ -38,7 +38,10 @@ const QuestionTypeSelect: React.FC<Props> = ({ name, label, value, choices, show
     }>,
   ) => {
     const val = event.target.value as string;
+    console.log('VAL: ', val);
     const choice = choices.find((ch) => ch.selectValue === val);
+    console.log('CHOICE: ', choice);
+
     if (choice) {
       setCurrentChoice(choice);
       setFieldValue(`${name}.type`, choice.inputType);

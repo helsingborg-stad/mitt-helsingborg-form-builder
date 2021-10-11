@@ -74,9 +74,13 @@ const inputTypes = {
   pdfViewer: {
     component: PdfViewer,
   },
+  timeslot: {
+    component: () => <p style={{ color: 'black' }}>KARLOS</p>,
+  },
 };
 
 const FormField = ({ label, labelLine, inputType, id, colorSchema, ...other }) => {
+  console.log('INPUT TYPE: ', inputType);
   const input = inputTypes[inputType];
   if (!input) {
     return (
@@ -88,6 +92,7 @@ const FormField = ({ label, labelLine, inputType, id, colorSchema, ...other }) =
   }
 
   const inputProps = input && input.props ? input.props : {};
+  console.log('INPUT PROPS: ', inputProps);
   const inputCompProps = {
     colorSchema,
     value: '',
@@ -95,6 +100,7 @@ const FormField = ({ label, labelLine, inputType, id, colorSchema, ...other }) =
     ...inputProps,
     ...other,
   };
+  console.log('INPUT COMPO PROPS: ', inputCompProps);
 
   const inputComponent =
     input && input.component ? (
