@@ -4,6 +4,7 @@ import MultipleInputField from '../../../general/MultipleInputField';
 import { InputFieldPropType } from '../../../../types/PropTypes';
 import QuestionTypeSelect from '../QuestionTypeSelect';
 import { ValidationFieldTypes } from '../ValidationRules';
+import SelectChoice from './SelectChoice';
 
 const fields: FieldDescriptor[] = [
   { name: 'title', type: 'text', initialValue: '', label: 'Title' },
@@ -26,6 +27,7 @@ const typeChoices: {
   { selectValue: 'date', displayName: 'Date', inputType: 'date', validationType: 'date' },
   { selectValue: 'checkbox', displayName: 'Checkbox', inputType: 'checkbox', validationType: 'checkbox' },
   { selectValue: 'hidden', displayName: 'Hidden', inputType: 'hidden', validationType: 'text' },
+  { selectValue: 'select', displayName: 'Select (dropdown)', inputType: 'select', validationType: 'select' },
 ];
 
 const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
@@ -34,6 +36,7 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
+  select: [{ name: 'items', type: 'array', initialValue: '', label: 'Choices', inputField: SelectChoice }],
 };
 
 const RepeaterInputField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
