@@ -25,13 +25,26 @@ const typeChoices: {
   { selectValue: 'number', displayName: 'Number', inputType: 'number', validationType: 'number' },
   { selectValue: 'date', displayName: 'Date', inputType: 'date', validationType: 'date' },
   { selectValue: 'checkbox', displayName: 'Checkbox', inputType: 'checkbox', validationType: 'checkbox' },
+  { selectValue: 'hidden', displayName: 'Hidden', inputType: 'hidden', validationType: 'text' },
 ];
 
+const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
+  hidden: [
+    { name: 'value', type: 'text', initialValue: '', label: 'Value' },
+    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
+    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
+  ],
+};
+
 const RepeaterInputField: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {
+  const { value } = props;
+  const extraInput = Object.keys(extraInputs).includes(value.type) && extraInputs[value.type as InputType];
+
   return (
     <>
       <MultipleInputField fields={fields} {...props} />
       <QuestionTypeSelect name={props.name} value={props.value} label="Input field type" choices={typeChoices} />
+      {extraInput && <MultipleInputField fields={extraInput} {...props} />}
     </>
   );
 };
