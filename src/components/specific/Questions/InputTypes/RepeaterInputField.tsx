@@ -26,10 +26,16 @@ const typeChoices: {
   { selectValue: 'number', displayName: 'Number', inputType: 'number', validationType: 'number' },
   { selectValue: 'date', displayName: 'Date', inputType: 'date', validationType: 'date' },
   { selectValue: 'checkbox', displayName: 'Checkbox', inputType: 'checkbox', validationType: 'checkbox' },
+  { selectValue: 'hidden', displayName: 'Hidden', inputType: 'hidden', validationType: 'text' },
   { selectValue: 'select', displayName: 'Select (dropdown)', inputType: 'select', validationType: 'select' },
 ];
 
 const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
+  hidden: [
+    { name: 'value', type: 'text', initialValue: '', label: 'Value' },
+    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
+    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
+  ],
   select: [{ name: 'items', type: 'array', initialValue: '', label: 'Choices', inputField: SelectChoice }],
 };
 
