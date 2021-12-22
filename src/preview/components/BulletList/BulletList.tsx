@@ -53,13 +53,12 @@ const Bullet = styled.p<BulletProps>`
 
 interface BulletListProps {
   colorSchema: PrimaryColor;
-  values: string[];
-  valueReplacementRule?: string;
+  answers: string[];
 }
 
 const BulletList = (props: BulletListProps): JSX.Element => {
   const theme = useContext(ThemeContext);
-  const { values = [], valueReplacementRule, colorSchema = 'red' } = props;
+  const { answers = [], colorSchema = 'red' } = props;
 
   const backgroundColor = theme.colors.complementary[colorSchema][3];
   const bulletColor = theme.colors.primary[colorSchema][1];
@@ -67,20 +66,18 @@ const BulletList = (props: BulletListProps): JSX.Element => {
   return (
     <PreviewContainer>
       <Background backgroundColor={backgroundColor}>
-        {valueReplacementRule ? (
-          <p style={{ color: 'black' }}>{valueReplacementRule}</p>
-        ) : (
+        {
           <>
-            {values.map((value, index) => (
-              <BulletsContainer key={value} paddingBottom={index === values.length - 1 ? '0px' : '16px'}>
+            {answers.map((answer, index) => (
+              <BulletsContainer key={answer} paddingBottom={index === answers.length - 1 ? '0px' : '16px'}>
                 <BulletItem width="10%">
                   <Bullet bulletColor={bulletColor}>•</Bullet>
                 </BulletItem>
-                <BulletItem width="80%">{value}</BulletItem>
+                <BulletItem width="80%">{answer}</BulletItem>
               </BulletsContainer>
             ))}
           </>
-        )}
+        }
       </Background>
     </PreviewContainer>
   );
