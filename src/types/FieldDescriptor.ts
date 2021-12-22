@@ -31,7 +31,8 @@ export type InputType =
   | 'imageViewer'
   | 'pdfUploader'
   | 'pdfViewer'
-  | 'sign';
+  | 'sign'
+  | 'bulletList';
 
 export default interface FieldDescriptor {
   name: string;
