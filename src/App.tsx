@@ -5,7 +5,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import RootNavigator from './navigator/rootNavigator';
 import { NotificationProvider } from './contexts/NotificationsContext';
 import { FormRepositoryProvider } from './contexts/FormRepositoryContext';
-import { createConsoleLoggingRepository } from './repositories/console-logging-form-repository';
+import createLoggingRepository from './repositories/logging-form-repository';
 import { createAWSFormRepository } from './repositories/aws-form-repository';
 import { createLocalStorageFormRepository } from './repositories/local-storage-form-repository';
 import { FormRepository } from './types/FormRepository';
@@ -22,7 +22,7 @@ const container: CSS.Properties = {
 function createFormRepository(): FormRepository {
   const { AWS_API_KEY: apiKey, REACT_APP_MITTHELSINGBORG_IO: endpoint } = process.env;
   const formRepository = apiKey && endpoint ? createAWSFormRepository(apiKey) : createLocalStorageFormRepository();
-  return createConsoleLoggingRepository(formRepository);
+  return createLoggingRepository(formRepository);
 }
 const App: React.FC = () => {
   const theme = React.useMemo(

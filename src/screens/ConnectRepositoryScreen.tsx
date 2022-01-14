@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import { createAWSFormRepository } from '../repositories/aws-form-repository';
-import { createConsoleLoggingRepository } from '../repositories/console-logging-form-repository';
+import createLoggingRepository from '../repositories/logging-form-repository';
 import { createLocalStorageFormRepository } from '../repositories/local-storage-form-repository';
 import { FormRepository } from '../types/FormRepository';
 
@@ -23,7 +23,7 @@ interface PropType {
 }
 
 const decorateRepository = ({ debug }: { debug: boolean }, repository: FormRepository) =>
-  debug ? createConsoleLoggingRepository(repository) : repository;
+  debug ? createLoggingRepository(repository) : repository;
 
 const ConnectLocalCard: React.FC<PropType> = ({ connect }) => {
   const [debug, setDebug] = useState(false);
@@ -82,7 +82,6 @@ const ConnectAWSCard: React.FC<PropType> = ({ connect }) => {
             label="Log calls to console"
           />
         </FormGroup>
-
       </CardContent>
       <CardActions>
         <Button onClick={connectAWS} disabled={!canConnect}>
