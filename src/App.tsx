@@ -6,6 +6,11 @@ import { getAllForms } from './helpers/ApiRequest';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import RootNavigator from './navigator/rootNavigator';
 import { NotificationProvider } from './contexts/NotificationsContext';
+import { FormRepositoryProvider } from './contexts/FormRepositoryContext';
+import { createConsoleLoggingRepository } from './repositories/console-logging-form-repository';
+import { createAWSFormRepository } from './repositories/aws-form-repository';
+import { createLocalStorageFormRepository } from './repositories/local-storage-form-repository';
+import { FormRepository } from './types/FormRepository';
 
 const container: CSS.Properties = {
   paddingTop: '40px',
@@ -15,10 +20,12 @@ const container: CSS.Properties = {
   padding: '20px',
 };
 
+function createFormRepository(): FormRepository {
+  const { AWS_API_KEY: apiKey, REACT_APP_MITTHELSINGBORG_IO: endpoint } = process.env;
+  const formRepository = apiKey && endpoint ? createAWSFormRepository(apiKey) : createLocalStorageFormRepository();
+  return createConsoleLoggingRepository(formRepository);
+}
 const App: React.FC = () => {
-  const [keyStatus, setKeyStatus] = useState(KeyStatus.Loading);
-  const [apikey, setApikey] = useState('');
-
   const theme = React.useMemo(
     () =>
       createMuiTheme({
@@ -29,67 +36,20 @@ const App: React.FC = () => {
     [],
   );
 
-  const checkApiKey = async (apiKey: string) => {
-    const resp = await getAllForms(apiKey);
-    if (resp instanceof Error) {
-      return false;
-    }
-    return true;
-  };
-
-  useEffect(() => {
-    const keyLocalStorage = localStorage.getItem('hbg-forms-apikey');
-    if (keyLocalStorage && keyLocalStorage !== '') {
-      checkApiKey(keyLocalStorage).then((keyValid) => {
-        if (keyValid) {
-          setKeyStatus(KeyStatus.Valid);
-        } else {
-          setKeyStatus(KeyStatus.Invalid);
-        }
-      });
-    } else {
-      setKeyStatus(KeyStatus.NotProvided);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (apikey !== '') {
-      checkApiKey(apikey).then((keyValid) => {
-        if (keyValid) {
-          setKeyStatus(KeyStatus.Valid);
-          localStorage.setItem('hbg-forms-apikey', apikey);
-        } else {
-          setKeyStatus(KeyStatus.Invalid);
-        }
-      });
-    }
-  }, [apikey]);
-
-  const componentSwitcher = () => {
-    switch (keyStatus) {
-      case KeyStatus.Loading:
-        return <h3>Loading...</h3>;
-
-      case KeyStatus.NotProvided:
-      case KeyStatus.Invalid:
-        return <ApiKeyScreen keyStatus={keyStatus} setApikey={setApikey} />;
-
-      case KeyStatus.Valid:
-        return <RootNavigator />;
-    }
-  };
-
+  const [formRepository] = useState(createFormRepository())
   return (
     <ThemeProvider theme={theme}>
       <NotificationProvider>
-        <FormProvider apikey={apikey}>
-          <div style={container}>
-            <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '800px' }}>
-              <pre>api url: {process.env.REACT_APP_MITTHELSINGBORG_IO} </pre>
+        <FormRepositoryProvider formRepository={formRepository}>
+          <FormProvider>
+            <div style={container}>
+              <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '800px' }}>
+                <pre>api url: {process.env.REACT_APP_MITTHELSINGBORG_IO} </pre>
+              </div>
+              <RootNavigator />
             </div>
-            {componentSwitcher()}
-          </div>
-        </FormProvider>
+          </FormProvider>
+        </FormRepositoryProvider>
       </NotificationProvider>
     </ThemeProvider>
   );

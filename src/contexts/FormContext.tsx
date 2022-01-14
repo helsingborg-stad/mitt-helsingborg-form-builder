@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import * as Api from '../helpers/ApiRequest';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { Form, emptyForm } from '../types/FormTypes';
+import FormRepositoryContext from './FormRepositoryContext';
 
 const emptyFormList: Form[] = [];
 
 interface FormContextType {
   forms: Form[];
   getForm: (id: string) => Promise<{ data: Form }>;
-  fetchForms: (apikey: string & undefined) => void;
   createForm: (form: Form) => Promise<{ data: { Item: Form } }>;
   deleteForm: (id: string) => void;
   updateForm: (id: string, form: Form) => Promise<{ data: { Item: Form } }>;
@@ -29,59 +28,50 @@ const defaultVal: FormContextType = {
   updateForm: () => {
     return new Promise(() => emptyForm);
   },
-  fetchForms: () => {
-    console.log('Fetch is not implemented.');
-  },
 };
 
 interface Props {
   children: React.ReactNode;
-  apikey: string;
 }
 
 const FormContext = React.createContext<FormContextType>(defaultVal);
 
-export const FormProvider: React.FC<Props> = ({ children, apikey }: Props) => {
+export const FormProvider: React.FC<Props> = ({ children }: Props) => {
   const [forms, setForms] = useState(emptyFormList);
+  const { formRepository } = useContext(FormRepositoryContext);
+
+  const fetchForms = useCallback(() => formRepository.listForms().then(setForms), [formRepository]);
 
   useEffect(() => {
-    fetchForms(apikey);
-  }, [apikey]);
+    fetchForms();
+  }, [fetchForms, formRepository]);
 
-  const getForm = (id: string) => {
-    return Api.getForm(id);
+  const getForm = async (formId: string) => {
+    const form = await formRepository.getForm(formId);
+    return { data: form };
+  };
+  const createForm = async (form: Form) => {
+    const created = await formRepository.createForm(form);
+    await fetchForms();
+    return { data: { Item: created } };
   };
 
-  const fetchForms = (apikey?: string) => {
-    Api.getAllForms(apikey).then((res) => {
-      if (res?.data?.forms) {
-        setForms(res.data.forms);
-      }
-    });
-  };
+  const deleteForm = (formId: string) => formRepository.deleteForm(formId).then(() => fetchForms());
 
-  const createForm = (form: Form) => {
-    return Api.createForm(form).then((res) => {
+  const updateForm = (formId: string, formData: Form) => formRepository.updateForm(formId, formData).then((form) => {
       fetchForms();
-      return res;
+      return {
+        data: {
+          Item: form,
+        },
+      };
     });
-  };
-
-  const deleteForm = (id: string) => {
-    Api.deleteForm(id).then(() => fetchForms());
-  };
-
-  const updateForm = async (id: string, formData: Form) => {
-    return Api.updateForm(id, formData).then((res) => {
-      fetchForms();
-      return res;
-    });
-  };
 
   return (
-    <FormContext.Provider value={{ forms, fetchForms, getForm, createForm, deleteForm, updateForm }}>
+    <FormContext.Provider value={{ forms, getForm, createForm, deleteForm, updateForm }}>
       {children}
     </FormContext.Provider>
   );
 };
+
 export default FormContext;
