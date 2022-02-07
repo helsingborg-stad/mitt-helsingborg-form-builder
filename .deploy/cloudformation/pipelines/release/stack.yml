@@ -26,7 +26,7 @@ Parameters:
   GitHubBranch:
     Description: Branch name.
     Type: String
-    Default: release/1.0.0
+    Default: release/1.2.0
 
 Resources:
   ##
@@ -49,7 +49,7 @@ Resources:
         Type: CODEPIPELINE
         BuildSpec: .deploy/cloudformation/pipelines/release/buildspec.yml
       Cache:
-        Location: !Sub "${S3BucketArtifact}/cache"
+        Location: !Sub '${S3BucketArtifact}/cache'
         Type: S3
 
   ##
@@ -61,7 +61,7 @@ Resources:
     Properties:
       ArtifactStore:
         Location: !Ref S3BucketArtifact
-        Type: "S3"
+        Type: 'S3'
         EncryptionKey:
           Id: !GetAtt KMSKey.KeyId
           Type: KMS
@@ -74,12 +74,12 @@ Resources:
               ActionTypeId:
                 Category: Source
                 Owner: AWS
-                Version: "1"
+                Version: '1'
                 Provider: CodeStarSourceConnection
               Configuration:
-                ConnectionArn: 
+                ConnectionArn:
                   Fn::ImportValue: github-connection-CodeStarConnection
-                FullRepositoryId: !Sub "${GitHubOwner}/${GitHubRepo}"
+                FullRepositoryId: !Sub '${GitHubOwner}/${GitHubRepo}'
                 BranchName: !Ref GitHubBranch
                 OutputArtifactFormat: CODE_ZIP
               OutputArtifacts:
@@ -87,8 +87,7 @@ Resources:
               RunOrder: 1
         - Name: Release
           Actions:
-            -
-              Name: DeployReleaseResources
+            - Name: DeployReleaseResources
               ActionTypeId:
                 Category: Deploy
                 Owner: AWS
@@ -99,7 +98,7 @@ Resources:
                 ActionMode: CREATE_UPDATE
                 ChangeSetName: mitt-helsingborg-form-builder-release-changeset
                 StackName: mitt-helsingborg-form-builder-release
-                ParameterOverrides: !Sub | 
+                ParameterOverrides: !Sub |
                   {
                     "BucketName" : "${ReleaseDomain}"
                   }
@@ -108,12 +107,11 @@ Resources:
               InputArtifacts:
                 - Name: SourceOutput
               RoleArn: !Sub arn:aws:iam::${ReleaseAccount}:role/PipelineRole
-            -
-              Name: DeployRelease
+            - Name: DeployRelease
               ActionTypeId:
                 Category: Build
                 Owner: AWS
-                Version: "1"
+                Version: '1'
                 Provider: CodeBuild
               Configuration:
                 ProjectName: !Sub ${AWS::StackName}-CodeBuildProject
@@ -136,12 +134,9 @@ Resources:
                       "value": "release"
                     }
                   ]
-              InputArtifacts: 
-                - 
-                  Name: SourceOutput
+              InputArtifacts:
+                - Name: SourceOutput
               RunOrder: 2
-
-
 
   ##
   # IAM
@@ -168,20 +163,17 @@ Resources:
       PolicyDocument:
         Version: 2012-10-17
         Statement:
-          -
-            Effect: Allow
+          - Effect: Allow
             Action:
               - s3:*
             Resource:
               - !Sub arn:aws:s3:::${S3BucketArtifact}/*
               - !Sub arn:aws:s3:::${S3BucketArtifact}
-          -
-            Effect: Allow
+          - Effect: Allow
             Action:
               - kms:Decrypt
             Resource: !GetAtt KMSKey.Arn
-          -
-            Effect: Allow
+          - Effect: Allow
             Action:
               - logs:CreateLogGroup
               - logs:CreateLogStream
@@ -209,8 +201,7 @@ Resources:
       AssumeRolePolicyDocument:
         Version: 2012-10-17
         Statement:
-          -
-            Effect: Allow
+          - Effect: Allow
             Principal:
               Service:
                 - codepipeline.amazonaws.com
@@ -238,7 +229,7 @@ Resources:
               - iam:ListRoles
               - iam:PassRole
             Resource:
-              - !Sub "arn:aws:iam::${AWS::AccountId}:*"
+              - !Sub 'arn:aws:iam::${AWS::AccountId}:*'
           - Sid: kms
             Effect: Allow
             Action:
@@ -269,7 +260,6 @@ Resources:
       Roles:
         - !Ref IAMRolePipeline
 
-
   ##
   # KMS
   ##
@@ -283,8 +273,7 @@ Resources:
         Version: 2012-10-17
         Id: Key
         Statement:
-          -
-            Sid: Allows admin of the key
+          - Sid: Allows admin of the key
             Effect: Allow
             Principal:
               AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
@@ -301,9 +290,8 @@ Resources:
               - kms:Delete*
               - kms:ScheduleKeyDeletion
               - kms:CancelKeyDeletion
-            Resource: "*"
-          -
-            Sid: Allow use of the key for CryptoGraphy Lambda
+            Resource: '*'
+          - Sid: Allow use of the key for CryptoGraphy Lambda
             Effect: Allow
             Principal:
               AWS:
@@ -316,7 +304,7 @@ Resources:
               - kms:ReEncrypt*
               - kms:GenerateDataKey*
               - kms:DescribeKey
-            Resource: "*"
+            Resource: '*'
 
   KMSAlias:
     Type: AWS::KMS::Alias
