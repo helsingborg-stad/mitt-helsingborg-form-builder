@@ -6,6 +6,7 @@ import { InputFieldPropType } from '../../../../types/PropTypes';
 const fields: FieldDescriptor[] = [
   { name: 'displayText', type: 'text', initialValue: '', label: 'Display text' },
   { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
+  { name: 'id', type: 'text', initialValue: '', label: 'Choice ID' },
 ];
 
 const CheckboxListChoice: React.FC<InputFieldPropType> = (props: InputFieldPropType) => {

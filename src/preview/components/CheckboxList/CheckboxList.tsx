@@ -12,10 +12,11 @@ interface Props {
 interface CheckboxListChoice {
   displayText: string;
   tags?: string[];
+  id?: string;
 }
 
 interface CheckboxListProps {
-  choices: CheckboxListChoice[];
+  choices?: CheckboxListChoice[];
 }
 
 type ComponentProps = Props & CheckboxListProps;
@@ -24,7 +25,7 @@ type ComponentProps = Props & CheckboxListProps;
 const CheckboxList: React.FC<ComponentProps> = (props) => {
   return (
     <FormGroup row>
-      {props.choices.map((choice) => (
+      {props.choices?.map((choice) => (
         <>
           <FormControlLabel control={<Checkbox />} label={<Text>{choice.displayText}</Text>} />
         </>
