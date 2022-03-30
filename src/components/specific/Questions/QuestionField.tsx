@@ -15,6 +15,7 @@ import HelpField from './HelpField';
 import CardComponentField from './InputTypes/CardComponentField';
 import { colorChoices } from '../../../helpers/colors';
 import ConditionInput from '../../general/SmartInputs/ConditionInput';
+import CheckboxListChoice from './InputTypes/CheckboxListChoice';
 
 const questionFields: FieldDescriptor[] = [
   { name: 'label', type: 'text', initialValue: '', label: 'Label' },
@@ -79,6 +80,7 @@ const typeChoices: {
   { selectValue: 'pdfUploader', displayName: 'PDF Uploader', inputType: 'pdfUploader' },
   { selectValue: 'pdfViewer', displayName: 'PDF Viewer', inputType: 'pdfViewer' },
   { selectValue: 'bulletList', displayName: 'Bullet list', inputType: 'bulletList' },
+  { selectValue: 'checkboxList', displayName: 'Checkbox list', inputType: 'checkboxList' },
 ];
 
 const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
@@ -270,6 +272,18 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
       choices: colorChoices,
     },
     { name: 'answers', type: 'tags', initialValue: '', label: 'Bullets (enter as comma-separated list of words.)' },
+  ],
+  checkboxList: [
+    {
+      name: 'colorSchema',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
+    { name: 'choices', type: 'array', initialValue: '', label: 'Choices', inputField: CheckboxListChoice },
+    { name: 'disableValueStorage', type: 'checkbox', initialValue: '', label: 'Disable value storage' },
+    { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
   ],
 };
 

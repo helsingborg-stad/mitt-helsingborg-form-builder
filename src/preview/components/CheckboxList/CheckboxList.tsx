@@ -8,16 +8,32 @@ interface Props {
   color?: 'blue' | 'green' | 'purple' | 'red';
   size?: 'small' | 'medium' | 'large';
 }
+
+interface CheckboxListChoice {
+  displayText: string;
+  tags?: string[];
+}
+
+interface CheckboxListProps {
+  choices: CheckboxListChoice[];
+}
+
+type ComponentProps = Props & CheckboxListProps;
+
 /** A component with a checkbox next to a descriptive text, and possibly a help button */
-const CheckboxField: React.FC<Props> = ({ text, ...rest }) => {
+const CheckboxList: React.FC<ComponentProps> = (props) => {
   return (
     <FormGroup row>
-      <FormControlLabel control={<Checkbox />} label={<Text>{text}</Text>} />
+      {props.choices.map((choice) => (
+        <>
+          <FormControlLabel control={<Checkbox />} label={<Text>{choice.displayText}</Text>} />
+        </>
+      ))}
     </FormGroup>
   );
 };
 
-CheckboxField.propTypes = {
+CheckboxList.propTypes = {
   /**
    * The text to show at the side of the checkbox.
    */
@@ -32,9 +48,9 @@ CheckboxField.propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']),
 };
 
-CheckboxField.defaultProps = {
+CheckboxList.defaultProps = {
   color: 'blue',
   size: 'small',
 };
 
-export default CheckboxField;
+export default CheckboxList;
