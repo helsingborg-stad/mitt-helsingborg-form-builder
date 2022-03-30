@@ -32,7 +32,8 @@ export type InputType =
   | 'pdfUploader'
   | 'pdfViewer'
   | 'sign'
-  | 'bulletList';
+  | 'bulletList'
+  | 'checkboxList';
 
 export default interface FieldDescriptor {
   name: string;
