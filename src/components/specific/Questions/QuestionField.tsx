@@ -244,6 +244,7 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
       initialValue: '',
       label: 'Max Number of documents (leave blank for no limit)',
     },
+    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
   ],
   pdfViewer: [
     {
