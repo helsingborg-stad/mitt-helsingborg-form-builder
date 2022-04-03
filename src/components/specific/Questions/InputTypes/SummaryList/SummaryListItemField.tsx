@@ -9,8 +9,8 @@ import { Form } from '../../../../../types/FormTypes';
 import { getPropertyFromDottedString } from '../../../../../helpers/object';
 import CategorySelect from './CategorySelect';
 
-const styleField: FieldDescriptor = {
-  name: 'styleField',
+const fieldStyle: FieldDescriptor = {
+  name: 'fieldStyle',
   type: 'select',
   initialValue: '',
   label: 'Field style',
@@ -71,7 +71,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
       initialValue: '',
       label: 'Input id (should match the id of repeater input field id)',
     },
-    styleField,
+    fieldStyle,
   ],
   arrayNumber: [
     {
@@ -80,7 +80,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
       initialValue: '',
       label: 'Input id (should match the id of repeater input field id)',
     },
-    styleField,
+    fieldStyle,
   ],
   arrayDate: [
     {
@@ -89,7 +89,7 @@ const extraInputs: Record<string, FieldDescriptor[]> = {
       initialValue: 'Default',
       label: 'Input id (should match the id of repeater input field id)',
     },
-    styleField,
+    fieldStyle,
   ],
   editableListText: [
     {
