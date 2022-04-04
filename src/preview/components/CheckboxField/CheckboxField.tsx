@@ -9,7 +9,7 @@ interface Props {
   size?: 'small' | 'medium' | 'large';
 }
 /** A component with a checkbox next to a descriptive text, and possibly a help button */
-const CheckboxField: React.FC<Props> = ({ text, ...rest }) => {
+const CheckboxField: React.FC<Props> = ({ text }) => {
   return (
     <FormGroup row>
       <FormControlLabel control={<Checkbox />} label={<Text>{text}</Text>} />
