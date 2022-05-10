@@ -6,15 +6,15 @@ export enum FileType {
 
 export const fileTypes = [
   {
-    value: 'all',
+    value: FileType.ALL,
     name: 'All file types',
   },
   {
-    value: 'pdf',
+    value: FileType.PDF,
     name: 'Only Pdf',
   },
   {
-    value: 'images',
+    value: FileType.IMAGES,
     name: 'Only images',
   },
 ];
