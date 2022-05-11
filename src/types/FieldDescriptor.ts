@@ -31,6 +31,7 @@ export type InputType =
   | 'imageViewer'
   | 'pdfUploader'
   | 'pdfViewer'
+  | 'fileUploaderList'
   | 'sign'
   | 'bulletList'
   | 'checkboxList';
