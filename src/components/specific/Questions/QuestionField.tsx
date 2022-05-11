@@ -79,6 +79,7 @@ const typeChoices: {
   { selectValue: 'imageViewer', displayName: 'Image Viewer', inputType: 'imageViewer' },
   { selectValue: 'pdfUploader', displayName: 'PDF Uploader', inputType: 'pdfUploader' },
   { selectValue: 'pdfViewer', displayName: 'PDF Viewer', inputType: 'pdfViewer' },
+  { selectValue: 'fileUploaderList', displayName: 'File Uploader List', inputType: 'fileUploaderList' },
   { selectValue: 'bulletList', displayName: 'Bullet list', inputType: 'bulletList' },
   { selectValue: 'checkboxList', displayName: 'Checkbox list', inputType: 'checkboxList' },
 ];
@@ -264,6 +265,29 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
       helpText: 'The ids of pdf upload components, from which the image viewer will display uploaded documents.',
     },
   ],
+  fileUploaderList: [
+    {
+      name: 'colorSchema',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
+    { name: 'buttonText', type: 'text', initialValue: '', label: 'Button text' },
+    {
+      name: 'initialValues',
+      type: 'tags',
+      initialValue: '',
+      label: 'Values (enter as comma-separated list of words.)',
+    },
+    {
+      name: 'maxDocuments',
+      type: 'text',
+      initialValue: '',
+      label: 'Max Number of documents (leave blank for no limit)',
+    },
+    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
+  ],
   bulletList: [
     {
       name: 'colorSchema',
@@ -272,7 +296,12 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
       label: 'Color theme',
       choices: colorChoices,
     },
-    { name: 'answers', type: 'tags', initialValue: '', label: 'Bullets (enter as comma-separated list of words.)' },
+    {
+      name: 'initialValues',
+      type: 'tags',
+      initialValue: '',
+      label: 'Bullets (enter as comma-separated list of words.)',
+    },
   ],
   checkboxList: [
     {
