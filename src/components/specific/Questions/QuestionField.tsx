@@ -82,7 +82,6 @@ const typeChoices: {
   { selectValue: 'pdfViewer', displayName: 'PDF Viewer', inputType: 'pdfViewer' },
   { selectValue: 'bulletList', displayName: 'Bullet list', inputType: 'bulletList' },
   { selectValue: 'checkboxList', displayName: 'Checkbox list', inputType: 'checkboxList' },
-  { selectValue: 'bulletList', displayName: 'Bullet list', inputType: 'bulletList' },
   { selectValue: 'filePicker', displayName: 'File picker', inputType: 'filePicker' },
 ];
 
