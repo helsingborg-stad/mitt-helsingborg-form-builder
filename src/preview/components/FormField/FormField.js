@@ -20,6 +20,7 @@ import PdfViewer from '../PdfViewer/ImageViewer';
 import BulletList from '../BulletList/BulletList';
 import CheckboxList from '../CheckboxList/CheckboxList';
 import FilePicker from '../FilePicker/FilePicker';
+import FileViewer from '../FileViewer/FileViewer';
 
 const inputTypes = {
   text: {
@@ -85,6 +86,9 @@ const inputTypes = {
   },
   filePicker: {
     component: FilePicker,
+  },
+  fileViewer: {
+    component: FileViewer,
   },
 };
 

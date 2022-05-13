@@ -84,6 +84,7 @@ const typeChoices: {
   { selectValue: 'bulletList', displayName: 'Bullet list', inputType: 'bulletList' },
   { selectValue: 'checkboxList', displayName: 'Checkbox list', inputType: 'checkboxList' },
   { selectValue: 'filePicker', displayName: 'File picker', inputType: 'filePicker' },
+  { selectValue: 'fileViewer', displayName: 'File Viewer', inputType: 'fileViewer' },
 ];
 
 const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
@@ -328,6 +329,22 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     { name: 'buttonText', type: 'text', initialValue: 'Ladda upp fil', label: 'Button text' },
     { name: 'fileType', type: 'select', initialValue: '', choices: fileTypes, label: 'Allowed file types' },
     { name: 'maxFiles', type: 'number', initialValue: 100, label: 'Max Number of files (default 100)' },
+  ],
+  fileViewer: [
+    {
+      name: 'colorSchema',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
+    {
+      name: 'questionIds',
+      type: 'tags',
+      initialValue: '',
+      label: 'QuestionIds to display documents from (enter as comma-separated list of words)',
+      helpText: 'The ids of pdf upload components, from which the image viewer will display uploaded documents.',
+    },
   ],
 };
 
