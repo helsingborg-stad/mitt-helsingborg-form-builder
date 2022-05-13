@@ -34,12 +34,13 @@ export type InputType =
   | 'fileUploaderList'
   | 'sign'
   | 'bulletList'
-  | 'checkboxList';
+  | 'checkboxList'
+  | 'filePicker';
 
 export default interface FieldDescriptor {
   name: string;
   type: InputType;
-  initialValue: string | boolean;
+  initialValue: string | boolean | number;
   placeholder?: string;
   label: string;
   choices?: Record<string, string>[];

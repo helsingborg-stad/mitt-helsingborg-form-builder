@@ -14,6 +14,7 @@ import SelectChoice from './InputTypes/SelectChoice';
 import HelpField from './HelpField';
 import CardComponentField from './InputTypes/CardComponentField';
 import { colorChoices } from '../../../helpers/colors';
+import { fileTypes, FileType } from '../../../helpers/fileTypes';
 import ConditionInput from '../../general/SmartInputs/ConditionInput';
 import CheckboxListChoice from './InputTypes/CheckboxListChoice';
 
@@ -82,6 +83,7 @@ const typeChoices: {
   { selectValue: 'fileUploaderList', displayName: 'File Uploader List', inputType: 'fileUploaderList' },
   { selectValue: 'bulletList', displayName: 'Bullet list', inputType: 'bulletList' },
   { selectValue: 'checkboxList', displayName: 'Checkbox list', inputType: 'checkboxList' },
+  { selectValue: 'filePicker', displayName: 'File picker', inputType: 'filePicker' },
 ];
 
 const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
@@ -314,6 +316,18 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     { name: 'choices', type: 'array', initialValue: '', label: 'Choices', inputField: CheckboxListChoice },
     { name: 'disableValueStorage', type: 'checkbox', initialValue: '', label: 'Disable value storage' },
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
+  ],
+  filePicker: [
+    {
+      name: 'colorSchema',
+      type: 'select',
+      initialValue: '',
+      label: 'Color theme',
+      choices: colorChoices,
+    },
+    { name: 'buttonText', type: 'text', initialValue: 'Ladda upp fil', label: 'Button text' },
+    { name: 'fileType', type: 'select', initialValue: '', choices: fileTypes, label: 'Allowed file types' },
+    { name: 'maxFiles', type: 'number', initialValue: 100, label: 'Max Number of files (default 100)' },
   ],
 };
 
