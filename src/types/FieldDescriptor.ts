@@ -35,7 +35,8 @@ export type InputType =
   | 'sign'
   | 'bulletList'
   | 'checkboxList'
-  | 'filePicker';
+  | 'filePicker'
+  | 'fileViewer';
 
 export default interface FieldDescriptor {
   name: string;
