@@ -329,6 +329,7 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     { name: 'buttonText', type: 'text', initialValue: 'Ladda upp fil', label: 'Button text' },
     { name: 'fileType', type: 'select', initialValue: '', choices: fileTypes, label: 'Allowed file types' },
     { name: 'maxFiles', type: 'number', initialValue: 100, label: 'Max Number of files (default 100)' },
+    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
   ],
   fileViewer: [
     {
