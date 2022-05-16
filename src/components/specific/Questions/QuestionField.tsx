@@ -342,8 +342,8 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
       name: 'questionIds',
       type: 'tags',
       initialValue: '',
-      label: 'QuestionIds to display documents from (enter as comma-separated list of words)',
-      helpText: 'The ids of pdf upload components, from which the image viewer will display uploaded documents.',
+      label: 'Question ids to display files from (enter as comma-separated list of words)',
+      helpText: 'The question ids of filepicker components, from which the file viewer will display uploaded files.',
     },
   ],
 };
