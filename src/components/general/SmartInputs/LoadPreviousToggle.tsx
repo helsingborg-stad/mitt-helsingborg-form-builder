@@ -11,6 +11,7 @@ const emptyUser: User = {
   mobilePhone: '',
   email: '',
   civilStatus: '',
+  personalNumber: '',
   address: {
     street: '',
     postalCode: '',
