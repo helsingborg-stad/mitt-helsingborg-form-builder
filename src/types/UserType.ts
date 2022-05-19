@@ -5,6 +5,7 @@ export interface User {
   email: string;
   civilStatus: string; //might not actually be a string...
   address: Address;
+  personalNumber: string;
 }
 
 export interface Address {
