@@ -83,7 +83,7 @@ const typeChoices: {
   { selectValue: 'fileUploaderList', displayName: 'File Uploader List', inputType: 'fileUploaderList' },
   { selectValue: 'bulletList', displayName: 'Bullet list', inputType: 'bulletList' },
   { selectValue: 'checkboxList', displayName: 'Checkbox list', inputType: 'checkboxList' },
-  { selectValue: 'filePicker', displayName: 'File picker', inputType: 'filePicker' },
+  { selectValue: 'filePicker', displayName: 'File picker', inputType: 'filePicker', validationType: 'filePicker' },
   { selectValue: 'fileViewer', displayName: 'File Viewer', inputType: 'fileViewer' },
 ];
 

@@ -15,7 +15,8 @@ export type ValidationFieldTypes =
   | 'phoneNumber'
   | 'postalCode'
   | 'checkbox'
-  | 'select';
+  | 'select'
+  | 'filePicker';
 
 const ValidationFieldRules: Record<ValidationFieldTypes, ValidationObject> = {
   text: {
@@ -115,6 +116,10 @@ const ValidationFieldRules: Record<ValidationFieldTypes, ValidationObject> = {
         message: 'Postnummret du angav är inte giltigt',
       },
     ],
+  },
+  filePicker: {
+    isRequired: false,
+    rules: [],
   },
 };
 
