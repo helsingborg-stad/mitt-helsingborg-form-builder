@@ -186,7 +186,10 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     { name: 'loadPrevious', type: 'loadPreviousToggle', initialValue: '', label: 'Load data from previous case?' },
     { name: 'inputs', type: 'array', initialValue: '', label: 'Inputs (rows)', inputField: RepeaterInputField },
   ],
-  radioGroup: [{ name: 'choices', type: 'array', initialValue: '', label: 'Choices', inputField: RadioButtonChoice }],
+  radioGroup: [
+    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
+    { name: 'choices', type: 'array', initialValue: '', label: 'Choices', inputField: RadioButtonChoice },
+  ],
   select: [{ name: 'items', type: 'array', initialValue: '', label: 'Choices', inputField: SelectChoice }],
   card: [
     {
