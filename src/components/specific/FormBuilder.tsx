@@ -56,12 +56,24 @@ export interface FormBuilderProps {
   onSubmit: (form: FormType) => void;
 }
 
-const computeMatrix = (stepStruct: ListItem[], steps: Step[]): StepperActions[][] => {
-  const indices: Record<string, number> = steps.reduce((res: Record<string, number>, current, index) => {
-    res[current.id] = index;
+export const getStepstructureIds = (stepStructure: ListItem[]): string[] => {
+  const ids: string[] = [];
+
+  stepStructure.forEach((childStepStructure) => {
+    ids.push(childStepStructure.id);
+    ids.push(...getStepstructureIds(childStepStructure.children ?? []));
+  });
+
+  return ids;
+};
+
+export const computeMatrix = (stepStruct: ListItem[]): StepperActions[][] => {
+  const stepStuctureIds = getStepstructureIds(stepStruct);
+  const indices: Record<string, number> = stepStuctureIds.reduce((res: Record<string, number>, current, index) => {
+    res[current] = index;
     return res;
   }, {});
-  const emptyMatrix = [...Array(steps.length)].map((e) => Array(steps.length).fill('none'));
+  const emptyMatrix = [...Array(stepStuctureIds.length)].map((e) => Array(stepStuctureIds.length).fill('none'));
 
   const getDownIndices = (item: ListItem) => {
     if (item.children) {
@@ -215,7 +227,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
         return (
           <Form
             onSubmit={(e) => {
-              const matrix = computeMatrix(stepStructure, values.steps || []);
+              const matrix = computeMatrix(stepStructure);
               values.connectivityMatrix = matrix;
               setValues(values);
               handleSubmit(e);
