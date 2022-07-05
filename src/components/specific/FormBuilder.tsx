@@ -170,6 +170,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
       }}
     >
       {({ values, setFieldValue, handleSubmit, setValues }) => {
+        const { steps = [] } = values;
         return (
           <Form
             onSubmit={(e) => {
@@ -182,15 +183,15 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
             <div className={classes.wrapper}>
               <div className={classes.column}>
                 <StepList
-                  steps={values.steps || []}
-                  deleteStep={deleteStep(values.steps || [], setFieldValue)}
-                  copyStep={copyStep(values.steps || [], setFieldValue)}
-                  addStep={addStep(values.steps || [], setFieldValue)}
+                  steps={steps}
                   selectedStepId={selectedStepId}
-                  selectStep={selectStep}
                   stepStructure={stepStructure}
                   setStepStructure={setStepStruct(setFieldValue)}
-                  onStepStructureOrderChange={handleStepStructureOrderChange(values.steps || [], setFieldValue)}
+                  selectStep={selectStep}
+                  deleteStep={deleteStep(steps, setFieldValue)}
+                  copyStep={copyStep(steps, setFieldValue)}
+                  addStep={addStep(steps, setFieldValue)}
+                  onStepStructureOrderChange={handleStepStructureOrderChange(steps, setFieldValue)}
                 />
               </div>
               <div className={classes.column}>{renderFormOrStep(values)}</div>
