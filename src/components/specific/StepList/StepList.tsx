@@ -49,7 +49,7 @@ interface Props {
   selectedStepId: string;
   selectStep: (id: string) => void;
   stepStructure: ListItem[];
-  setStepStructure: (steps: Step[], items: ListItem[] | ((prevState: ListItem[]) => ListItem[])) => void;
+  setStepStructure: (items: ListItem[] | ((prevState: ListItem[]) => ListItem[])) => void;
 }
 
 const StepList: React.FC<Props> = ({
@@ -76,7 +76,6 @@ const StepList: React.FC<Props> = ({
 
     if (steps && stepStructure.length === 0) {
       setStepStructure(
-        steps,
         steps.map((step) => {
           return { id: step.id || '', text: step.title !== '' ? step.title : 'Unnamed', group: uuidv4() };
         }),
@@ -87,7 +86,7 @@ const StepList: React.FC<Props> = ({
         return acc;
       }, {});
       const newStepStruct = stepStructure.map((s) => recursiveReplace(titles, s));
-      setStepStructure(steps, newStepStruct);
+      setStepStructure(newStepStruct);
     }
   }, [steps]);
 
@@ -105,7 +104,7 @@ const StepList: React.FC<Props> = ({
       return [];
     };
     const newStepStruct = stepStructure.flatMap((i) => recursiveDelete(i));
-    setStepStructure(steps, newStepStruct);
+    setStepStructure(newStepStruct);
     deleteStep(item.id);
   };
 
@@ -113,16 +112,18 @@ const StepList: React.FC<Props> = ({
     e.stopPropagation();
     const newStep = cpStep(item.id);
     const newSteps = [...stepStructure, { id: newStep?.id || '', text: newStep.title, group: uuidv4() }];
-    setStepStructure([...steps, newStep], newSteps);
+    setStepStructure(newSteps);
   };
+
   const addStep = () => {
     const newStep = aStep();
     const newSteps = [
       ...stepStructure,
       { id: newStep?.id || '', text: newStep.title === '' ? 'Unnamed' : newStep.title, group: uuidv4() },
     ];
-    setStepStructure([...steps, newStep], newSteps);
+    setStepStructure(newSteps);
   };
+
   const toggleSelection = (item: Item) => () => {
     selectStep(item.id);
   };
@@ -180,7 +181,7 @@ const StepList: React.FC<Props> = ({
         maxDepth={3}
         renderCollapseIcon={renderCollapseIcon}
         onChange={(items: ListItem[]) => {
-          setStepStructure(steps || [], items);
+          setStepStructure(items);
         }}
         collapsed
       />

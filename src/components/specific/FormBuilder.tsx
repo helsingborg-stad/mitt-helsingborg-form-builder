@@ -209,7 +209,6 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
   };
 
   const setStepStruct = (setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void) => (
-    steps: Step[],
     items: ListItem[] | ((prevState: ListItem[]) => ListItem[]),
   ) => {
     setStepStructure(items);
