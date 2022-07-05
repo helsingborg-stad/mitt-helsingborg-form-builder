@@ -1,4 +1,4 @@
-import { computeMatrix, getStepstructureIds } from '../FormBuilder';
+import { computeMatrix, getStepstructureIds } from '../FormBuilderHelpers';
 
 const stepStructure = [
   {

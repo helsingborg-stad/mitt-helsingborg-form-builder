@@ -1,136 +1,22 @@
 import React, { useState } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Formik, Form } from 'formik';
 import { Button, Paper, FormControlLabel, FormGroup, Switch, Typography } from '@material-ui/core';
 import ReactJson from 'react-json-view';
 import { v4 as uuidv4 } from 'uuid';
-import { Form as FormType, Step, StepperActions, ListItem } from '../../types/FormTypes';
+import { Form as FormType, Step, ListItem } from '../../types/FormTypes';
 import StepField from './Steps/StepField';
 import FormDataField from './FormDataField';
 import StepList from './StepList/StepList';
 import StepPreview from '../../preview/step/Step';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '20ch',
-      },
-    },
-    subcontainer: {
-      flexGrow: 1,
-      maxWidth: 752,
-      margin: theme.spacing(4, 0, 2),
-      backgroundColor: 'rgba(255, 255, 255, 0.10)',
-      borderWidth: '1px',
-      borderStyle: 'solid',
-      boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
-      padding: theme.spacing(1),
-      position: 'relative',
-      minHeight: '45px',
-    },
-    input: {
-      '& > *': {
-        width: '500px',
-      },
-    },
-    button: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '2ch',
-      },
-    },
-    wrapper: {
-      display: 'grid',
-      gridTemplateColumns: '400px 800px 200px',
-    },
-    column: {
-      padding: theme.spacing(2),
-    },
-  }),
-);
+import { computeMatrix } from './FormBuilderHelpers';
+
+import { useStyles } from './useFormBuilderStyles';
 
 export interface FormBuilderProps {
   form: FormType;
   onSubmit: (form: FormType) => void;
 }
-
-export const getStepstructureIds = (stepStructure: ListItem[]): string[] => {
-  const ids: string[] = [];
-
-  stepStructure.forEach((childStepStructure) => {
-    ids.push(childStepStructure.id);
-    ids.push(...getStepstructureIds(childStepStructure.children ?? []));
-  });
-
-  return ids;
-};
-
-export const computeMatrix = (stepStruct: ListItem[]): StepperActions[][] => {
-  const stepStuctureIds = getStepstructureIds(stepStruct);
-  const indices: Record<string, number> = stepStuctureIds.reduce((res: Record<string, number>, current, index) => {
-    res[current] = index;
-    return res;
-  }, {});
-  const emptyMatrix = [...Array(stepStuctureIds.length)].map((e) => Array(stepStuctureIds.length).fill('none'));
-
-  const getDownIndices = (item: ListItem) => {
-    if (item.children) {
-      const downIndices: number[] = [];
-      const children = item.children;
-      children.forEach((child, index) => {
-        if (index === 0 || child.group !== children[index - 1].group) {
-          downIndices.push(indices[child.id]);
-        }
-      });
-      return downIndices;
-    }
-    return [];
-  };
-  const getUpIndices = (item: ListItem) => {
-    if (item.children) return item.children.map((child) => indices[child.id]);
-    return [];
-  };
-
-  const recursiveBuild = (stepStruct: ListItem[], matrix: StepperActions[][], currentLevel: number) => {
-    stepStruct.forEach((currentStep, index) => {
-      const currentStepIndex = indices[currentStep.id];
-      if (currentLevel === 0) {
-        if (index > 0) {
-          const backIndex = indices[stepStruct[index - 1].id];
-          matrix[currentStepIndex][backIndex] = 'back';
-        }
-        if (index < stepStruct.length - 1) {
-          const nextIndex = indices[stepStruct[index + 1].id];
-          matrix[currentStepIndex][nextIndex] = 'next';
-        }
-      }
-      if (currentLevel > 0) {
-        if (index > 0 && currentStep.group === stepStruct[index - 1].group) {
-          const backIndex = indices[stepStruct[index - 1].id];
-          matrix[currentStepIndex][backIndex] = 'back';
-        }
-        if (index < stepStruct.length - 1 && currentStep.group === stepStruct[index + 1].group) {
-          const nextIndex = indices[stepStruct[index + 1].id];
-          matrix[currentStepIndex][nextIndex] = 'next';
-        }
-      }
-
-      getDownIndices(currentStep).forEach((n) => {
-        matrix[currentStepIndex][n] = 'down';
-      });
-      getUpIndices(currentStep).forEach((n) => {
-        matrix[n][currentStepIndex] = 'up';
-      });
-      if (currentStep.children) {
-        recursiveBuild(currentStep.children, matrix, currentLevel + 1);
-      }
-    });
-    return matrix;
-  };
-  return recursiveBuild(stepStruct, emptyMatrix, 0);
-};
 
 const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilderProps) => {
   const { id } = form;
