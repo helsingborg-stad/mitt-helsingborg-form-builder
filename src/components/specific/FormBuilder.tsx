@@ -7,7 +7,7 @@ import FormDataField from './FormDataField';
 import StepList from './StepList/StepList';
 import StepPreview from '../../preview/step/Step';
 
-import { getStepstructureIds } from './FormBuilderHelpers';
+import { matchStepStructureOrder, recursiveDelete } from './FormBuilderHelpers';
 
 import { useStyles } from './useFormBuilderStyles';
 
@@ -59,38 +59,6 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
       onSetFieldValue('stepStructure', newStepStruct);
     }
   }, [steps]);
-
-  const matchStepStructureOrder = (stepStructures: ListItem[], steps: Step[]): Step[] => {
-    const stepStructureIds = getStepstructureIds(stepStructures);
-
-    const newStepsOrder: Step[] = [];
-
-    stepStructureIds.forEach((structureId: string) => {
-      const step = steps.find(({ id }) => structureId === id);
-
-      if (step !== undefined) {
-        newStepsOrder.push(step);
-      }
-    });
-    return newStepsOrder;
-  };
-
-  const recursiveDelete = (item: ListItem, stepId: string): ListItem[] => {
-    if (stepId === item.id) {
-      return item?.children || [];
-    }
-    if (item.children) {
-      return [
-        {
-          id: item.id,
-          group: item.group,
-          text: item.text,
-          children: item.children.flatMap((e) => recursiveDelete(e, stepId)),
-        },
-      ];
-    }
-    return [];
-  };
 
   const updateFormValues = (newStepStructure: ListItem[], newSteps: Step[]) => {
     const reorderedSteps = matchStepStructureOrder(newStepStructure, newSteps);

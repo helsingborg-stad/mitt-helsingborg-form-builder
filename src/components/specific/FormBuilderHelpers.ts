@@ -1,4 +1,36 @@
-import { StepperActions, ListItem } from '../../types/FormTypes';
+import { StepperActions, ListItem, Step } from '../../types/FormTypes';
+
+export const recursiveDelete = (item: ListItem, stepId: string): ListItem[] => {
+  if (stepId === item.id) {
+    return item?.children || [];
+  }
+  if (item.children) {
+    return [
+      {
+        id: item.id,
+        group: item.group,
+        text: item.text,
+        children: item.children.flatMap((e) => recursiveDelete(e, stepId)),
+      },
+    ];
+  }
+  return [];
+};
+
+export const matchStepStructureOrder = (stepStructures: ListItem[], steps: Step[]): Step[] => {
+  const stepStructureIds = getStepstructureIds(stepStructures);
+
+  const newStepsOrder: Step[] = [];
+
+  stepStructureIds.forEach((structureId: string) => {
+    const step = steps.find(({ id }) => structureId === id);
+
+    if (step !== undefined) {
+      newStepsOrder.push(step);
+    }
+  });
+  return newStepsOrder;
+};
 
 export const getStepstructureIds = (stepStructure: ListItem[]): string[] => {
   const ids: string[] = [];
