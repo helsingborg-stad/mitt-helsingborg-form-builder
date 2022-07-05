@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import { Step, ListItem } from '../../../types/FormTypes';
+import React from 'react';
+import { ListItem } from '../../../types/FormTypes';
 import { Item } from 'react-nestable';
 import Nestable from '../../../nestable/Nestable';
 import { Button, createStyles, IconButton, makeStyles, Paper, Theme, Typography } from '@material-ui/core';
 import { ExpandMore, ExpandLess, Clear, FileCopy } from '@material-ui/icons';
-import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,7 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 interface Props {
-  steps: Step[];
   count?: number;
   deleteStep: (id: string) => void;
   copyStep: (id: string) => void;
@@ -48,48 +46,19 @@ interface Props {
   selectedStepId: string;
   selectStep: (id: string) => void;
   stepStructure: ListItem[];
-  setStepStructure: (items: ListItem[] | ((prevState: ListItem[]) => ListItem[])) => void;
   onStepStructureOrderChange: (items: ListItem[]) => void;
 }
 
 const StepList: React.FC<Props> = ({
-  steps,
+  stepStructure,
+  selectedStepId,
   deleteStep,
   copyStep,
   addStep,
-  selectedStepId,
   selectStep,
-  stepStructure,
-  setStepStructure,
   onStepStructureOrderChange,
 }: Props) => {
   const classes = useStyles();
-
-  useEffect(() => {
-    const recursiveReplace = (titles: Record<string, string>, item: ListItem): ListItem => {
-      return {
-        id: item.id,
-        text: titles[item.id] || 'Unnamed',
-        children: item?.children ? item.children.map((i) => recursiveReplace(titles, i)) : [],
-        group: item.group,
-      };
-    };
-
-    if (steps && stepStructure.length === 0) {
-      setStepStructure(
-        steps.map((step) => {
-          return { id: step.id || '', text: step.title !== '' ? step.title : 'Unnamed', group: uuidv4() };
-        }),
-      );
-    } else {
-      const titles = steps.reduce((acc: Record<string, string>, curr: Step) => {
-        acc[curr.id] = curr.title === '' ? 'Unnamed' : curr.title;
-        return acc;
-      }, {});
-      const newStepStruct = stepStructure.map((s) => recursiveReplace(titles, s));
-      setStepStructure(newStepStruct);
-    }
-  }, [steps]);
 
   const toggleSelection = (item: Item) => () => {
     selectStep(item.id);
