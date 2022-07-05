@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Step, ListItem } from '../../../types/FormTypes';
-// import Nestable, { Item } from 'react-nestable';
 import { Item } from 'react-nestable';
 import Nestable from '../../../nestable/Nestable';
 import { Button, createStyles, IconButton, makeStyles, Paper, Theme, Typography } from '@material-ui/core';
