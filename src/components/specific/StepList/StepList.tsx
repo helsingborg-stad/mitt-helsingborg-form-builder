@@ -148,9 +148,7 @@ const StepList: React.FC<Props> = ({
         renderItem={renderItem}
         maxDepth={3}
         renderCollapseIcon={renderCollapseIcon}
-        onChange={(items: ListItem[]) => {
-          onStepStructureOrderChange(items);
-        }}
+        onChange={onStepStructureOrderChange}
         collapsed
       />
       <Button className={classes.button} variant="contained" color="primary" onClick={addStep}>
