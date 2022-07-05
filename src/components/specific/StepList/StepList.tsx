@@ -50,17 +50,19 @@ interface Props {
   selectStep: (id: string) => void;
   stepStructure: ListItem[];
   setStepStructure: (items: ListItem[] | ((prevState: ListItem[]) => ListItem[])) => void;
+  onStepStructureOrderChange: (items: ListItem[]) => void;
 }
 
 const StepList: React.FC<Props> = ({
   steps,
   deleteStep,
-  copyStep: cpStep,
+  copyStep,
   addStep,
   selectedStepId,
   selectStep,
   stepStructure,
   setStepStructure,
+  onStepStructureOrderChange,
 }: Props) => {
   const classes = useStyles();
 
@@ -90,31 +92,6 @@ const StepList: React.FC<Props> = ({
     }
   }, [steps]);
 
-  const delStep = (item: Item) => (e: React.MouseEvent) => {
-    e.stopPropagation();
-    selectStep('');
-
-    const recursiveDelete = (i: ListItem): ListItem[] => {
-      if (item.id === i.id) {
-        return i?.children || [];
-      }
-      if (i.children) {
-        return [{ id: i.id, group: i.group, text: i.text, children: i.children.flatMap((e) => recursiveDelete(e)) }];
-      }
-      return [];
-    };
-    const newStepStruct = stepStructure.flatMap((i) => recursiveDelete(i));
-    setStepStructure(newStepStruct);
-    deleteStep(item.id);
-  };
-
-  const copyStep = (item: Item) => (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const newStep = cpStep(item.id);
-    const newSteps = [...stepStructure, { id: newStep?.id || '', text: newStep.title, group: uuidv4() }];
-    setStepStructure(newSteps);
-  };
-
   const toggleSelection = (item: Item) => () => {
     selectStep(item.id);
   };
@@ -138,12 +115,12 @@ const StepList: React.FC<Props> = ({
                 <Typography style={{ fontSize: '12px', whiteSpace: 'nowrap' }}>{item.text}</Typography>
               </span>
               <div className={`${classes.col}`} style={{ width: 30 }}>
-                <IconButton color="primary" onClick={copyStep(item)}>
+                <IconButton color="primary" onClick={() => copyStep(item.id)}>
                   <FileCopy fontSize="small" />
                 </IconButton>
               </div>
               <div className={`${classes.col}`} style={{ width: 30 }}>
-                <IconButton color="secondary" onClick={delStep(item)}>
+                <IconButton color="secondary" onClick={() => deleteStep(item.id)}>
                   <Clear fontSize="small" />
                 </IconButton>
               </div>
@@ -172,7 +149,7 @@ const StepList: React.FC<Props> = ({
         maxDepth={3}
         renderCollapseIcon={renderCollapseIcon}
         onChange={(items: ListItem[]) => {
-          setStepStructure(items);
+          onStepStructureOrderChange(items);
         }}
         collapsed
       />

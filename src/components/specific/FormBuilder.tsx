@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { Button, Paper, FormControlLabel, FormGroup, Switch, Typography } from '@material-ui/core';
 import ReactJson from 'react-json-view';
@@ -9,7 +9,7 @@ import FormDataField from './FormDataField';
 import StepList from './StepList/StepList';
 import StepPreview from '../../preview/step/Step';
 
-import { computeMatrix } from './FormBuilderHelpers';
+import { computeMatrix, getStepstructureIds } from './FormBuilderHelpers';
 
 import { useStyles } from './useFormBuilderStyles';
 
@@ -25,6 +25,26 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
   const [stepStructure, setStepStructure] = useState(form?.stepStructure || []);
   const classes = useStyles();
 
+  const reorderSteps = (stepStructures: ListItem[], steps: Step[]): Step[] => {
+    const stepStructureIds = getStepstructureIds(stepStructures);
+
+    const newStepsOrder: Step[] = [];
+
+    stepStructureIds.forEach((structureId: string) => {
+      const step = steps.find(({ id }) => structureId === id);
+
+      if (step !== undefined) {
+        newStepsOrder.push(step);
+      }
+    });
+
+    if (newStepsOrder.length !== steps.length) {
+      return steps;
+    }
+
+    return newStepsOrder;
+  };
+
   const addStep = (
     steps: Step[],
     setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void,
@@ -38,20 +58,45 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
       colorSchema: 'blue',
     };
     const newSteps = [...steps, newStep];
-
     const newStepStructureSteps = [...stepStructure, { id: newStep.id, text: newStep.title, group: uuidv4() }];
 
     setStepStructure(newStepStructureSteps);
     setFieldValue('steps', newSteps);
   };
 
+  const recursiveDelete = (item: ListItem, stepId: string): ListItem[] => {
+    if (stepId === item.id) {
+      return item?.children || [];
+    }
+    if (item.children) {
+      return [
+        {
+          id: item.id,
+          group: item.group,
+          text: item.text,
+          children: item.children.flatMap((e) => recursiveDelete(e, stepId)),
+        },
+      ];
+    }
+    return [];
+  };
+
   const deleteStep = (
     steps: Step[],
     setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void,
   ) => (stepId: string) => {
-    const newSteps = steps.filter((s) => s?.id !== stepId);
-    setFieldValue('steps', newSteps);
+    selectStep('');
+
+    const newStepStruct = stepStructure.flatMap((stepStructureItem) => recursiveDelete(stepStructureItem, stepId));
+    const reorderedSteps = reorderSteps(
+      newStepStruct,
+      steps.filter((s) => s.id !== stepId),
+    );
+
+    setStepStructure(newStepStruct);
+    setFieldValue('steps', reorderedSteps);
   };
+
   const copyStep = (
     steps: Step[],
     setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void,
@@ -60,10 +105,25 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
 
     newStep.id = uuidv4();
     newStep.title += ' Copy';
-    const newSteps = [...steps, newStep];
+    const newStepStructure = [...stepStructure, { id: newStep.id, text: newStep.title, group: uuidv4() }];
+    const newSteps = reorderSteps(newStepStructure, [...steps, newStep]);
+
     setFieldValue('steps', newSteps);
+    setStepStructure(newStepStructure);
+
     return newStep;
   };
+
+  const handleStepStructureOrderChange = useCallback(
+    (steps: Step[], setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void) => (
+      newStepStructure: ListItem[],
+    ) => {
+      setStepStructure(newStepStructure);
+      setFieldValue('stepStructure', newStepStructure);
+      setFieldValue('steps', reorderSteps(newStepStructure, steps));
+    },
+    [],
+  );
 
   const renderFormOrStep = (values: { name: string; steps?: Step[] }) => {
     if (values.steps) {
@@ -132,6 +192,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
                   selectStep={selectStep}
                   stepStructure={stepStructure}
                   setStepStructure={setStepStruct(setFieldValue)}
+                  onStepStructureOrderChange={handleStepStructureOrderChange(values.steps || [], setFieldValue)}
                 />
               </div>
               <div className={classes.column}>{renderFormOrStep(values)}</div>
