@@ -110,8 +110,6 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
 
     setFieldValue('steps', newSteps);
     setStepStructure(newStepStructure);
-
-    return newStep;
   };
 
   const handleStepStructureOrderChange = useCallback(

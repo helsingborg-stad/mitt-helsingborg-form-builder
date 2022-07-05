@@ -44,7 +44,7 @@ interface Props {
   steps: Step[];
   count?: number;
   deleteStep: (id: string) => void;
-  copyStep: (id: string) => Step;
+  copyStep: (id: string) => void;
   addStep: () => void;
   selectedStepId: string;
   selectStep: (id: string) => void;
