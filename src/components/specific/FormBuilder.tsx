@@ -30,7 +30,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
     setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void,
   ) => () => {
     const newStep: Step = {
-      title: '',
+      title: 'Unnamed',
       description: '',
       group: '',
       id: uuidv4(),
@@ -38,8 +38,11 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ onSubmit, form }: FormBuilder
       colorSchema: 'blue',
     };
     const newSteps = [...steps, newStep];
+
+    const newStepStructureSteps = [...stepStructure, { id: newStep.id, text: newStep.title, group: uuidv4() }];
+
+    setStepStructure(newStepStructureSteps);
     setFieldValue('steps', newSteps);
-    return newStep;
   };
 
   const deleteStep = (

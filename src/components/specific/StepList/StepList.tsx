@@ -45,7 +45,7 @@ interface Props {
   count?: number;
   deleteStep: (id: string) => void;
   copyStep: (id: string) => Step;
-  addStep: () => Step;
+  addStep: () => void;
   selectedStepId: string;
   selectStep: (id: string) => void;
   stepStructure: ListItem[];
@@ -56,7 +56,7 @@ const StepList: React.FC<Props> = ({
   steps,
   deleteStep,
   copyStep: cpStep,
-  addStep: aStep,
+  addStep,
   selectedStepId,
   selectStep,
   stepStructure,
@@ -112,15 +112,6 @@ const StepList: React.FC<Props> = ({
     e.stopPropagation();
     const newStep = cpStep(item.id);
     const newSteps = [...stepStructure, { id: newStep?.id || '', text: newStep.title, group: uuidv4() }];
-    setStepStructure(newSteps);
-  };
-
-  const addStep = () => {
-    const newStep = aStep();
-    const newSteps = [
-      ...stepStructure,
-      { id: newStep?.id || '', text: newStep.title === '' ? 'Unnamed' : newStep.title, group: uuidv4() },
-    ];
     setStepStructure(newSteps);
   };
 
