@@ -1,6 +1,10 @@
-import { computeMatrix, getStepstructureIds } from '../FormBuilderHelpers';
+import { computeMatrix, getStepstructureIds, matchStepStructureOrder } from '../FormBuilderHelpers';
 
-import { ListItem } from '../../../types/FormTypes';
+import { ListItem, Step } from '../../../types/FormTypes';
+
+function makeSteps(ids: string[]) {
+  return ids.map((id) => ({ id }));
+}
 
 describe('computeMatrix', () => {
   const expectedMatrix = [
@@ -10,26 +14,23 @@ describe('computeMatrix', () => {
   ];
 
   it('returns the death matrix', () => {
-    const stepStructure = [
+    const stepStructure = ([
       {
         children: [],
-        group: '2f200411-9ea6-44a6-b207-7ccdaa5606ba',
         id: '5d29a0be-6b6a-444b-8f39-23dfe78b42a8',
         text: 'Fråga 1',
       },
       {
         children: [],
-        group: '808963dd-8a82-4e7f-9bd7-8449a7b9650a',
         id: '2fd23656-7004-42e5-a68c-828659da574b',
         text: 'Fråga 2',
       },
       {
         children: [],
-        group: '495913a7-b365-4e2a-8552-3a11036d345e',
         id: '652d65f2-1fd5-42a9-9442-ea05d8142ac2',
         text: 'Fråga 3',
       },
-    ];
+    ] as unknown) as ListItem[];
 
     const result = computeMatrix(stepStructure);
 
@@ -37,26 +38,23 @@ describe('computeMatrix', () => {
   });
 
   it('returns the death matrix with changed stepStructure order', () => {
-    const stepStructure = [
+    const stepStructure = ([
       {
         children: [],
-        group: '808963dd-8a82-4e7f-9bd7-8449a7b9650a',
         id: '2fd23656-7004-42e5-a68c-828659da574b',
         text: 'Fråga 2',
       },
       {
         children: [],
-        group: '2f200411-9ea6-44a6-b207-7ccdaa5606ba',
         id: '5d29a0be-6b6a-444b-8f39-23dfe78b42a8',
         text: 'Fråga 1',
       },
       {
         children: [],
-        group: '495913a7-b365-4e2a-8552-3a11036d345e',
         id: '652d65f2-1fd5-42a9-9442-ea05d8142ac2',
         text: 'Fråga 3',
       },
-    ];
+    ] as unknown) as ListItem[];
 
     const result = computeMatrix(stepStructure);
 
@@ -123,5 +121,61 @@ describe('getStepstructureIds', () => {
     const result = getStepstructureIds(stepStructure);
 
     expect(result).toEqual(['1', '2', '3', '4', '5', '6', '7']);
+  });
+});
+
+describe('matchStepStructureOrder', () => {
+  it('matches flattened stepStructure ids order in steps', () => {
+    const stepStructure = ([
+      {
+        children: [],
+        id: '1',
+      },
+      {
+        children: [],
+        id: '2',
+      },
+      {
+        children: [],
+        id: '3',
+      },
+    ] as unknown) as ListItem[];
+
+    const steps = makeSteps(['2', '3', '1']) as Step[];
+
+    const result = matchStepStructureOrder(stepStructure, steps);
+
+    expect(result).toEqual(makeSteps(['1', '2', '3']));
+  });
+
+  it('matches flattened stepStructure ids order (with children) in steps', () => {
+    const stepStructure = ([
+      {
+        children: [
+          {
+            id: '2',
+          },
+        ],
+        id: '1',
+      },
+      {
+        children: [],
+        id: '3',
+      },
+      {
+        children: [
+          {
+            id: '5',
+          },
+        ],
+        id: '4',
+      },
+    ] as unknown) as ListItem[];
+
+    const steps = makeSteps(['1', '4', '2', '3', '5']) as Step[];
+
+    const result = matchStepStructureOrder(stepStructure, steps);
+
+    expect(result).toEqual(makeSteps(['1', '2', '3', '4', '5']));
   });
 });
