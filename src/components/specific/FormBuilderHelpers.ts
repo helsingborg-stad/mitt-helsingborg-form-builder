@@ -49,7 +49,7 @@ export const computeMatrix = (stepStruct: ListItem[]): StepperActions[][] => {
     res[current] = index;
     return res;
   }, {});
-  const emptyMatrix = [...Array(stepStuctureIds.length)].map((e) => Array(stepStuctureIds.length).fill('none'));
+  const emptyMatrix = [...Array(stepStuctureIds.length)].map(() => Array(stepStuctureIds.length).fill('none'));
 
   const getDownIndices = (item: ListItem) => {
     if (item.children) {
