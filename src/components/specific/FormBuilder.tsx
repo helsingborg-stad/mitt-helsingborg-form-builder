@@ -35,11 +35,12 @@ const FormBuilder: React.FC<FormBuilderProps> = ({
 
   useEffect(() => {
     const recursiveReplace = (titles: Record<string, string>, item: ListItem): ListItem => {
+      const { id, group, children = [] } = item;
       return {
-        id: item.id,
-        text: titles[item.id] || 'Unnamed',
-        children: item?.children ? item.children.map((i) => recursiveReplace(titles, i)) : [],
-        group: item.group,
+        id,
+        text: titles[id] || 'Unnamed',
+        children: children.map((i) => recursiveReplace(titles, i)),
+        group,
       };
     };
 
