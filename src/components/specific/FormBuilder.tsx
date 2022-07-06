@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Paper, FormControlLabel, FormGroup, Switch, Typography } from '@material-ui/core';
 import { v4 as uuidv4 } from 'uuid';
-import { Step, ListItem } from '../../types/FormTypes';
+import type { Step, ListItem } from '../../types/FormTypes';
 import StepField from './Steps/StepField';
 import FormDataField from './FormDataField';
 import StepList from './StepList/StepList';
