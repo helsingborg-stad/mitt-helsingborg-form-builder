@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { useParams, Link, Redirect, useLocation } from 'react-router-dom';
+import { Formik, Form as FormikForm } from 'formik';
+import ReactJson from 'react-json-view';
 import FormBuilder from '../components/specific/FormBuilder';
 import { Form, emptyForm } from '../types/FormTypes';
 import FormContext from '../contexts/FormContext';
 import NotificationContext from '../contexts/NotificationsContext';
 
-const useStyles = makeStyles((theme: Theme) =>
+import { computeMatrix } from '../components/specific/FormBuilderHelpers';
+
+const useStyles = makeStyles(() =>
   createStyles({
     inner: {
       width: '90%',
@@ -22,6 +26,7 @@ const FormBuilderScreen: React.FC = () => {
   const [redirectComp, setRedirectComp] = useState(<> </>);
   const { id } = useParams();
   const location = useLocation<{ form?: Form }>();
+  const [showJSON, setShowJSON] = useState(false);
 
   const { updateForm, createForm, getForm } = useContext(FormContext);
   const { showNotification } = useContext(NotificationContext);
@@ -107,13 +112,54 @@ const FormBuilderScreen: React.FC = () => {
     return <h3>Loading...{redirectComp}</h3>;
   }
 
+  const toggleShowJson = () => {
+    setShowJSON((oldValue) => !oldValue);
+  };
+
   return (
     <div>
       <div className={classes.inner}>
         <Link style={{ color: 'white' }} to="/">
           Back to list
         </Link>
-        <FormBuilder onSubmit={onSubmit} form={form} />
+        <Formik
+          initialValues={{ ...form }}
+          onSubmit={(form: Form) => {
+            onSubmit(form);
+          }}
+        >
+          {({ values, setFieldValue, handleSubmit, setValues }) => {
+            const { steps = [], stepStructure = [], name } = values;
+            return (
+              <FormikForm
+                onSubmit={(e) => {
+                  const matrix = computeMatrix(stepStructure);
+                  values.connectivityMatrix = matrix;
+                  setValues(values);
+                  handleSubmit(e);
+                }}
+              >
+                <FormBuilder
+                  steps={steps}
+                  stepStructure={stepStructure}
+                  name={name}
+                  formId={form.id}
+                  showJson={showJSON}
+                  onSetFieldValue={setFieldValue}
+                  onToggleShowJson={toggleShowJson}
+                />
+
+                {showJSON && (
+                  <div>
+                    <h3>JSON Form data</h3>
+                    <ReactJson src={values} name="Form" theme="monokai" />
+                  </div>
+                )}
+              </FormikForm>
+            );
+          }}
+        </Formik>
+
         {redirectComp}
       </div>
     </div>
