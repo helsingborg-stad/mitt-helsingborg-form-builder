@@ -17,7 +17,7 @@ export interface FormBuilderProps {
   steps: Step[];
   name: string;
   formId: string;
-  onSetFieldValue: (field: string, value: any) => void;
+  onSetFieldValue: (field: string, value: unknown) => void;
   onToggleShowJson: () => void;
 }
 
