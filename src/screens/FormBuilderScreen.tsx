@@ -10,6 +10,9 @@ import NotificationContext from '../contexts/NotificationsContext';
 
 import { computeMatrix } from '../components/specific/FormBuilderHelpers';
 
+const hiddenFormJsonProperties = ['connectivityMatrix'];
+const jsonCollapsedDepth = 3;
+
 const useStyles = makeStyles(() =>
   createStyles({
     inner: {
@@ -152,7 +155,13 @@ const FormBuilderScreen: React.FC = () => {
                 {showJSON && (
                   <div>
                     <h3>JSON Form data</h3>
-                    <ReactJson src={values} name="Form" theme="monokai" />
+                    <ReactJson
+                      src={values}
+                      name="Form"
+                      theme="monokai"
+                      collapsed={jsonCollapsedDepth}
+                      shouldCollapse={({ name }) => hiddenFormJsonProperties.includes(name as string)}
+                    />
                   </div>
                 )}
               </FormikForm>
