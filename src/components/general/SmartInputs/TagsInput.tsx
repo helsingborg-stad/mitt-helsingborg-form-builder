@@ -17,7 +17,10 @@ const TagsInput: React.FC<Props> = ({ name, label, value }: Props) => {
     }>,
   ) => {
     const val = event.target.value as string;
-    const tags = val.split(',').map((s) => s.trim());
+    const tags = val
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
     if (setFieldValue) {
       setFieldValue(name, tags);
     }
