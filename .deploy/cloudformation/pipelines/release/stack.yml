@@ -26,7 +26,7 @@ Parameters:
   GitHubBranch:
     Description: Branch name.
     Type: String
-    Default: release/1.4.0
+    Default: release/1.4.1
 
 Resources:
   ##
