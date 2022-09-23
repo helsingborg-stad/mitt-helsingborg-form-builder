@@ -73,7 +73,7 @@ const typeChoices: {
   { selectValue: 'navigationButtonGroup', displayName: 'Navigation button group', inputType: 'navigationButtonGroup' },
   { selectValue: 'summaryList', displayName: 'Summary List', inputType: 'summaryList' },
   { selectValue: 'repeaterField', displayName: 'Repeater Field', inputType: 'repeaterField' },
-  { selectValue: 'radioGroup', displayName: 'Radio buttons', inputType: 'radioGroup' },
+  { selectValue: 'radioGroup', displayName: 'Radio buttons', inputType: 'radioGroup', validationType: 'radioGroup' },
   { selectValue: 'select', displayName: 'Select (dropdown menu)', inputType: 'select', validationType: 'select' },
   { selectValue: 'card', displayName: 'Card (info text with action button)', inputType: 'card' },
   { selectValue: 'imageUploader', displayName: 'Image Uploader', inputType: 'imageUploader' },
