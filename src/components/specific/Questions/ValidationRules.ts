@@ -15,6 +15,7 @@ export type ValidationFieldTypes =
   | 'phoneNumber'
   | 'postalCode'
   | 'checkbox'
+  | 'radioGroup'
   | 'select'
   | 'filePicker';
 
@@ -24,6 +25,10 @@ const ValidationFieldRules: Record<ValidationFieldTypes, ValidationObject> = {
     rules: [],
   },
   checkbox: {
+    isRequired: false,
+    rules: [],
+  },
+  radioGroup: {
     isRequired: false,
     rules: [],
   },
