@@ -14,7 +14,6 @@ import DynamicCardRenderer from '../Card/DynamicCardRenderer';
 import RadioGroup from '../RadioButton/RadioButton';
 import ImageViewer from '../ImageViewer/ImageViewer';
 import RepeaterField from '../RepeaterField/RepeaterField';
-import PdfUploader from '../PdfUploader/PdfUploader';
 import PdfViewer from '../PdfViewer/ImageViewer';
 import BulletList from '../BulletList/BulletList';
 import CheckboxList from '../CheckboxList/CheckboxList';
@@ -67,9 +66,6 @@ const inputTypes = {
   },
   repeaterField: {
     component: RepeaterField,
-  },
-  pdfUploader: {
-    component: PdfUploader,
   },
   pdfViewer: {
     component: PdfViewer,
