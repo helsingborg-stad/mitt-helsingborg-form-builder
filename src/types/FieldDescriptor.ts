@@ -27,7 +27,6 @@ export type InputType =
   | 'editableListNumber'
   | 'editableListDate'
   | 'card'
-  | 'imageUploader'
   | 'imageViewer'
   | 'pdfUploader'
   | 'pdfViewer'

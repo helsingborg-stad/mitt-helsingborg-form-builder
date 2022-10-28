@@ -12,7 +12,6 @@ import NavigationButtonGroup from '../NavigationButtonGroup/NavigationButtonGrou
 import NavigationButton from '../NavigationButtonGroup/NavigationButton';
 import DynamicCardRenderer from '../Card/DynamicCardRenderer';
 import RadioGroup from '../RadioButton/RadioButton';
-import ImageUploader from '../ImageUploader/ImageUploader';
 import ImageViewer from '../ImageViewer/ImageViewer';
 import RepeaterField from '../RepeaterField/RepeaterField';
 import PdfUploader from '../PdfUploader/PdfUploader';
@@ -62,9 +61,6 @@ const inputTypes = {
   },
   radioGroup: {
     component: RadioGroup,
-  },
-  imageUploader: {
-    component: ImageUploader,
   },
   imageViewer: {
     component: ImageViewer,
