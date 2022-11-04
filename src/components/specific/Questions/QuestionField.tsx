@@ -76,9 +76,7 @@ const typeChoices: {
   { selectValue: 'radioGroup', displayName: 'Radio buttons', inputType: 'radioGroup', validationType: 'radioGroup' },
   { selectValue: 'select', displayName: 'Select (dropdown menu)', inputType: 'select', validationType: 'select' },
   { selectValue: 'card', displayName: 'Card (info text with action button)', inputType: 'card' },
-  { selectValue: 'imageUploader', displayName: 'Image Uploader', inputType: 'imageUploader' },
   { selectValue: 'imageViewer', displayName: 'Image Viewer', inputType: 'imageViewer' },
-  { selectValue: 'pdfUploader', displayName: 'PDF Uploader', inputType: 'pdfUploader' },
   { selectValue: 'pdfViewer', displayName: 'PDF Viewer', inputType: 'pdfViewer' },
   { selectValue: 'fileUploaderList', displayName: 'File Uploader List', inputType: 'fileUploaderList' },
   { selectValue: 'bulletList', displayName: 'Bullet list', inputType: 'bulletList' },
@@ -210,18 +208,6 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     { name: 'outlined', type: 'checkbox', initialValue: '', label: 'Display a solid outline' },
     { name: 'components', type: 'array', initialValue: '', label: 'Card components', inputField: CardComponentField },
   ],
-  imageUploader: [
-    {
-      name: 'colorSchema',
-      type: 'select',
-      initialValue: '',
-      label: 'Color theme',
-      choices: colorChoices,
-    },
-    { name: 'buttonText', type: 'text', initialValue: '', label: 'Button text' },
-    { name: 'maxImages', type: 'text', initialValue: '', label: 'Max Number of Images (leave blank for no limit)' },
-    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
-  ],
   imageViewer: [
     {
       name: 'colorSchema',
@@ -237,23 +223,6 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
       label: 'QuestionIds to display images from (enter as comma-separated list of words)',
       helpText: 'The ids of image upload components, from which the image viewer will display uploaded pictures.',
     },
-  ],
-  pdfUploader: [
-    {
-      name: 'colorSchema',
-      type: 'select',
-      initialValue: '',
-      label: 'Color theme',
-      choices: colorChoices,
-    },
-    { name: 'buttonText', type: 'text', initialValue: '', label: 'Button text' },
-    {
-      name: 'maxDocuments',
-      type: 'text',
-      initialValue: '',
-      label: 'Max Number of documents (leave blank for no limit)',
-    },
-    { name: 'tags', type: 'tags', initialValue: '', label: 'Tags (enter as comma-separated list of words)' },
   ],
   pdfViewer: [
     {
