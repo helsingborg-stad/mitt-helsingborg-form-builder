@@ -13,7 +13,6 @@ import NavigationButton from '../NavigationButtonGroup/NavigationButton';
 import DynamicCardRenderer from '../Card/DynamicCardRenderer';
 import RadioGroup from '../RadioButton/RadioButton';
 import RepeaterField from '../RepeaterField/RepeaterField';
-import PdfViewer from '../PdfViewer/ImageViewer';
 import BulletList from '../BulletList/BulletList';
 import CheckboxList from '../CheckboxList/CheckboxList';
 import FilePicker from '../FilePicker/FilePicker';
@@ -62,9 +61,6 @@ const inputTypes = {
   },
   repeaterField: {
     component: RepeaterField,
-  },
-  pdfViewer: {
-    component: PdfViewer,
   },
   bulletList: {
     component: BulletList,
