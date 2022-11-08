@@ -76,7 +76,6 @@ const typeChoices: {
   { selectValue: 'radioGroup', displayName: 'Radio buttons', inputType: 'radioGroup', validationType: 'radioGroup' },
   { selectValue: 'select', displayName: 'Select (dropdown menu)', inputType: 'select', validationType: 'select' },
   { selectValue: 'card', displayName: 'Card (info text with action button)', inputType: 'card' },
-  { selectValue: 'imageViewer', displayName: 'Image Viewer', inputType: 'imageViewer' },
   { selectValue: 'pdfViewer', displayName: 'PDF Viewer', inputType: 'pdfViewer' },
   { selectValue: 'fileUploaderList', displayName: 'File Uploader List', inputType: 'fileUploaderList' },
   { selectValue: 'bulletList', displayName: 'Bullet list', inputType: 'bulletList' },
@@ -207,22 +206,6 @@ const extraInputs: Partial<Record<InputType, FieldDescriptor[]>> = {
     { name: 'shadow', type: 'checkbox', initialValue: '', label: 'Display a shadow, for a raised look' },
     { name: 'outlined', type: 'checkbox', initialValue: '', label: 'Display a solid outline' },
     { name: 'components', type: 'array', initialValue: '', label: 'Card components', inputField: CardComponentField },
-  ],
-  imageViewer: [
-    {
-      name: 'colorSchema',
-      type: 'select',
-      initialValue: '',
-      label: 'Color theme',
-      choices: colorChoices,
-    },
-    {
-      name: 'questionIds',
-      type: 'tags',
-      initialValue: '',
-      label: 'QuestionIds to display images from (enter as comma-separated list of words)',
-      helpText: 'The ids of image upload components, from which the image viewer will display uploaded pictures.',
-    },
   ],
   pdfViewer: [
     {
