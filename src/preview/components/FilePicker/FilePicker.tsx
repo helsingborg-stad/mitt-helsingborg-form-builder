@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '../Button/Button';
 import Text from '../Text/Text';
-import PdfDisplay from '../PdfDisplay/PdfDisplay';
+import FileDisplay from '../FileDisplay/FileDisplay';
 
 import { getValidColorSchema, PrimaryColor } from '../../styles/themeHelpers';
 
@@ -17,7 +17,7 @@ const FilePicker: React.FC<Props> = ({ buttonText = '', colorSchema }) => {
   const validColorSchema = getValidColorSchema(colorSchema);
   return (
     <Wrapper>
-      <PdfDisplay colorSchema={validColorSchema} />
+      <FileDisplay />
       <ButtonContainer>
         <Button colorSchema={validColorSchema}>
           <Text> {buttonText || 'Ladda upp fil'}</Text>
