@@ -5,10 +5,11 @@ import { useFormikContext } from 'formik';
 interface Props {
   name: string;
   label: string;
-  value: Record<string, any>;
+  value: Record<string, unknown>;
 }
 
 const TagsInput: React.FC<Props> = ({ name, label, value }: Props) => {
+  const regexWhitespaceCharacter = /\s/g;
   const { setFieldValue } = useFormikContext();
   const onChange = (
     event: React.ChangeEvent<{
@@ -17,10 +18,7 @@ const TagsInput: React.FC<Props> = ({ name, label, value }: Props) => {
     }>,
   ) => {
     const val = event.target.value as string;
-    const tags = val
-      .split(',')
-      .map((s) => s.trim())
-      .filter(Boolean);
+    const tags = val.replace(regexWhitespaceCharacter, '').split(',').filter(Boolean);
     if (setFieldValue) {
       setFieldValue(name, tags);
     }
